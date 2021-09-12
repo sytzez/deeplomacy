@@ -18,4 +18,6 @@ interface ConfigurationContract
     public function getActionPointsRequiredToShareSonar(): int;
 
     public function getActionPointsRequiredToAttack(): int;
+
+    public function getAmountOfActionPointsDistributed(): int;
 }
