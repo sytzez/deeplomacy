@@ -9,12 +9,12 @@ class VisibilityService
 {
     public function canSeePosition(SubmarineContract $submarine, Position $position): bool
     {
-        if ($this->positionIsWithinFieldOfView($submarine, $position)) {
+        if ($this->isPositionWithinFieldOfView($submarine, $position)) {
             return true;
         }
 
         foreach ($submarine->getSonarSharedBy() as $sharedSubmarine) {
-            if ($this->positionIsWithinFieldOfView($sharedSubmarine, $position)) {
+            if ($this->isPositionWithinFieldOfView($sharedSubmarine, $position)) {
                 return true;
             }
         }
@@ -22,7 +22,7 @@ class VisibilityService
         return false;
     }
 
-    protected function positionIsWithinFieldOfView(SubmarineContract $submarine, Position $position): bool
+    protected function isPositionWithinFieldOfView(SubmarineContract $submarine, Position $position): bool
     {
         $distanceSquared = $submarine->getPosition()
             ->getOffsetTo($position)
