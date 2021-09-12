@@ -20,17 +20,19 @@ class Position
         return $this->y;
     }
 
-    public function getDistanceTo(Position $position): int
+    public function getOffsetTo(Position $position): Offset
     {
-        return ($this->getX() - $position->getX()) ** 2
-            + ($this->getY() - $position->getY()) ** 2;
+        return new Offset(
+            $position->getX() - $this->getX(),
+            $position->getY() - $this->getY(),
+        );
     }
 
-    public function translated(int $dx, int $dy): static
+    public function addOffset(Offset $offset): static
     {
         return new static(
-            $this->getX() + $dx,
-            $this->getY() + $dy,
+            $this->getX() + $offset->getDx(),
+            $this->getY() + $offset->getDy(),
         );
     }
 }
