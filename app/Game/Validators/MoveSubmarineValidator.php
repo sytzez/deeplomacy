@@ -26,9 +26,27 @@ class MoveSubmarineValidator
     {
         $this->data = $data;
 
+        $this->checkDestinationWithinBounds();
+
         $this->checkSufficientActionPoints();
 
         $this->checkIfNoSubmarineExistsAtDestination();
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function checkDestinationWithinBounds(): void
+    {
+        $destination = $this->moveSubmarineService->getDestination($this->data);
+
+        if (! $this->data->getSubmarine()
+            ->getGame()
+            ->getBounds()
+            ->containsPosition($destination)
+        ) {
+            throw new Exception(Errors::DESTINATION_OUT_OF_BOUNDS);
+        }
     }
 
     /**
