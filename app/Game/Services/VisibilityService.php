@@ -28,7 +28,9 @@ class VisibilityService
             ->getOffsetTo($position)
             ->getDistanceSquared();
 
-        $fieldOfViewSquared = $submarine->getGame()->getFieldOfViewSquared();
+        $fieldOfViewSquared = $submarine->getGame()
+            ->getConfiguration()
+            ->getFieldOfViewSquared();
 
         return $distanceSquared <= $fieldOfViewSquared;
     }

@@ -12,9 +12,5 @@ interface GameContract
     public function getSubmarines(): iterable;
     public function addSubmarine(SubmarineContract $submarine): static;
 
-    public function getBounds(): Bounds;
-
-    public function getDistanceSquaredMovablePerActionPoint(): int;
-
-    public function getFieldOfViewSquared(): int;
+    public function getConfiguration(): ConfigurationContract;
 }

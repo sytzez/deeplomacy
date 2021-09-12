@@ -26,6 +26,7 @@ class MoveSubmarineService
 
         $distanceSquaredMovablePerActionPoint = $data->getSubmarine()
             ->getGame()
+            ->getConfiguration()
             ->getDistanceSquaredMovablePerActionPoint();
 
         return ceil($distanceSquared / $distanceSquaredMovablePerActionPoint);

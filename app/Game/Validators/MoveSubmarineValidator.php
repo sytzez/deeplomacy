@@ -42,6 +42,7 @@ class MoveSubmarineValidator
 
         if (! $this->data->getSubmarine()
             ->getGame()
+            ->getConfiguration()
             ->getBounds()
             ->containsPosition($destination)
         ) {
