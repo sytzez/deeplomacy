@@ -36,6 +36,12 @@ class Position
         );
     }
 
+    public function isTopLeftOf(Position $position): bool
+    {
+        return $this->getX() <= $position->getX()
+            && $this->getY() <= $position->getY();
+    }
+
     public function equals(Position $position): bool
     {
         return $this->getX() === $position->getX()
