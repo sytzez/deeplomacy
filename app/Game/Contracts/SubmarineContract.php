@@ -13,6 +13,4 @@ interface SubmarineContract
     public function setActionPoints(int $actionPoints): static;
 
     public function kill(): static;
-
-    public function update(): static;
 }
