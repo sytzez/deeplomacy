@@ -15,4 +15,5 @@ interface ConfigurationContract
     public function getDistanceSquaredAllowedToGiveActionPoints(): int;
 
     public function getDistanceSquaredAllowedToShareSonar(): int;
+    public function getActionPointsRequiredToShareSonar(): int;
 }

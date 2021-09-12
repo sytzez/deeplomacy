@@ -26,9 +26,23 @@ class ShareSonarValidator
     {
         $this->data = $data;
 
+        $this->checkSufficientActionPoints();
+
         $this->checkRecipientVisibleByDonor();
 
         $this->checkSubmarinesWithinRange();
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function checkSufficientActionPoints(): void
+    {
+        $actionPointsRequired = $this->shareSonarService->getActionPointsRequired($this->data);
+
+        if ($this->data->getDonor()->getActionPoints() < $actionPointsRequired) {
+            throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
+        }
     }
 
     /**

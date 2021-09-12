@@ -27,9 +27,22 @@ class ShareSonarService
         return $distanceSquared <= $distanceSquaredAllowed;
     }
 
+    public function getActionPointsRequired(ShareSonarData $data): int
+    {
+        return $data
+            ->getDonor()
+            ->getGame()
+            ->getConfiguration()
+            ->getActionPointsRequiredToShareSonar();
+    }
+
     public function shareSonar(ShareSonarData $data): void
     {
-        $data->getDonor()->shareSonarTo($data->getRecipient());
+        $donor = $data->getDonor();
+
+        $donor->shareSonarTo($data->getRecipient());
+
+        $donor->setActionPoints($donor->getActionPoints() - $this->getActionPointsRequired($data));
 
         $this->submarineRepository->update($donor);
     }
