@@ -2,7 +2,6 @@
 
 namespace App\Game\Validators;
 
-use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\GiveActionPointsData;
 use App\Game\Enums\Errors;
 use App\Game\Services\GiveActionPointsService;
@@ -14,7 +13,6 @@ class GiveActionPointsValidator
     protected GiveActionPointsData $data;
 
     public function __construct(
-        protected SubmarineRepositoryContract $submarineRepository,
         protected GiveActionPointsService $giveActionPointsService,
         protected VisibilityService $visibilityService,
     ) {
