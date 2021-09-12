@@ -40,6 +40,6 @@ class MoveSubmarineService
 
         $submarine->setActionPoints($submarine->getActionPoints() - $this->getActionPointsRequired($data));
 
-        $this->submarineRepository->save($submarine);
+        $this->submarineRepository->update($submarine);
     }
 }

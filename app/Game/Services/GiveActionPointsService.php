@@ -21,7 +21,7 @@ class GiveActionPointsService
         $donor->setActionPoints($donor->getActionPoints() - $amount);
         $recipient->setActionPoints($recipient->getActionPoints() + $amount);
 
-        $this->submarineRepository->save($donor);
-        $this->submarineRepository->save($recipient);
+        $this->submarineRepository->update($donor);
+        $this->submarineRepository->update($recipient);
     }
 }

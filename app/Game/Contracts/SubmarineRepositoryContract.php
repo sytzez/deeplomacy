@@ -6,7 +6,9 @@ use App\Game\Data\Position;
 
 interface SubmarineRepositoryContract
 {
-    public function save(SubmarineContract $submarine): static;
+    public function create(GameContract $game, SubmarineContract $submarine): static
+
+    public function update(SubmarineContract $submarine): static;
 
     /**
      * @param GameContract $game
