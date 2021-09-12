@@ -14,5 +14,15 @@ interface SubmarineContract
     public function getActionPoints(): int;
     public function setActionPoints(int $actionPoints): static;
 
+    /**
+     * @return iterable<static>
+     */
+    public function getSonarSharedBy(): iterable;
+
+    /**
+     * @return iterable<static>
+     */
+    public function getSonarSharedTo(): iterable;
+
     public function kill(): static;
 }

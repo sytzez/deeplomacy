@@ -15,4 +15,6 @@ interface GameContract
     public function getBounds(): Bounds;
 
     public function getDistanceSquaredMovablePerActionPoint(): int;
+
+    public function getFieldOfViewSquared(): int;
 }
