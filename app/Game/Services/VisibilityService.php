@@ -7,6 +7,11 @@ use App\Game\Data\Position;
 
 class VisibilityService
 {
+    public function canSeeSubmarine(SubmarineContract $seeer, SubmarineContract $seen): bool
+    {
+        return $this->canSeePosition($seer, $seen->getPosition());
+    }
+
     public function canSeePosition(SubmarineContract $submarine, Position $position): bool
     {
         if ($this->isPositionWithinFieldOfView($submarine, $position)) {

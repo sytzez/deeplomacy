@@ -9,4 +9,5 @@ class Errors
     public const DESTINATION_OUT_OF_BOUNDS = 'destination_out_of_bounds';
     public const AMOUNT_TOO_LOW = 'amount_too_low';
     public const TARGET_TOO_FAR_AWAY = 'target_too_far_away';
+    public const TARGET_NOT_VISIBLE = 'target_not_visible';
 }

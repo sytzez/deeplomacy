@@ -6,6 +6,7 @@ use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\GiveActionPointsData;
 use App\Game\Enums\Errors;
 use App\Game\Services\GiveActionPointsService;
+use App\Game\Services\VisibilityService;
 use Exception;
 
 class GiveActionPointsValidator
@@ -15,6 +16,7 @@ class GiveActionPointsValidator
     public function __construct(
         protected SubmarineRepositoryContract $submarineRepository,
         protected GiveActionPointsService $giveActionPointsService,
+        protected VisibilityService $visibilityService,
     ) {
     }
 
@@ -26,9 +28,21 @@ class GiveActionPointsValidator
     {
         $this->data = $data;
 
+        $this->checkRecipientVisibleByDonor();
+
         $this->checkSubmarinesWithinRange();
 
         $this->checkAmount();
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function checkRecipientVisibleByDonor(): void
+    {
+        if (! $this->visibilityService->canSeeSubmarine($this->data->getRecipient(), $this->data->getDonor())) {
+            throw new Exception(Errors::TARGET_NOT_VISIBLE);
+        }
     }
 
     /**
