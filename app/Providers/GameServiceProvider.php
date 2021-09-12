@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Game\Actions\GiveActionPointsAction;
 use App\Game\Actions\MoveSubmarineAction;
+use App\Game\Actions\ShareSonarAction;
 use App\Game\Services\GiveActionPointsService;
 use App\Game\Services\MoveSubmarineService;
 use App\Game\Services\ShareSonarService;
@@ -11,6 +12,7 @@ use App\Game\Services\SubmarineService;
 use App\Game\Services\VisibilityService;
 use App\Game\Validators\GiveActionPointsValidator;
 use App\Game\Validators\MoveSubmarineValidator;
+use App\Game\Validators\ShareSonarValidator;
 use Illuminate\Support\ServiceProvider;
 
 class GameServiceProvider extends ServiceProvider
@@ -30,5 +32,7 @@ class GameServiceProvider extends ServiceProvider
         $this->app->singleton(GiveActionPointsAction::class);
 
         $this->app->singleton(ShareSonarService::class);
+        $this->app->singleton(ShareSonarValidator::class);
+        $this->app->singleton(ShareSonarAction::class);
     }
 }
