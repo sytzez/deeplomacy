@@ -5,6 +5,7 @@ namespace App\Game\Validators;
 use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\MoveSubmarineData;
 use App\Game\Enums\Errors;
+use App\Game\Services\MoveSubmarineService;
 use Exception;
 
 class MoveSubmarineValidator
@@ -13,6 +14,7 @@ class MoveSubmarineValidator
 
     public function __construct(
         protected SubmarineRepositoryContract $submarineRepository,
+        protected MoveSubmarineService $moveSubmarineService,
     ) {
     }
 
@@ -24,7 +26,21 @@ class MoveSubmarineValidator
     {
         $this->data = $data;
 
+        $this->checkSufficientActionPoints();
+
         $this->checkIfNoSubmarineExistsAtDestination();
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function checkSufficientActionPoints(): void
+    {
+        $actionPointsRequired = $this->moveSubmarineService->getActionPointsRequired($this->data);
+
+        if ($this->data->getSubmarine()->getActionPoints() < $actionPointsRequired) {
+            throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
+        }
     }
 
     /**
@@ -32,9 +48,7 @@ class MoveSubmarineValidator
      */
     protected function checkIfNoSubmarineExistsAtDestination(): void
     {
-        $destination = $this->data->getSubmarine()
-            ->getPosition()
-            ->addOffset($this->data->getOffset());
+        $destination = $this->moveSubmarineService->getDestination($this->data);
 
         $submarineAtDestination = $this->submarineRepository->getAtPosition($destination);
 

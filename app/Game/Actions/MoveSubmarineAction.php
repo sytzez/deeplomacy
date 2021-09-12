@@ -4,6 +4,7 @@ namespace App\Game\Actions;
 
 use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\MoveSubmarineData;
+use App\Game\Services\MoveSubmarineService;
 use App\Game\Validators\MoveSubmarineValidator;
 use Exception;
 
@@ -12,6 +13,7 @@ class MoveSubmarineAction
     public function __construct(
         protected SubmarineRepositoryContract $submarineRepository,
         protected MoveSubmarineValidator $validator,
+        protected MoveSubmarineService $moveSubmarineService,
     ) {
     }
 
@@ -23,18 +25,6 @@ class MoveSubmarineAction
     {
         $this->validator->validate($data);
 
-        $this->execute($data);
-    }
-
-    protected function execute(MoveSubmarineData $data): void
-    {
-        $submarine = $data->getSubmarine();
-
-        $destination = $submarine->getPosition()
-            ->addOffset($data->getOffset());
-
-        $submarine->setPosition($destination);
-
-        $this->submarineRepository->save($submarine);
+        $this->moveSubmarineService->moveSubmarine($data);
     }
 }
