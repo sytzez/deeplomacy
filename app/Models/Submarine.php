@@ -6,6 +6,7 @@ use App\Game\Contracts\GameContract;
 use App\Game\Contracts\SubmarineContract;
 use App\Game\Data\Position;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Submarine extends Model implements SubmarineContract
 {
@@ -20,9 +21,14 @@ class Submarine extends Model implements SubmarineContract
         'is_alive' => 'bool',
     ];
 
+    public function game(): BelongsTo
+    {
+        return $this->belongsTo(Game::class);
+    }
+
     public function getGame(): GameContract
     {
-        // TODO: Implement getGame() method.
+        return $this->getRelation('game');
     }
 
     public function getPosition(): Position
