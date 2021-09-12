@@ -6,6 +6,8 @@ use App\Game\Data\Position;
 
 interface SubmarineContract
 {
+    public function getGame(): GameContract;
+
     public function getPosition(): Position;
     public function setPosition(Position $position): static;
 
