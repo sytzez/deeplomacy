@@ -37,6 +37,8 @@ class MoveSubmarineService
 
         $submarine->setPosition($this->getDestination($data));
 
+        $submarine->setActionPoints($submarine->getActionPoints() - $this->getActionPointsRequired($data));
+
         $this->submarineRepository->save($submarine);
     }
 }
