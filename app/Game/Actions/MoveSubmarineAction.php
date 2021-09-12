@@ -2,7 +2,6 @@
 
 namespace App\Game\Actions;
 
-use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\MoveSubmarineData;
 use App\Game\Services\MoveSubmarineService;
 use App\Game\Validators\MoveSubmarineValidator;
@@ -11,7 +10,6 @@ use Exception;
 class MoveSubmarineAction
 {
     public function __construct(
-        protected SubmarineRepositoryContract $submarineRepository,
         protected MoveSubmarineValidator $validator,
         protected MoveSubmarineService $moveSubmarineService,
     ) {
