@@ -24,5 +24,7 @@ interface SubmarineContract
      */
     public function getSonarSharedTo(): iterable;
 
+    public function shareSonarTo(self $recipient): static;
+
     public function kill(): static;
 }

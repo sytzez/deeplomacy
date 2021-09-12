@@ -3,9 +3,9 @@
 namespace App\Game\Services;
 
 use App\Game\Contracts\SubmarineRepositoryContract;
-use App\Game\Data\GiveActionPointsData;
+use App\Game\Data\ShareSonarData;
 
-class GiveActionPointsService
+class ShareSonarService
 {
     public function __construct(
         protected SubmarineRepositoryContract $submarineRepository,
@@ -13,7 +13,7 @@ class GiveActionPointsService
     ) {
     }
 
-    public function areSubmarinesWithinRange(GiveActionPointsData $data): bool
+    public function areSubmarinesWithinRange(ShareSonarData $data): bool
     {
         $donor     = $data->getDonor();
         $recipient = $data->getRecipient();
@@ -22,21 +22,15 @@ class GiveActionPointsService
 
         $distanceSquaredAllowed = $donor->getGame()
             ->getConfiguration()
-            ->getDistanceSquaredAllowedToGiveActionPoints();
+            ->getDistanceSquaredAllowedToShareSonar();
 
         return $distanceSquared <= $distanceSquaredAllowed;
     }
 
-    public function giveActionPoints(GiveActionPointsData $data): void
+    public function shareSonar(ShareSonarData $data): void
     {
-        $donor     = $data->getDonor();
-        $recipient = $data->getRecipient();
-        $amount    = $data->getAmount();
-
-        $donor->setActionPoints($donor->getActionPoints() - $amount);
-        $recipient->setActionPoints($recipient->getActionPoints() + $amount);
+        $data->getDonor()->shareSonarTo($data->getRecipient());
 
         $this->submarineRepository->update($donor);
-        $this->submarineRepository->update($recipient);
     }
 }

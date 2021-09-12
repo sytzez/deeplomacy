@@ -13,4 +13,6 @@ interface ConfigurationContract
     public function getFieldOfViewSquared(): int;
 
     public function getDistanceSquaredAllowedToGiveActionPoints(): int;
+
+    public function getDistanceSquaredAllowedToShareSonar(): int;
 }
