@@ -25,4 +25,10 @@ class Offset
         return $this->dx ** 2
             + $this->dy ** 2;
     }
+
+    public function equals(Offset $offset): bool
+    {
+        return $this->getDx() === $offset->getDx()
+            && $this->getDy() === $offset->getDy();
+    }
 }

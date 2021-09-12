@@ -35,4 +35,10 @@ class Position
             $this->getY() + $offset->getDy(),
         );
     }
+
+    public function equals(Position $position): bool
+    {
+        return $this->getX() === $position->getX()
+            && $this->getY() === $position->getY();
+    }
 }
