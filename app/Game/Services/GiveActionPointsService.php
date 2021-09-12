@@ -12,6 +12,22 @@ class GiveActionPointsService
     ) {
     }
 
+    public function areSubmarinesWithinRange(GiveActionPointsData $data): bool
+    {
+        $donor     = $data->getDonor();
+        $recipient = $data->getRecipient();
+
+        $distanceSquared = $donor->getPosition()
+            ->getOffsetTo($recipient->getPosition())
+            ->getDistanceSquared();
+
+        $distanceSquaredAllowed = $donor->getGame()
+            ->getConfiguration()
+            ->getDistanceSquaredAllowedToGiveActionPoints();
+
+        return $distanceSquared <= $distanceSquaredAllowed;
+    }
+
     public function giveActionPoints(GiveActionPointsData $data): void
     {
         $donor     = $data->getDonor();

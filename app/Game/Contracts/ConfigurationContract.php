@@ -11,4 +11,6 @@ interface ConfigurationContract
     public function getDistanceSquaredMovablePerActionPoint(): int;
 
     public function getFieldOfViewSquared(): int;
+
+    public function getDistanceSquaredAllowedToGiveActionPoints(): int;
 }
