@@ -8,5 +8,5 @@ interface SubmarineRepositoryContract
 {
     public function save(SubmarineContract $submarine): static;
 
-    public function getAtPosition(Position $position): ?SubmarineContract;
+    public function getAtPosition(GameContract $game, Position $position): ?SubmarineContract;
 }

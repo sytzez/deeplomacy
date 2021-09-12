@@ -66,9 +66,11 @@ class MoveSubmarineValidator
      */
     protected function checkIfNoSubmarineExistsAtDestination(): void
     {
+        $game = $this->data->getSubmarine()->getGame();
+
         $destination = $this->moveSubmarineService->getDestination($this->data);
 
-        $submarineAtDestination = $this->submarineRepository->getAtPosition($destination);
+        $submarineAtDestination = $this->submarineRepository->getAtPosition($game, $destination);
 
         if (! is_null($submarineAtDestination)) {
             throw new Exception(Errors::SUBMARINE_AT_DESTINATION);
