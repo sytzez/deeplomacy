@@ -1,3 +1,9 @@
+# Deeplomacy
+
+## Game rules
+
+## Getting started
+
 ## File structure
 
 Some notable  directories
