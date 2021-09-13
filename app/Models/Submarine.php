@@ -8,7 +8,16 @@ use App\Game\Data\Position;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Submarine extends Model implements SubmarineContract
+/**
+ * Class Submarine
+ * @package App\Models
+ * @property int x
+ * @property int y
+ * @property int action_points
+ * @property bool is_alive
+ * @property Game game
+ */
+class Submarine extends Model
 {
     protected $fillable = [
         'x',
@@ -24,54 +33,5 @@ class Submarine extends Model implements SubmarineContract
     public function game(): BelongsTo
     {
         return $this->belongsTo(Game::class);
-    }
-
-    public function getGame(): GameContract
-    {
-        return $this->getRelation('game');
-    }
-
-    public function getPosition(): Position
-    {
-        return new Position(
-            $this->getAttribute('x'),
-            $this->getAttribute('y'),
-        );
-    }
-
-    public function setPosition(Position $position): static
-    {
-        $this->setAttribute('x', $position->getX());
-        $this->setAttribute('y', $position->getY());
-    }
-
-    public function getActionPoints(): int
-    {
-        return $this->getAttribute('action_points');
-    }
-
-    public function setActionPoints(int $actionPoints): static
-    {
-        return $this->setAttribute('action_points', $actionPoints);
-    }
-
-    public function getSonarSharedBy(): iterable
-    {
-        // TODO: Implement getSonarSharedBy() method.
-    }
-
-    public function getSonarSharedTo(): iterable
-    {
-        // TODO: Implement getSonarSharedTo() method.
-    }
-
-    public function shareSonarTo(SubmarineContract $recipient): static
-    {
-        // TODO: Implement shareSonarTo() method.
-    }
-
-    public function kill(): static
-    {
-        $this->setAttribute('is_alive', false);
     }
 }
