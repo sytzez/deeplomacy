@@ -7,8 +7,15 @@ use App\Game\Contracts\GameContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
-class Game extends Model implements GameContract
+/**
+ * Class Game
+ * @package App\Models
+ * @property Configuration configuration
+ * @property Collection<Submarine> submarines
+ */
+class Game extends Model
 {
     public function configuration(): BelongsTo
     {
@@ -18,10 +25,5 @@ class Game extends Model implements GameContract
     public function submarines(): HasMany
     {
         return $this->hasMany(Submarine::class);
-    }
-
-    public function getConfiguration(): ConfigurationContract
-    {
-        return $this->getRelation('configuration');
     }
 }

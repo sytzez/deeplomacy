@@ -9,6 +9,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * Class Configuration
+ * @package App\Models
+ * @property int width
+ * @property int height
+ * @property int distance_squared_movable_per_action_point
+ * @property int field_of_view_squared
+ * @property int distance_squared_allowed_to_give_action_points
+ * @property int distance_squared_allowed_to_share_sonar
+ * @property int action_points_required_to_share_sonar
+ * @property int action_points_required_to_attack
+ * @property int amount_of_action_points_distributed
+ * @property Game game
+ */
 class Configuration extends Model implements ConfigurationContract
 {
     protected $fillable = [
@@ -26,51 +40,5 @@ class Configuration extends Model implements ConfigurationContract
     public function game(): HasOne
     {
         return $this->hasOne(Game::class);
-    }
-
-    public function getBounds(): Bounds
-    {
-        return new Bounds(
-            new Position(0, 0),
-            new Position(
-                $this->getAttribute('width'),
-                $this->getAttribute('height'),
-            ),
-        );
-    }
-
-    public function getDistanceSquaredMovablePerActionPoint(): int
-    {
-        return $this->getAttribute('distance_squared_movable_per_action_point');
-    }
-
-    public function getFieldOfViewSquared(): int
-    {
-        return $this->getAttribute('field_of_view_squared');
-    }
-
-    public function getDistanceSquaredAllowedToGiveActionPoints(): int
-    {
-        return $this->getAttribute('distance_squared_allowed_to_give_action_points');
-    }
-
-    public function getDistanceSquaredAllowedToShareSonar(): int
-    {
-        return $this->getAttribute('distance_squared_allowed_to_share_sonar');
-    }
-
-    public function getActionPointsRequiredToShareSonar(): int
-    {
-        return $this->getAttribute('action_points_required_to_share_sonar');
-    }
-
-    public function getActionPointsRequiredToAttack(): int
-    {
-        return $this->getAttribute('action_points_required_to_attack');
-    }
-
-    public function getAmountOfActionPointsDistributed(): int
-    {
-        return $this->getAttribute('amount_of_action_points_distributed');
     }
 }
