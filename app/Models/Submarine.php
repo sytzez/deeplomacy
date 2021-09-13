@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
  * @property int y
  * @property int action_points
  * @property bool is_alive
+ * @property User user
  * @property Game game
  * @property Collection<Submarine> sonarSharedTo
  * @property Collection<Submarine> sonarSharedFrom
@@ -30,6 +31,11 @@ class Submarine extends Model
     protected $casts = [
         'is_alive' => 'bool',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function game(): BelongsTo
     {
