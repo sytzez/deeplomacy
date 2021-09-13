@@ -17,7 +17,7 @@ interface SubmarineContract
     /**
      * @return iterable<static>
      */
-    public function getSonarSharedBy(): iterable;
+    public function getSonarSharedFrom(): iterable;
 
     /**
      * @return iterable<static>

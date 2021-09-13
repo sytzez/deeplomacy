@@ -18,7 +18,7 @@ class VisibilityService
             return true;
         }
 
-        foreach ($submarine->getSonarSharedBy() as $sharedSubmarine) {
+        foreach ($submarine->getSonarSharedFrom() as $sharedSubmarine) {
             if ($this->isPositionWithinFieldOfView($sharedSubmarine, $position)) {
                 return true;
             }

@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Game\Contracts\GameContract;
-use App\Game\Contracts\SubmarineContract;
-use App\Game\Data\Position;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * Class Submarine
@@ -16,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int action_points
  * @property bool is_alive
  * @property Game game
+ * @property Collection<Submarine> sonarSharedTo
+ * @property Collection<Submarine> sonarSharedFrom
  */
 class Submarine extends Model
 {
@@ -33,5 +34,25 @@ class Submarine extends Model
     public function game(): BelongsTo
     {
         return $this->belongsTo(Game::class);
+    }
+
+    public function sonarSharedTo(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Submarine::class,
+            'submarine_sonar_shares',
+            'recipient_id',
+            'donor_id',
+        );
+    }
+
+    public function sonarSharedFrom(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Submarine::class,
+            'submarine_sonar_shares',
+            'donor_id',
+            'recipient_id',
+        );
     }
 }

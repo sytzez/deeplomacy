@@ -6,6 +6,7 @@ use App\Game\Contracts\GameContract;
 use App\Game\Contracts\SubmarineContract;
 use App\Game\Data\Position;
 use App\Models\Submarine;
+use DomainException;
 
 class SubmarineAdapter implements SubmarineContract
 {
@@ -47,19 +48,31 @@ class SubmarineAdapter implements SubmarineContract
         return $this;
     }
 
-    public function getSonarSharedBy(): iterable
+    /**
+     * @return iterable<SubmarineContract>
+     */
+    public function getSonarSharedFrom(): iterable
     {
-        // TODO: Implement getSonarSharedBy() method.
+        return $this->model->sonarSharedFrom
+            ->map(fn (Submarine $submarine) => new static($submarine));
     }
 
+    /**
+     * @return iterable<SubmarineContract>
+     */
     public function getSonarSharedTo(): iterable
     {
-        // TODO: Implement getSonarSharedTo() method.
+        return $this->model->sonarSharedTo
+            ->map(fn (Submarine $submarine) => new static($submarine));
     }
 
     public function shareSonarTo(SubmarineContract $recipient): static
     {
-        // TODO: Implement shareSonarTo() method.
+        if (! $recipient instanceof Submarine) {
+            throw new DomainException();
+        }
+
+        $this->model->sonarSharedTo()->attach($recipient);
     }
 
     public function kill(): static
