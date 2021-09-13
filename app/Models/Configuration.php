@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Game\Contracts\ConfigurationContract;
-use App\Game\Data\Bounds;
-use App\Game\Data\Position;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Configuration
  * @package App\Models
+ * @property string name
+ * @property string description
  * @property int width
  * @property int height
  * @property int distance_squared_movable_per_action_point
@@ -23,9 +21,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int amount_of_action_points_distributed
  * @property Game game
  */
-class Configuration extends Model implements ConfigurationContract
+class Configuration extends Model
 {
     protected $fillable = [
+        'name',
+        'description',
         'width',
         'height',
         'distance_squared_movable_per_action_point',
