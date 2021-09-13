@@ -1,5 +1,7 @@
 ## File structure
 
+Some notable  directories
+
 - `/app`
     - `/Adapters` - These classes represent the layer adapting our Laravel models to their Game contracts
     - `/Game` - Contains the high level logic for the game itself, decoupled from our framework
