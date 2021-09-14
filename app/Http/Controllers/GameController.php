@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Factories\GameFactory;
+use App\Http\Requests\StoreGameRequest;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 
 class GameController extends Controller
@@ -19,9 +23,13 @@ class GameController extends Controller
         return View::make('games.create');
     }
 
-    public function store(Request $request): Response
+    public function store(StoreGameRequest $request, GameFactory $gameFactory): RedirectResponse
     {
-        //
+        $game = $gameFactory->make($request);
+
+        $game->save();
+
+        return Redirect::route('games.show', [$game]);
     }
 
     public function show(int $id): Response

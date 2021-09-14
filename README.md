@@ -10,6 +10,7 @@ Some notable  directories
 
 - `/app`
     - `/Adapters` - These classes represent the layer adapting our Laravel models to their Game contracts
+    - `/Factories` - They create models from a given request object
     - `/Game` - Contains the high level logic for the game itself, decoupled from our framework
         - `/Actions` - These perform actions an agent can perform in the game
         - `/Contracts` - These contracts (interfaces) should be implemented by the lower level framework to work with the game logic
