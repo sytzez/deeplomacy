@@ -1,6 +1,14 @@
-<ul>
-    @foreach($configurations as $configuration)
-        <li>{{ $configuration->title }} — {{ $configuration->description }}</li>
-    @endforeach
-</ul>
+<form method="POST" action="{{ route('games.store') }}">
+    @csrf
+
+    <label for="configuration">Configuration:</label>
+    <select name="configuration" id="configuration">
+        @foreach($configurations as $configuration)
+            <option value="{{ $configuration->id }}">{{ $configuration->title }} — {{ $configuration->description }}</option>
+        @endforeach
+    </select>
+
+    <input type="submit" value="Create game">
+</form>
+
 <a href="{{ route('games.index') }}">Back</a>
