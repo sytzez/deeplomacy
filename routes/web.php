@@ -32,4 +32,7 @@ Route::middleware('auth.auto')->group(function () {
 
     Route::name('play.show')
         ->get('play/{game}', [PlayController::class, 'show']);
+
+    Route::name('play.move')
+        ->post('play/{game}/move', [PlayController::class, 'move']);
 });

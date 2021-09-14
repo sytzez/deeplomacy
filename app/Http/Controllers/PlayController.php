@@ -39,6 +39,7 @@ class PlayController
 
         return View::make('play.show')
             ->with([
+                'game' => $game,
                 'grid' => $grid,
                 'submarine' => $submarine
             ]);
@@ -59,11 +60,11 @@ class PlayController
         try{
             $action->do($data);
         } catch (Exception $e) {
-            return Redirect::route('game.play', [$game])
+            return Redirect::route('play.show', [$game])
                 ->withException($e);
         }
 
-        return Redirect::route('game.play', [$game]);
+        return Redirect::route('play.show', [$game]);
     }
 
     protected function getSubmarine(Game $game): Submarine

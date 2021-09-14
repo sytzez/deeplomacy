@@ -7,6 +7,7 @@ use App\Game\Contracts\SubmarineContract;
 class Cell
 {
     public function __construct(
+        protected Position $position,
         protected bool $isVisible,
         protected bool $canMoveTowards,
         protected ?SubmarineContract $submarine = null,
@@ -14,6 +15,11 @@ class Cell
         protected bool $canShareSonar = false,
         protected bool $canGiveActionPoints = false,
     ) {
+    }
+
+    public function getPosition(): Position
+    {
+        return $this->position;
     }
 
     public function isVisible(): bool
@@ -53,6 +59,7 @@ class Cell
         bool $canGiveActionPoints = false,
     ): Cell {
         return new static(
+            $this->getPosition(),
             $this->isVisible(),
             $this->canMoveTowards(),
             $submarine,

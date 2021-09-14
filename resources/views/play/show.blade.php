@@ -7,13 +7,18 @@
         <tr>
             @foreach($cells as $cell)
                 <td @if($cell->isVisible())
-                    style="background: blue"
+                        style="background: blue"
                     @endif
                 >
                     @if($cell->canMoveTowards())
-                        <a href="test">
+                        <form method="post" action="{{ route('play.move', [$game]) }}">
+                            @csrf
+
+                            <input type="hidden" name="x" value="{{ $cell->getPosition()->getX() }}">
+                            <input type="hidden" name="y" value="{{ $cell->getPosition()->getY() }}">
+                            <input type="submit">
                             🟦
-                        </a>
+                        </form>
                     @elseif($cell->getSubmarine())
                         🚢
                     @else

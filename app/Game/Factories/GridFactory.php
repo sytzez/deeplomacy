@@ -73,6 +73,7 @@ class GridFactory
         $isVisible = $this->visibilityService->canSeePosition($this->viewer, $position);
 
         return new Cell(
+            $position,
             $isVisible,
             $this->canMoveTowards($position),
         );
