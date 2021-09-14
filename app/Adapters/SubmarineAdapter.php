@@ -84,4 +84,9 @@ class SubmarineAdapter implements SubmarineContract
 
         return $this;
     }
+
+    public function getModel(): Submarine
+    {
+        return $this->model;
+    }
 }

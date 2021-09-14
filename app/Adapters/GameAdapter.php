@@ -17,4 +17,9 @@ class GameAdapter implements GameContract
     {
         return new ConfigurationAdapter($this->model->configuration);
     }
+
+    public function getModel(): Game
+    {
+        return $this->model;
+    }
 }

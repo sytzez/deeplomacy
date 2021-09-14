@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Adapters\GameAdapter;
 use App\Adapters\SubmarineAdapter;
 use App\Game\Contracts\GameContract;
 use App\Game\Contracts\SubmarineContract;
 use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\Position;
-use App\Models\Game;
 use App\Models\Submarine;
 use DomainException;
 
@@ -16,24 +16,26 @@ class SubmarineRepository implements SubmarineRepositoryContract
     public function create(GameContract $game, SubmarineContract $submarine): static
     {
         if (! (
-            $game instanceof Game
-            && $submarine instanceof Submarine
+            $game instanceof GameAdapter
+            && $submarine instanceof SubmarineAdapter
         )) {
             throw new DomainException();
         }
 
-        $game->submarines()->save($submarine);
+        $game->getModel()->submarines()->save(
+            $submarine->getModel()
+        );
 
         return $this;
     }
 
     public function update(SubmarineContract $submarine): static
     {
-        if (! $submarine instanceof Submarine) {
+        if (! $submarine instanceof SubmarineAdapter) {
             throw new DomainException();
         }
 
-        $submarine->save();
+        $submarine->getModel()->save();
 
         return $this;
     }
@@ -44,27 +46,32 @@ class SubmarineRepository implements SubmarineRepositoryContract
      */
     public function getAll(GameContract $game): iterable
     {
-        if (! $game instanceof Game) {
+        if (! $game instanceof GameAdapter) {
             throw new DomainException();
         }
 
-        return $game->submarines->map(
+        return $game->getModel()->submarines->map(
             fn (Submarine $submarine) => new SubmarineAdapter($submarine)
         );
     }
 
     public function getAtPosition(GameContract $game, Position $position): ?SubmarineContract
     {
-        if (! $game instanceof Game) {
+        if (! $game instanceof GameAdapter) {
             throw new DomainException();
         }
 
-        return $game->submarines()
+        /** @var ?Submarine $submarine */
+        $submarine = $game->getModel()
+            ->submarines()
             ->where('x', $position->getX())
             ->where('y', $position->getY())
-            ->get()
-            ->map(
-                fn (Submarine $submarine) => new SubmarineAdapter($submarine)
-            );
+            ->first();
+
+        if (! $submarine) {
+            return null;
+        }
+
+        return new SubmarineAdapter($submarine);
     }
 }
