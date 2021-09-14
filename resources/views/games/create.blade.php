@@ -9,7 +9,7 @@
                         selected
                     @endif
             >
-                {{ $configuration->title }} — {{ $configuration->description }}
+                {{ $configuration->name }} — {{ $configuration->description }}
             </option>
         @endforeach
     </select>
