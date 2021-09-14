@@ -1,7 +1,7 @@
 <html lang="en">
     <body style="background: black">
 
-        <table style="border: none">
+        <table cellspacing="0">
             <tbody>
             @foreach($grid->getRows() as $cells)
                 <tr>
