@@ -7,6 +7,9 @@
             <option value="{{ $configuration->id }}">{{ $configuration->title }} — {{ $configuration->description }}</option>
         @endforeach
     </select>
+    @error('configuration')
+        <p>{{ $message }}</p>
+    @enderror
 
     <input type="submit" value="Create game">
 </form>
