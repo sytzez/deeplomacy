@@ -14,7 +14,10 @@ class StoreGameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'configuration' => 'in:configurations',
+            'configuration' => [
+                'required',
+                'exists:configurations,id',
+            ],
         ];
     }
 }

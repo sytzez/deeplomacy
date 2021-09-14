@@ -10,10 +10,12 @@ class GameFactory
 {
     public function make(StoreGameRequest $request): Game
     {
+        $validated = $request->validated();
+
         $game = new Game();
 
         $configuration = Configuration::query()
-            ->find($request->get('configuration'));
+            ->find($validated['configuration']);
 
         $game->configuration()->associate($configuration);
 
