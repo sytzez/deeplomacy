@@ -13,7 +13,8 @@ class CreateSubmarinesTable extends Migration
             $table->integer('x');
             $table->integer('y');
             $table->unsignedInteger('action_points');
-            $table->boolean('is_alive');
+            $table->boolean('is_alive')
+                ->default(true);
             $table->foreignId('user_id')
                 ->constrained('users');
             $table->foreignId('game_id')
