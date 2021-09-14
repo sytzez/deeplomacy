@@ -26,6 +26,10 @@ class GiveActionPointsValidator
     {
         $this->data = $data;
 
+        if ($data->getDonor()->getPosition() === $data->getRecipient()->getPosition()) {
+            throw new Exception(Errors::CANNOT_TARGET_SELF);
+        }
+
         $this->checkRecipientVisibleByDonor();
 
         $this->checkSubmarinesWithinRange();

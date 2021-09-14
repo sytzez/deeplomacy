@@ -26,6 +26,10 @@ class ShareSonarValidator
     {
         $this->data = $data;
 
+        if ($data->getDonor()->getPosition() === $data->getRecipient()->getPosition()) {
+            throw new Exception(Errors::CANNOT_TARGET_SELF);
+        }
+
         $this->checkSufficientActionPoints();
 
         $this->checkRecipientVisibleByDonor();

@@ -26,6 +26,10 @@ class AttackSubmarineValidator
     {
         $this->data = $data;
 
+        if ($data->getAttacker()->getPosition() === $data->getTarget()->getPosition()) {
+            throw new Exception(Errors::CANNOT_TARGET_SELF);
+        }
+
         $this->checkSufficientActionPoints();
 
         $this->getTargetVisibleByAttacker();
