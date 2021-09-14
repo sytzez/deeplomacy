@@ -4,7 +4,13 @@
     <label for="configuration">Configuration:</label>
     <select name="configuration" id="configuration">
         @foreach($configurations as $configuration)
-            <option value="{{ $configuration->id }}">{{ $configuration->title }} — {{ $configuration->description }}</option>
+            <option value="{{ $configuration->id }}"
+                    @if(old('configuration') === $configuration->id)
+                        selected
+                    @endif
+            >
+                {{ $configuration->title }} — {{ $configuration->description }}
+            </option>
         @endforeach
     </select>
     @error('configuration')
