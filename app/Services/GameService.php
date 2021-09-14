@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Factories\SubmarineFactory;
 use App\Models\Game;
+use App\Models\Submarine;
 use App\Models\User;
 use Exception;
 
@@ -41,6 +42,18 @@ class GameService
         $user->submarines()
             ->where('game_id', $game->getKey())
             ->delete();
+    }
+
+
+    public function getUserSubmarine(User $user, Game $game): Submarine
+    {
+        /** @var Submarine $submarine */
+        $submarine = $user->submarines()
+            ->where('game_id', $game->getKey())
+            ->where('is_alive', true)
+            ->first();
+
+        return $submarine;
     }
 
     protected function deleteDeadSubmarines(User $user, Game $game): void

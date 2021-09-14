@@ -26,6 +26,9 @@ Route::middleware('auth.auto')->group(function () {
     Route::name('games.leave')
         ->get('games/{game}/leave', [GameController::class, 'leave']);
 
+    Route::name('games.play')
+        ->get('games/{game}/play', [GameController::class, 'play']);
+
     Route::resource('games', GameController::class)
         ->only(['index', 'create', 'store', 'show']);
 });

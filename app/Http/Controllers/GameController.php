@@ -71,4 +71,22 @@ class GameController extends Controller
 
         return Redirect::route('games.show', [$game]);
     }
+
+    public function play(Game $game, GameService $gameService): Renderable|RedirectResponse
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        $submarine = $gameService->getUserSubmarine($user, $game);
+
+        if (! $submarine) {
+            return Redirect::route('games.show', [$game]);
+        }
+
+        return View::make('games.play')
+            ->with([
+                'game' => $game,
+                'submarine' => $submarine
+            ]);
+    }
 }

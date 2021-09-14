@@ -12,6 +12,7 @@
 </ul>
 
 @if($game->isJoinedBy(auth()->user()))
+    <a href="{{ route('games.play', [$game]) }}">Start playing!</a>
     <a href="{{ route('games.leave', [$game]) }}">Leave game</a>
 @else
     <a href="{{ route('games.join', [$game]) }}">Join game</a>
