@@ -30,6 +30,14 @@ class Game extends Model
     {
         return $this->submarines()
             ->where('user_id', $user->getKey())
+            ->where('is_alive', true)
             ->exists();
+    }
+
+    public function isFull(): bool
+    {
+        return $this->submarines()
+            ->where('is_alive')
+            ->count() >= $this->configuration->max_num_of_players;
     }
 }

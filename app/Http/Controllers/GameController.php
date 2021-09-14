@@ -8,6 +8,7 @@ use App\Http\Requests\StoreGameRequest;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
+use App\Services\GameService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,13 +29,21 @@ class GameController extends Controller
         return View::make('games.create');
     }
 
-    public function store(StoreGameRequest $request, GameFactory $gameFactory): RedirectResponse
-    {
+    public function store(
+        StoreGameRequest $request,
+        GameFactory $gameFactory,
+        GameService $gameService
+    ): RedirectResponse {
         $game = $gameFactory->make($request);
 
         $game->save();
 
-        return Redirect::route('games.join', [$game]);
+        /** @var User $user */
+        $user = Auth::user();
+
+        $gameService->join($user, $game);
+
+        return Redirect::route('games.show', [$game]);
     }
 
     public function show(Game $game): Renderable
@@ -43,26 +52,22 @@ class GameController extends Controller
             ->with('game', $game);
     }
 
-    public function join(Game $game, SubmarineFactory $submarineFactory): RedirectResponse
+    public function join(Game $game, GameService $gameService): RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
 
-        $submarine = $submarineFactory->make($user, $game);
-
-        $submarine->save();
+        $gameService->join($user, $game);
 
         return Redirect::route('games.show', [$game]);
     }
 
-    public function leave(Game $game): RedirectResponse
+    public function leave(Game $game, GameService $gameService): RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
 
-        $user->submarines()
-            ->where('game_id', $game->getKey())
-            ->delete();
+        $gameService->leave($user, $game);
 
         return Redirect::route('games.show', [$game]);
     }
