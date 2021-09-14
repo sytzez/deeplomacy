@@ -25,4 +25,11 @@ class Game extends Model
     {
         return $this->hasMany(Submarine::class);
     }
+
+    public function isJoinedBy(User $user): bool
+    {
+        return $this->submarines()
+            ->where('user_id', $user->getKey())
+            ->exists();
+    }
 }

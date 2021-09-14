@@ -9,6 +9,7 @@ use App\Game\Strategies\RandomPlacementStrategy;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
+use Exception;
 
 class SubmarineFactory
 {
@@ -17,8 +18,18 @@ class SubmarineFactory
     ) {
     }
 
+    /**
+     * @param User $user
+     * @param Game $game
+     * @return Submarine
+     * @throws Exception
+     */
     public function make(User $user, Game $game): Submarine
     {
+        if ($game->isJoinedBy($user)) {
+            throw new Exception('User has already joined');
+        }
+
         $submarine = new Submarine();
 
         $submarine->user()->associate($user);

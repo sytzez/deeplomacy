@@ -6,6 +6,7 @@ use App\Factories\GameFactory;
 use App\Factories\SubmarineFactory;
 use App\Http\Requests\StoreGameRequest;
 use App\Models\Game;
+use App\Models\Submarine;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
@@ -50,6 +51,18 @@ class GameController extends Controller
         $submarine = $submarineFactory->make($user, $game);
 
         $submarine->save();
+
+        return Redirect::route('games.show', [$game]);
+    }
+
+    public function leave(Game $game): RedirectResponse
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        $user->submarines()
+            ->where('game_id', $game->getKey())
+            ->delete();
 
         return Redirect::route('games.show', [$game]);
     }
