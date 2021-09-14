@@ -2,7 +2,7 @@
     @foreach($games as $game)
         <li>
             <a href="{{ route('games.show', [$game]) }}">
-                {{ $game->id }} ( {{ $game->configuration->name }} )
+                {{ $game->id }} ( {{ $game->configuration->name }}, {{ $game->submarines->count() }} players )
             </a>
         </li>
     @endforeach
