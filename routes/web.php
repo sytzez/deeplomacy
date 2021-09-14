@@ -18,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('games', GameController::class);
+Route::resource('games', GameController::class)
+    ->only(['index', 'create', 'store', 'show']);

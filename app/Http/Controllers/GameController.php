@@ -38,19 +38,4 @@ class GameController extends Controller
         return View::make('games.show')
             ->with('game', $game);
     }
-
-    public function edit(int $id): Response
-    {
-        //
-    }
-
-    public function update(Request $request, int $id): Response
-    {
-        //
-    }
-
-    public function destroy(int $id): Response
-    {
-        //
-    }
 }
