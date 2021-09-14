@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Adapters\GameAdapter;
 use App\Adapters\SubmarineAdapter;
+use App\Factories\MoveSubmarineDataFactory;
+use App\Game\Actions\MoveSubmarineAction;
 use App\Game\Factories\GridFactory;
+use App\Http\Requests\MoveRequest;
 use App\Models\Game;
+use App\Models\Submarine;
 use App\Models\User;
 use App\Services\GameService;
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +21,14 @@ use Illuminate\Support\Facades\View;
 
 class PlayController
 {
-    public function show(Game $game, GameService $gameService, GridFactory $gridFactory): Renderable|RedirectResponse
+    public function __construct(
+        protected GameService $gameService,
+    ) {
+    }
+
+    public function show(Game $game, GridFactory $gridFactory): Renderable|RedirectResponse
     {
-        /** @var User $user */
-        $user = Auth::user();
-
-        $submarine = $gameService->getUserSubmarine($user, $game);
-
-        if (! $submarine) {
+        if (! ($submarine = $this->getSubmarine($game))) {
             return Redirect::route('games.show', [$game]);
         }
 
@@ -37,5 +42,35 @@ class PlayController
                 'grid' => $grid,
                 'submarine' => $submarine
             ]);
+    }
+
+    public function move(
+        Game $game,
+        MoveRequest $request,
+        MoveSubmarineDataFactory $dataFactory,
+        MoveSubmarineAction $action
+    ): RedirectResponse {
+        if (! ($submarine = $this->getSubmarine($game))) {
+            return Redirect::route('games.show', [$game]);
+        }
+
+        $data = $dataFactory->make($submarine, $request);
+
+        try{
+            $action->do($data);
+        } catch (Exception $e) {
+            return Redirect::route('game.play', [$game])
+                ->withException($e);
+        }
+
+        return Redirect::route('game.play', [$game]);
+    }
+
+    protected function getSubmarine(Game $game): Submarine
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        return $this->gameService->getUserSubmarine($user, $game);
     }
 }
