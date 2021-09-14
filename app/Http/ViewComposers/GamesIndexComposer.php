@@ -11,7 +11,9 @@ class GamesIndexComposer implements ViewComposerContract
     public function compose(View $view): void
     {
         $games = Game::query()
-            ->whereHas('submarines');
+            ->withCount('submarines')
+            ->having('submarines_count', '>', 0)
+            ->get();
 
         $view->with('games', $games);
     }
