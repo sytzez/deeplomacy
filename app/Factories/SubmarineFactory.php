@@ -3,8 +3,8 @@
 namespace App\Factories;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Actions\PlaceSubmarineAction;
-use App\Game\Data\PlaceSubmarineData;
+use App\Game\Actions\JoinSubmarineAction;
+use App\Game\Data\JoinSubmarineData;
 use App\Game\Strategies\RandomPlacementStrategy;
 use App\Models\Game;
 use App\Models\Submarine;
@@ -13,7 +13,7 @@ use App\Models\User;
 class SubmarineFactory
 {
     public function __construct(
-        protected PlaceSubmarineAction $placeSubmarineAction,
+        protected JoinSubmarineAction $placeSubmarineAction,
     ) {
     }
 
@@ -25,7 +25,7 @@ class SubmarineFactory
         $submarine->game()->associate($game);
 
         $this->placeSubmarineAction->do(
-            new PlaceSubmarineData(
+            new JoinSubmarineData(
                 new SubmarineAdapter($submarine),
                 new RandomPlacementStrategy(),
             )
