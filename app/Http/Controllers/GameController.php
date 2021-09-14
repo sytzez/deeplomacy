@@ -33,7 +33,7 @@ class GameController extends Controller
 
         $game->save();
 
-        return Redirect::route('games.show', [$game]);
+        return Redirect::route('games.join', [$game]);
     }
 
     public function show(Game $game): Renderable
