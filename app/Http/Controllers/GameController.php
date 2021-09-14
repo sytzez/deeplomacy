@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Adapters\GameAdapter;
+use App\Adapters\SubmarineAdapter;
 use App\Factories\GameFactory;
 use App\Factories\SubmarineFactory;
+use App\Game\Factories\GridFactory;
 use App\Http\Requests\StoreGameRequest;
 use App\Models\Game;
 use App\Models\Submarine;
@@ -72,7 +75,7 @@ class GameController extends Controller
         return Redirect::route('games.show', [$game]);
     }
 
-    public function play(Game $game, GameService $gameService): Renderable|RedirectResponse
+    public function play(Game $game, GameService $gameService, GridFactory $gridFactory): Renderable|RedirectResponse
     {
         /** @var User $user */
         $user = Auth::user();
@@ -83,9 +86,14 @@ class GameController extends Controller
             return Redirect::route('games.show', [$game]);
         }
 
+        $grid = $gridFactory->make(
+            new GameAdapter($game),
+            new SubmarineAdapter($submarine),
+        );
+
         return View::make('games.play')
             ->with([
-                'game' => $game,
+                'grid' => $grid,
                 'submarine' => $submarine
             ]);
     }

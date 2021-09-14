@@ -7,6 +7,7 @@ use App\Game\Actions\GiveActionPointsAction;
 use App\Game\Actions\MoveSubmarineAction;
 use App\Game\Actions\JoinSubmarineAction;
 use App\Game\Actions\ShareSonarAction;
+use App\Game\Factories\GridFactory;
 use App\Game\Services\AttackSubmarineService;
 use App\Game\Services\GiveActionPointsService;
 use App\Game\Services\MoveSubmarineService;
@@ -26,6 +27,8 @@ class GameServiceProvider extends ServiceProvider
         $this->app->singleton(SubmarineService::class);
 
         $this->app->singleton(VisibilityService::class);
+
+        $this->app->singleton(GridFactory::class);
 
         $this->app->singleton(MoveSubmarineService::class);
         $this->app->singleton(MoveSubmarineValidator::class);
