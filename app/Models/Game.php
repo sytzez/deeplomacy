@@ -25,9 +25,4 @@ class Game extends Model
     {
         return $this->hasMany(Submarine::class);
     }
-
-    public function users(): HasManyThrough
-    {
-        return $this->hasManyThrough(User::class, Submarine::class);
-    }
 }
