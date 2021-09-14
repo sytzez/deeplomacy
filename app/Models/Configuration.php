@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int action_points_required_to_share_sonar
  * @property int action_points_required_to_attack
  * @property int amount_of_action_points_distributed
+ * @property int max_num_of_players
  * @property Game game
  */
 class Configuration extends Model
@@ -35,6 +36,7 @@ class Configuration extends Model
         'action_points_required_to_share_sonar',
         'action_points_required_to_attack',
         'amount_of_action_points_distributed',
+        'max_num_of_players',
     ];
 
     public function game(): HasOne

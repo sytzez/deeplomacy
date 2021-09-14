@@ -21,6 +21,7 @@ class CreateConfigurationsTable extends Migration
             $table->integer('action_points_required_to_share_sonar');
             $table->integer('action_points_required_to_attack');
             $table->integer('amount_of_action_points_distributed');
+            $table->integer('max_num_of_players');
             $table->timestamps();
         });
     }
