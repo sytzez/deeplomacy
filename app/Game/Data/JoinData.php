@@ -18,7 +18,7 @@ class JoinData
         return $this->submarine;
     }
 
-    public function getStrategy(): PlacementStrategyContract
+    public function getPlacementStrategy(): PlacementStrategyContract
     {
         return $this->strategy;
     }

@@ -28,7 +28,7 @@ class JoinAction
         $submarine = $data->getSubmarine();
 
         do {
-            $data->getStrategy()->placeSubmarine($submarine);
+            $data->getPlacementStrategy()->placeSubmarine($submarine);
         } while($this->submarineRepository->getAtPosition(
             $submarine->getGame(),
             $submarine->getPosition(),
