@@ -29,10 +29,12 @@ class JoinAction
 
         do {
             $data->getPlacementStrategy()->placeSubmarine($submarine);
-        } while($this->submarineRepository->getAtPosition(
-            $submarine->getGame(),
-            $submarine->getPosition(),
-        ));
+        } while(
+            $this->submarineRepository->getAtPosition(
+                $submarine->getGame(),
+                $submarine->getPosition(),
+            )
+        );
     }
 
     protected function grantActionPoints(JoinData $data): void
