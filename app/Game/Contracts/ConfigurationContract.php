@@ -2,6 +2,7 @@
 
 namespace App\Game\Contracts;
 
+use App\Game\Data\ActionPoints;
 use App\Game\Data\Bounds;
 
 interface ConfigurationContract
@@ -15,9 +16,9 @@ interface ConfigurationContract
     public function getDistanceSquaredAllowedToGiveActionPoints(): int;
 
     public function getDistanceSquaredAllowedToShareSonar(): int;
-    public function getActionPointsRequiredToShareSonar(): int;
+    public function getActionPointsRequiredToShareSonar(): ActionPoints;
 
-    public function getActionPointsRequiredToAttack(): int;
+    public function getActionPointsRequiredToAttack(): ActionPoints;
 
-    public function getAmountOfActionPointsDistributed(): int;
+    public function getAmountOfActionPointsDistributed(): ActionPoints;
 }

@@ -3,6 +3,7 @@
 namespace App\Game\Services;
 
 use App\Game\Contracts\SubmarineRepositoryContract;
+use App\Game\Data\ActionPoints;
 use App\Game\Data\MoveSubmarineData;
 use App\Game\Data\Position;
 
@@ -17,10 +18,10 @@ class MoveSubmarineService
     {
         return $data->getSubmarine()
             ->getPosition()
-            ->addOffset($data->getOffset());
+            ->translatedBy($data->getOffset());
     }
 
-    public function getActionPointsRequired(MoveSubmarineData $data): int
+    public function getActionPointsRequired(MoveSubmarineData $data): ActionPoints
     {
         $distanceSquared = $data->getOffset()->getDistanceSquared();
 
@@ -29,16 +30,22 @@ class MoveSubmarineService
             ->getConfiguration()
             ->getDistanceSquaredMovablePerActionPoint();
 
-        return ceil($distanceSquared / $distanceSquaredMovablePerActionPoint);
+        return new ActionPoints(
+            ceil($distanceSquared / $distanceSquaredMovablePerActionPoint)
+        );
     }
 
     public function moveSubmarine(MoveSubmarineData $data): void
     {
+        $cost = $this->getActionPointsRequired($data);
+
         $submarine = $data->getSubmarine();
 
         $submarine->setPosition($this->getDestination($data));
 
-        $submarine->setActionPoints($submarine->getActionPoints() - $this->getActionPointsRequired($data));
+        $submarine->setActionPoints(
+            $submarine->getActionPoints()->decreasedBy($cost)
+        );
 
         $this->submarineRepository->update($submarine);
     }

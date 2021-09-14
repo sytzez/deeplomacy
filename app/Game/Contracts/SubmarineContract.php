@@ -2,6 +2,7 @@
 
 namespace App\Game\Contracts;
 
+use App\Game\Data\ActionPoints;
 use App\Game\Data\Position;
 
 interface SubmarineContract
@@ -11,8 +12,8 @@ interface SubmarineContract
     public function getPosition(): Position;
     public function setPosition(Position $position): static;
 
-    public function getActionPoints(): int;
-    public function setActionPoints(int $actionPoints): static;
+    public function getActionPoints(): ActionPoints;
+    public function setActionPoints(ActionPoints $actionPoints): static;
 
     /**
      * @return iterable<static>

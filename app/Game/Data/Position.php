@@ -28,7 +28,7 @@ class Position
         );
     }
 
-    public function addOffset(Offset $offset): static
+    public function translatedBy(Offset $offset): static
     {
         return new static(
             $this->getX() + $offset->getDx(),

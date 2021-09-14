@@ -5,8 +5,8 @@ namespace App\Game\Services;
 use App\Game\Contracts\RngServiceContract;
 use App\Game\Contracts\SubmarineContract;
 use App\Game\Contracts\SubmarineRepositoryContract;
+use App\Game\Data\ActionPoints;
 use App\Game\Data\AttackSubmarineData;
-use App\Game\Data\ShareSonarData;
 
 class AttackSubmarineService
 {
@@ -16,7 +16,7 @@ class AttackSubmarineService
     ) {
     }
 
-    public function getActionPointsRequired(AttackSubmarineData $data): int
+    public function getActionPointsRequired(AttackSubmarineData $data): ActionPoints
     {
         return $data
             ->getAttacker()
@@ -34,7 +34,11 @@ class AttackSubmarineService
     {
         $attacker = $data->getAttacker();
 
-        $attacker->setActionPoints($attacker->getActionPoints() - $this->getActionPointsRequired($data));
+        $cost = $this->getActionPointsRequired($data);
+
+        $attacker->setActionPoints(
+            $attacker->getActionPoints()->decreasedBy($cost)
+        );
 
         $this->submarineRepository->update($attacker);
 

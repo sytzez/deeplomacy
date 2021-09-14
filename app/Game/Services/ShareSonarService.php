@@ -3,6 +3,7 @@
 namespace App\Game\Services;
 
 use App\Game\Contracts\SubmarineRepositoryContract;
+use App\Game\Data\ActionPoints;
 use App\Game\Data\ShareSonarData;
 
 class ShareSonarService
@@ -27,7 +28,7 @@ class ShareSonarService
         return $distanceSquared <= $distanceSquaredAllowed;
     }
 
-    public function getActionPointsRequired(ShareSonarData $data): int
+    public function getActionPointsRequired(ShareSonarData $data): ActionPoints
     {
         return $data
             ->getDonor()
@@ -38,11 +39,15 @@ class ShareSonarService
 
     public function shareSonar(ShareSonarData $data): void
     {
+        $cost = $this->getActionPointsRequired($data);
+
         $donor = $data->getDonor();
 
         $donor->shareSonarTo($data->getRecipient());
 
-        $donor->setActionPoints($donor->getActionPoints() - $this->getActionPointsRequired($data));
+        $donor->setActionPoints(
+            $donor->getActionPoints()->decreasedBy($cost)
+        );
 
         $this->submarineRepository->update($donor);
     }

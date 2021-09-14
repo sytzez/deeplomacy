@@ -19,7 +19,9 @@ class DistributeActionPointsService
         $submarines = $this->submarineRepository->getAll($game);
 
         foreach ($submarines as $submarine) {
-            $submarine->setActionPoints($submarine->getActionPoints() + $amount);
+            $submarine->setActionPoints(
+                $submarine->getActionPoints()->increasedBy($amount)
+            );
 
             $this->submarineRepository->update($submarine);
         }

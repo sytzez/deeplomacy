@@ -2,7 +2,7 @@
 
 namespace App\Game\Data;
 
-use LogicException;
+use DomainException;
 
 class Bounds
 {
@@ -11,7 +11,7 @@ class Bounds
         protected Position $bottomRight,
     ) {
         if (! $topLeft->isTopLeftOf($bottomRight)) {
-            throw new LogicException();
+            throw new DomainException();
         }
     }
 

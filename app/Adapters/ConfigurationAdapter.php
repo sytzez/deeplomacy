@@ -3,6 +3,7 @@
 namespace App\Adapters;
 
 use App\Game\Contracts\ConfigurationContract;
+use App\Game\Data\ActionPoints;
 use App\Game\Data\Bounds;
 use App\Game\Data\Position;
 use App\Models\Configuration;
@@ -45,18 +46,24 @@ class ConfigurationAdapter implements ConfigurationContract
         return $this->model->distance_squared_allowed_to_share_sonar;
     }
 
-    public function getActionPointsRequiredToShareSonar(): int
+    public function getActionPointsRequiredToShareSonar(): ActionPoints
     {
-        return $this->model->action_points_required_to_share_sonar;
+        return new ActionPoints(
+            $this->model->action_points_required_to_share_sonar
+        );
     }
 
-    public function getActionPointsRequiredToAttack(): int
+    public function getActionPointsRequiredToAttack(): ActionPoints
     {
-        return $this->model->action_points_required_to_attack;
+        return new ActionPoints(
+            $this->model->action_points_required_to_attack
+        );
     }
 
-    public function getAmountOfActionPointsDistributed(): int
+    public function getAmountOfActionPointsDistributed(): ActionPoints
     {
-        return $this->model->amount_of_action_points_distributed;
+        return new ActionPoints(
+            $this->model->amount_of_action_points_distributed
+        );
     }
 }

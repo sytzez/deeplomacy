@@ -4,6 +4,7 @@ namespace App\Adapters;
 
 use App\Game\Contracts\GameContract;
 use App\Game\Contracts\SubmarineContract;
+use App\Game\Data\ActionPoints;
 use App\Game\Data\Position;
 use App\Models\Submarine;
 use DomainException;
@@ -36,14 +37,16 @@ class SubmarineAdapter implements SubmarineContract
         return $this;
     }
 
-    public function getActionPoints(): int
+    public function getActionPoints(): ActionPoints
     {
-        return $this->model->action_points;
+        return new ActionPoints(
+            $this->model->action_points
+        );
     }
 
-    public function setActionPoints(int $actionPoints): static
+    public function setActionPoints(ActionPoints $actionPoints): static
     {
-        $this->model->action_points = $actionPoints;
+        $this->model->action_points = $actionPoints->getAmount();
 
         return $this;
     }

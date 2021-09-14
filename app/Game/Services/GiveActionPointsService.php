@@ -33,8 +33,13 @@ class GiveActionPointsService
         $recipient = $data->getRecipient();
         $amount    = $data->getAmount();
 
-        $donor->setActionPoints($donor->getActionPoints() - $amount);
-        $recipient->setActionPoints($recipient->getActionPoints() + $amount);
+        $donor->setActionPoints(
+            $donor->getActionPoints()->decreasedBy($amount)
+        );
+
+        $recipient->setActionPoints(
+            $recipient->getActionPoints()->increasedBy($amount)
+        );
 
         $this->submarineRepository->update($donor);
         $this->submarineRepository->update($recipient);
