@@ -18,8 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::name('games.join')
-    ->get('games/{game}/join', [GameController::class, 'join']);
+Route::middleware('auth.auto')->group(function () {
 
-Route::resource('games', GameController::class)
-    ->only(['index', 'create', 'store', 'show']);
+    Route::name('games.join')
+        ->get('games/{game}/join', [GameController::class, 'join']);
+
+    Route::resource('games', GameController::class)
+        ->only(['index', 'create', 'store', 'show']);
+});
