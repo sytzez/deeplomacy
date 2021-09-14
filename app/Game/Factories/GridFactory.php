@@ -12,6 +12,13 @@ use App\Game\Services\VisibilityService;
 
 class GridFactory
 {
+    /** @var array<array<Cell>> */
+    protected array $rows;
+
+    protected GameContract $game;
+
+    protected SubmarineContract $viewer;
+
     public function __construct(
         protected VisibilityService $visibilityService,
         protected SubmarineRepositoryContract $submarineRepositoryContract,
@@ -20,12 +27,24 @@ class GridFactory
 
     public function make(GameContract $game, SubmarineContract $viewer): Grid
     {
-        $bounds = $game->getConfiguration()->getBounds();
+        $this->game = $game;
+        $this->viewer = $viewer;
+
+        $this->generateGridWithVisibility();
+
+        $this->insertSubmarines();
+
+        return new Grid($this->rows);
+    }
+
+    protected function generateGridWithVisibility(): void
+    {
+        $bounds = $this->game->getConfiguration()->getBounds();
 
         $topLeft = $bounds->getTopLeft();
         $bottomRight = $bounds->getBottomRight();
 
-        $rows = [];
+        $this->rows = [];
 
         for ($y = $topLeft->getY(); $y <=$bottomRight->getY(); $y++) {
             $row = [];
@@ -33,23 +52,31 @@ class GridFactory
             for ($x = $topLeft->getX(); $x <= $bottomRight->getX(); $x++) {
                 $position = new Position($x, $y);
 
-                $row[] = new Cell($this->visibilityService->canSeePosition($viewer, $position));
+                $row[] = new Cell($this->visibilityService->canSeePosition($this->viewer, $position));
             }
 
-            $rows[] = $row;
+            $this->rows[] = $row;
         }
+    }
 
-        $submarines = $this->submarineRepositoryContract->getAll($game);
+    protected function insertSubmarines(): void
+    {
+        $submarines = $this->submarineRepositoryContract->getAll($this->game);
 
         foreach ($submarines as $submarine) {
-            if (! $this->visibilityService->canSeeSubmarine($viewer, $submarine)) {
+            if (! $this->visibilityService->canSeeSubmarine($this->viewer, $submarine)) {
                 continue;
             }
 
-            $rows[$submarine->getPosition()->getY()][$submarine->getPosition()->getX()] =
-                new Cell(true, $submarine);
+            $this->replaceCell(
+                $submarine->getPosition(),
+                new Cell(true, $submarine),
+            );
         }
+    }
 
-        return new Grid($rows);
+    protected function replaceCell(Position $position, Cell $cell): void
+    {
+        $this->rows[$position->getY()][$position->getX()] = $cell;
     }
 }
