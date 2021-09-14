@@ -38,4 +38,9 @@ class GameController extends Controller
         return View::make('games.show')
             ->with('game', $game);
     }
+
+    public function join(Game $game): RedirectResponse
+    {
+        return Redirect::route('games.show', [$game]);
+    }
 }

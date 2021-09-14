@@ -18,5 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::name('games.join')
+    ->get('games/{game}/join', [GameController::class, 'join']);
+
 Route::resource('games', GameController::class)
     ->only(['index', 'create', 'store', 'show']);

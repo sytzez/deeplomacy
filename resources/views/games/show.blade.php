@@ -11,5 +11,5 @@
     @endforeach
 </ul>
 
-{{--<a href="{{ route('games.join', [$game]) }}">Join game</a>--}}
+<a href="{{ route('games.join', [$game]) }}">Join game</a>
 <a href="{{ route('games.index') }}">Back</a>
