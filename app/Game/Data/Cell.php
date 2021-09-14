@@ -10,6 +10,9 @@ class Cell
         protected bool $isVisible,
         protected bool $canMoveTowards,
         protected ?SubmarineContract $submarine = null,
+        protected bool $canAttack = false,
+        protected bool $canShareSonar = false,
+        protected bool $canGiveActionPoints = false,
     ) {
     }
 
@@ -28,12 +31,34 @@ class Cell
         return $this->submarine;
     }
 
-    public function withSubmarine(?SubmarineContract $submarine): Cell
+    public function canAttack(): bool
     {
-        return new Cell(
+        return $this->canAttack;
+    }
+
+    public function canShareSonar(): bool
+    {
+        return $this->canShareSonar;
+    }
+
+    public function canGiveActionPoints(): bool
+    {
+        return $this->canGiveActionPoints;
+    }
+
+    public function withSubmarine(
+        ?SubmarineContract $submarine,
+        bool $canAttack = false,
+        bool $canShareSonar = false,
+        bool $canGiveActionPoints = false,
+    ): Cell {
+        return new static(
             $this->isVisible(),
             $this->canMoveTowards(),
             $submarine,
+            $canAttack,
+            $canShareSonar,
+            $canGiveActionPoints,
         );
     }
 }

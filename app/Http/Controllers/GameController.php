@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Adapters\GameAdapter;
-use App\Adapters\SubmarineAdapter;
 use App\Factories\GameFactory;
-use App\Game\Factories\GridFactory;
 use App\Http\Requests\StoreGameRequest;
 use App\Models\Game;
 use App\Models\User;
