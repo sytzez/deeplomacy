@@ -1,18 +1,21 @@
 <html lang="en">
-    <body style="background: darkblue">
+    <body style="background: black">
 
-        <table style="border: no">
+        <table style="border: none">
             <tbody>
             @foreach($grid->getRows() as $cells)
                 <tr>
                     @foreach($cells as $cell)
-                        <td>
-                            @if($cell->isVisible())
-                                @if($cell->getSubmarine())
-                                    🚢
-                                @else
+                        <td @if($cell->isVisible())
+                                style="background: blue"
+                            @endif
+                        >
+                            @if($cell->canMoveTowards())
+                                <a href="test">
                                     🟦
-                                @endif
+                                </a>
+                            @elseif($cell->getSubmarine())
+                                🚢
                             @else
                                 🌊
                             @endif
