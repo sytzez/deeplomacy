@@ -2,27 +2,14 @@
 
 namespace App\Providers;
 
+use App\Game\Contracts\SubmarineRepositoryContract;
+use App\Repositories\SubmarineRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
+        $this->app->singleton(SubmarineRepositoryContract::class, SubmarineRepository::class);
     }
 }
