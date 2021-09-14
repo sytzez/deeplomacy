@@ -4,6 +4,7 @@ namespace App\Game\Factories;
 
 use App\Game\Contracts\GameContract;
 use App\Game\Contracts\SubmarineContract;
+use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\Cell;
 use App\Game\Data\Grid;
 use App\Game\Data\Position;
@@ -13,6 +14,7 @@ class GridFactory
 {
     public function __construct(
         protected VisibilityService $visibilityService,
+        protected SubmarineRepositoryContract $submarineRepositoryContract,
     ) {
     }
 
@@ -35,6 +37,17 @@ class GridFactory
             }
 
             $rows[] = $row;
+        }
+
+        $submarines = $this->submarineRepositoryContract->getAll($game);
+
+        foreach ($submarines as $submarine) {
+            if (! $this->visibilityService->canSeeSubmarine($viewer, $submarine)) {
+                continue;
+            }
+
+            $rows[$submarine->getPosition()->getY()][$submarine->getPosition()->getX()] =
+                new Cell(true, $submarine);
         }
 
         return new Grid($rows);

@@ -9,7 +9,7 @@ class VisibilityService
 {
     public function canSeeSubmarine(SubmarineContract $seeer, SubmarineContract $seen): bool
     {
-        return $this->canSeePosition($seer, $seen->getPosition());
+        return $this->canSeePosition($seeer, $seen->getPosition());
     }
 
     public function canSeePosition(SubmarineContract $submarine, Position $position): bool

@@ -2,13 +2,13 @@
 
 namespace App\Game\Data;
 
-use App\Models\Submarine;
+use App\Game\Contracts\SubmarineContract;
 
 class Cell
 {
     public function __construct(
         protected bool $isVisible,
-        protected ?Submarine $submarine = null,
+        protected ?SubmarineContract $submarine = null,
     ) {
     }
 
@@ -17,7 +17,7 @@ class Cell
         return $this->isVisible;
     }
 
-    public function getSubmarine(): ?Submarine
+    public function getSubmarine(): ?SubmarineContract
     {
         return $this->submarine;
     }

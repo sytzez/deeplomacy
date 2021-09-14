@@ -1,16 +1,20 @@
 <html lang="en">
-    <body style="background: black">
+    <body style="background: darkblue">
 
-        <table>
+        <table style="border: no">
             <tbody>
             @foreach($grid->getRows() as $cells)
                 <tr>
                     @foreach($cells as $cell)
                         <td>
                             @if($cell->isVisible())
-                                🌊
+                                @if($cell->getSubmarine())
+                                    🚢
+                                @else
+                                    🟦
+                                @endif
                             @else
-                                ⬛
+                                🌊
                             @endif
                         </td>
                     @endforeach
