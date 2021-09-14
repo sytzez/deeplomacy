@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Factories\GameFactory;
 use App\Http\Requests\StoreGameRequest;
+use App\Models\Game;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -32,9 +33,10 @@ class GameController extends Controller
         return Redirect::route('games.show', [$game]);
     }
 
-    public function show(int $id): Response
+    public function show(Game $game): Renderable
     {
-        //
+        return View::make('games.show')
+            ->with('game', $game);
     }
 
     public function edit(int $id): Response
