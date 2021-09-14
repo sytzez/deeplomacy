@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Game\Actions\AttackSubmarineAction;
 use App\Game\Actions\GiveActionPointsAction;
 use App\Game\Actions\MoveSubmarineAction;
-use App\Game\Actions\JoinSubmarineAction;
+use App\Game\Actions\JoinAction;
 use App\Game\Actions\ShareSonarAction;
 use App\Game\Factories\GridFactory;
 use App\Game\Services\AttackSubmarineService;
@@ -46,6 +46,6 @@ class GameServiceProvider extends ServiceProvider
         $this->app->singleton(AttackSubmarineValidator::class);
         $this->app->singleton(AttackSubmarineAction::class);
 
-        $this->app->singleton(JoinSubmarineAction::class);
+        $this->app->singleton(JoinAction::class);
     }
 }

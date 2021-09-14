@@ -5,7 +5,7 @@ namespace App\Game\Data;
 use App\Game\Contracts\PlacementStrategyContract;
 use App\Game\Contracts\SubmarineContract;
 
-class JoinSubmarineData
+class JoinData
 {
     public function __construct(
         protected SubmarineContract $submarine,
