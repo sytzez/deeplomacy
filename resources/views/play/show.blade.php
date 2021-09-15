@@ -5,6 +5,10 @@
             margin: 0;
         }
 
+        input[type=submit] {
+            background
+        }
+
         input.btn-link {
             background: none;
             border:none;

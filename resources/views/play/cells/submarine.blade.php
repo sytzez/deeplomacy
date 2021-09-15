@@ -6,7 +6,7 @@
         @csrf
 
         <input type="hidden" name="submarine" value="{{ $cell->getSubmarine()->getModel()->id }}">
-        <input type="submit" value="Attack">
+        <input type="submit" class="btn-link" value="💥">
 
     </form>
 
@@ -14,7 +14,7 @@
         @csrf
 
         <input type="hidden" name="submarine" value="{{ $cell->getSubmarine()->getModel()->id }}">
-        <input type="submit" value="Share sonar">
+        <input type="submit" class="btn-link" value="🤲📡">
 
     </form>
 
@@ -24,7 +24,7 @@
         <input type="hidden" name="submarine" value="{{ $cell->getSubmarine()->getModel()->id }}">
         <label for="amount">AP:</label>
         <input type="number" name="amount" id="amount" min="1" max="{{ $mySubmarine->getActionPoints()->getAmount() }}">
-        <input type="submit" value="Give AP">
+        <input type="submit" class="btn-link" value="🤲">
 
     </form>
 </div>
