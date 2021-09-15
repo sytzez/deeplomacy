@@ -7,7 +7,7 @@
     @foreach($game->submarines as $submarine)
         <li>
             {{ $submarine->user->name }}
-            @if(! $submarine->user->is(auth()->user()))
+            @if($submarine->user->is(auth()->user()))
                 (you)
             @endif
             @if(! $submarine->is_alive)
