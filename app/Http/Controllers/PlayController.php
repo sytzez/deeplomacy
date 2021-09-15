@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Adapters\GameAdapter;
 use App\Adapters\SubmarineAdapter;
+use App\Factories\AttackSubmarineDataFactory;
 use App\Factories\GiveActionPointsDataFactory;
 use App\Factories\MoveSubmarineDataFactory;
 use App\Factories\ShareSonarDataFactory;
@@ -12,6 +13,7 @@ use App\Game\Actions\GiveActionPointsAction;
 use App\Game\Actions\MoveSubmarineAction;
 use App\Game\Actions\ShareSonarAction;
 use App\Game\Factories\GridFactory;
+use App\Http\Requests\AttackSubmarineRequest;
 use App\Http\Requests\GiveActionPointsRequest;
 use App\Http\Requests\MoveSubmarineRequest;
 use App\Http\Requests\ShareSonarRequest;
@@ -62,6 +64,15 @@ class PlayController
         return $this->doGameAction($game, $request, $dataFactory, $action);
     }
 
+    public function attack(
+        Game $game,
+        AttackSubmarineRequest $request,
+        AttackSubmarineDataFactory $dataFactory,
+        AttackSubmarineAction $action,
+    ): RedirectResponse {
+        return $this->doGameAction($game, $request, $dataFactory, $action);
+    }
+
     public function giveActionPoints(
         Game $game,
         GiveActionPointsRequest $request,
@@ -82,11 +93,13 @@ class PlayController
 
     protected function doGameAction(Game $game, FormRequest $request, $dataFactory, $action): RedirectResponse
     {
-        if (! ($submarine = $this->getSubmarine($game))) {
+        $submarine = $this->getSubmarine($game);
+
+        if (! $submarine) {
             return Redirect::route('games.show', [$game]);
         }
 
-        try{
+        try {
             $data = $dataFactory->make($submarine, $request);
 
             $action->do($data);

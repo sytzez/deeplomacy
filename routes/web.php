@@ -55,6 +55,12 @@ Route::middleware('auth.auto')->group(function () {
                     [PlayController::class, 'move']
                 );
 
+            Route::name('attack')
+                ->post(
+                    '/attack',
+                    [PlayController::class, 'attack']
+                );
+
             Route::name('give-action-points')
                 ->post(
                     '/give-action-points',
