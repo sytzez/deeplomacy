@@ -51,7 +51,7 @@ class PlayController
             ->with([
                 'game' => $game,
                 'grid' => $grid,
-                'submarine' => $submarine
+                'submarine' => new SubmarineAdapter($submarine),
             ]);
     }
 

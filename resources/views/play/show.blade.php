@@ -13,7 +13,9 @@
         }
     </style>
 </head>
-<body style="background: black">
+<body style="background: black; color: white">
+
+<p>Action points: {{ $submarine->getActionPoints()->getAmount() }}</p>
 
 <table cellspacing="0">
     <tbody>
@@ -25,16 +27,11 @@
                     @endif
                 >
                     @if($cell->canMoveTowards())
-                        <form method="post" action="{{ route('play.move', [$game]) }}">
-                            @csrf
-
-                            <input type="hidden" name="x" value="{{ $cell->getPosition()->getX() }}">
-                            <input type="hidden" name="y" value="{{ $cell->getPosition()->getY() }}">
-                            <input class="btn-link" type="submit" value="🟦">
-
-                        </form>
-                    @elseif($cell->getSubmarine())
+                        @include('play.sections.movable', compact('game', 'cell'))
+                    @elseif($cell->getSubmarine() && $cell->getSubmarine()->is($submarine))
                         🚢
+                    @elseif($cell->getSubmarine())
+                        @include('play.sections.submarine', compact('game', 'cell'))
                     @else
                         🌊
                     @endif
