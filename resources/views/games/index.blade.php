@@ -1,8 +1,10 @@
+<h2>Games</h2>
+
 <ul>
     @foreach($games as $game)
         <li>
             <a href="{{ route('games.show', [$game]) }}">
-                {{ $game->configuration->name }} ({{ $game->submarines->count() }})
+                {{ $game->configuration->name }} ({{ $game->submarines->count() }} / {{ $game->configuration->max_num_of_players }})
             </a>
         </li>
     @endforeach
