@@ -45,7 +45,7 @@ class GameService
     }
 
 
-    public function getUserSubmarine(User $user, Game $game): Submarine
+    public function getUserSubmarine(User $user, Game $game): ?Submarine
     {
         /** @var Submarine $submarine */
         $submarine = $user->submarines()

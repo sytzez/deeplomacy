@@ -112,7 +112,7 @@ class PlayController
         return Redirect::route('play.show', [$game]);
     }
 
-    protected function getSubmarine(Game $game): Submarine
+    protected function getSubmarine(Game $game): ?Submarine
     {
         /** @var User $user */
         $user = Auth::user();
