@@ -83,7 +83,11 @@ class GiveActionPointsValidator
             throw new Exception(Errors::AMOUNT_TOO_LOW);
         }
 
-        if ($this->data->getDonor()->getActionPoints()->canAfford($actionPoints)) {
+        if (
+            ! $this->data->getDonor()
+                ->getActionPoints()
+                ->canAfford($actionPoints)
+        ) {
             throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }
