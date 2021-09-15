@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Adapters\GameAdapter;
 use App\Adapters\SubmarineAdapter;
+use App\Factories\GiveActionPointsDataFactory;
 use App\Factories\MoveSubmarineDataFactory;
+use App\Game\Actions\GiveActionPointsAction;
 use App\Game\Actions\MoveSubmarineAction;
 use App\Game\Factories\GridFactory;
-use App\Http\Requests\MoveRequest;
+use App\Http\Requests\GiveActionPointsRequest;
+use App\Http\Requests\MoveSubmarineRequest;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
@@ -47,9 +50,9 @@ class PlayController
 
     public function move(
         Game $game,
-        MoveRequest $request,
+        MoveSubmarineRequest $request,
         MoveSubmarineDataFactory $dataFactory,
-        MoveSubmarineAction $action
+        MoveSubmarineAction $action,
     ): RedirectResponse {
         if (! ($submarine = $this->getSubmarine($game))) {
             return Redirect::route('games.show', [$game]);
@@ -59,6 +62,29 @@ class PlayController
 
         try{
             $action->do($data);
+        } catch (Exception $e) {
+            return Redirect::route('play.show', [$game])
+                ->withException($e);
+        }
+
+        return Redirect::route('play.show', [$game]);
+    }
+
+    public function giveActionPoints(
+        Game $game,
+        GiveActionPointsRequest $request,
+        GiveActionPointsDataFactory $dataFactory,
+        GiveActionPointsAction $action,
+    ): RedirectResponse {
+        if (! ($submarine = $this->getSubmarine($game))) {
+            return Redirect::route('games.show', [$game]);
+        }
+
+        try{
+            $data = $dataFactory->make($submarine, $request);
+
+            $action->do($data);
+
         } catch (Exception $e) {
             return Redirect::route('play.show', [$game])
                 ->withException($e);
