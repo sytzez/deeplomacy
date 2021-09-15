@@ -4,6 +4,10 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayController;
 use Illuminate\Support\Facades\Route;
 
+Route::any('/{any}', function() {
+    return view('main');
+})->where('any', '^(?!api).*$');
+
 Route::redirect('/', '/games');
 
 Route::middleware('auth.auto')->group(function () {
