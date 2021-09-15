@@ -15,7 +15,7 @@
 </head>
 <body style="background: black; color: white">
 
-<p>Action points: {{ $submarine->getActionPoints()->getAmount() }}</p>
+<p>Action points: {{ $mySubmarine->getActionPoints()->getAmount() }}</p>
 
 <table cellspacing="0">
     <tbody>
@@ -28,7 +28,7 @@
                 >
                     @if($cell->canMoveTowards())
                         @include('play.cells.movable', compact('game', 'cell'))
-                    @elseif($cell->getSubmarine() && $cell->getSubmarine()->is($submarine))
+                    @elseif($cell->getSubmarine() && $cell->getSubmarine()->is($mySubmarine))
                         🚢
                     @elseif($cell->getSubmarine())
                         @include('play.cells.submarine', compact('game', 'cell'))
