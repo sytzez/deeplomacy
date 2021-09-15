@@ -11,5 +11,5 @@ class Errors
     public const AMOUNT_TOO_LOW = 'amount_too_low';
     public const TARGET_TOO_FAR_AWAY = 'target_too_far_away';
     public const TARGET_NOT_VISIBLE = 'target_not_visible';
-    public const TARGET_NOT_IN_GAME = 'target_not_in_game'
+    public const TARGET_NOT_IN_GAME = 'target_not_in_game';
 }
