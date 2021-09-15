@@ -15,6 +15,7 @@ class SubmarineFactory
 {
     public function __construct(
         protected JoinAction $placeSubmarineAction,
+        protected RandomPlacementStrategy $randomPlacementStrategy,
     ) {
     }
 
@@ -38,7 +39,7 @@ class SubmarineFactory
         $this->placeSubmarineAction->do(
             new JoinData(
                 new SubmarineAdapter($submarine),
-                new RandomPlacementStrategy(),
+                $this->randomPlacementStrategy,
             )
         );
 

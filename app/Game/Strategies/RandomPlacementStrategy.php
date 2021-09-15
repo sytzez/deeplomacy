@@ -3,11 +3,17 @@
 namespace App\Game\Strategies;
 
 use App\Game\Contracts\PlacementStrategyContract;
+use App\Game\Contracts\RngServiceContract;
 use App\Game\Contracts\SubmarineContract;
 use App\Game\Data\Position;
 
 class RandomPlacementStrategy implements PlacementStrategyContract
 {
+    public function __construct(
+        protected RngServiceContract $rngService,
+    ) {
+    }
+
     public function placeSubmarine(SubmarineContract $submarine): void
     {
         $bounds = $submarine->getGame()->getConfiguration()->getBounds();
@@ -16,8 +22,8 @@ class RandomPlacementStrategy implements PlacementStrategyContract
         $bottomRight = $bounds->getBottomRight();
 
         $submarine->setPosition(new Position(
-            random_int($topLeft->getX(), $bottomRight->getX()),
-            random_int($topLeft->getY(), $bottomRight->getY()),
+            $this->rngService->getInt($topLeft->getX(), $bottomRight->getX()),
+            $this->rngService->getInt($topLeft->getY(), $bottomRight->getY()),
         ));
     }
 }
