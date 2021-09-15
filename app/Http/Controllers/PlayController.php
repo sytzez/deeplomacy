@@ -6,11 +6,14 @@ use App\Adapters\GameAdapter;
 use App\Adapters\SubmarineAdapter;
 use App\Factories\GiveActionPointsDataFactory;
 use App\Factories\MoveSubmarineDataFactory;
+use App\Factories\ShareSonarDataFactory;
 use App\Game\Actions\GiveActionPointsAction;
 use App\Game\Actions\MoveSubmarineAction;
+use App\Game\Actions\ShareSonarAction;
 use App\Game\Factories\GridFactory;
 use App\Http\Requests\GiveActionPointsRequest;
 use App\Http\Requests\MoveSubmarineRequest;
+use App\Http\Requests\ShareSonarRequest;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
@@ -58,9 +61,9 @@ class PlayController
             return Redirect::route('games.show', [$game]);
         }
 
-        $data = $dataFactory->make($submarine, $request);
-
         try{
+            $data = $dataFactory->make($submarine, $request);
+
             $action->do($data);
         } catch (Exception $e) {
             return Redirect::route('play.show', [$game])
@@ -75,6 +78,29 @@ class PlayController
         GiveActionPointsRequest $request,
         GiveActionPointsDataFactory $dataFactory,
         GiveActionPointsAction $action,
+    ): RedirectResponse {
+        if (! ($submarine = $this->getSubmarine($game))) {
+            return Redirect::route('games.show', [$game]);
+        }
+
+        try{
+            $data = $dataFactory->make($submarine, $request);
+
+            $action->do($data);
+
+        } catch (Exception $e) {
+            return Redirect::route('play.show', [$game])
+                ->withException($e);
+        }
+
+        return Redirect::route('play.show', [$game]);
+    }
+
+    public function shareSonar(
+        Game $game,
+        ShareSonarRequest $request,
+        ShareSonarDataFactory $dataFactory,
+        ShareSonarAction $action,
     ): RedirectResponse {
         if (! ($submarine = $this->getSubmarine($game))) {
             return Redirect::route('games.show', [$game]);
