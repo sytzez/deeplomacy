@@ -26,15 +26,30 @@ class ShareSonarValidator
     {
         $this->data = $data;
 
-        if ($data->getDonor()->getPosition() === $data->getRecipient()->getPosition()) {
-            throw new Exception(Errors::CANNOT_TARGET_SELF);
-        }
+        $this->checkValidRecipient();
 
         $this->checkSufficientActionPoints();
 
         $this->checkRecipientVisibleByDonor();
 
         $this->checkSubmarinesWithinRange();
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function checkValidRecipient(): void
+    {
+        $donor     = $this->data->getDonor();
+        $recipient = $this->data->getRecipient();
+
+        if ($donor->is($recipient)) {
+            throw new Exception(Errors::CANNOT_TARGET_SELF);
+        }
+
+        if (!$donor->getGame()->is($recipient->getGame())) {
+            throw new Exception(Errors::TARGET_NOT_IN_GAME);
+        }
     }
 
     /**

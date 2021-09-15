@@ -89,4 +89,10 @@ class SubmarineAdapter implements SubmarineContract
     {
         return $this->model;
     }
+
+    public function is(SubmarineContract $submarine): bool
+    {
+        return $submarine instanceof self
+            && $submarine->getModel()->is($this->getModel());
+    }
 }

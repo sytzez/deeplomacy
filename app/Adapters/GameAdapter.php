@@ -22,4 +22,10 @@ class GameAdapter implements GameContract
     {
         return $this->model;
     }
+
+    public function is(GameContract $game): bool
+    {
+        return $game instanceof self
+            && $game->getModel()->is($this->getModel());
+    }
 }

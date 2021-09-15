@@ -28,4 +28,6 @@ interface SubmarineContract
     public function shareSonarTo(self $recipient): static;
 
     public function kill(): static;
+
+    public function is(self $submarine): bool;
 }

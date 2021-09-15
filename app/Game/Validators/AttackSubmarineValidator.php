@@ -26,13 +26,28 @@ class AttackSubmarineValidator
     {
         $this->data = $data;
 
-        if ($data->getAttacker()->getPosition() === $data->getTarget()->getPosition()) {
-            throw new Exception(Errors::CANNOT_TARGET_SELF);
-        }
+        $this->checkValidTarget();
 
         $this->checkSufficientActionPoints();
 
         $this->getTargetVisibleByAttacker();
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function checkValidTarget(): void
+    {
+        $attacker = $this->data->getAttacker();
+        $target = $this->data->getTarget();
+
+        if ($attacker->is($target)) {
+            throw new Exception(Errors::CANNOT_TARGET_SELF);
+        }
+
+        if (! $attacker->getGame()->is($target->getGame())) {
+            throw new Exception(Errors::TARGET_NOT_IN_GAME);
+        }
     }
 
     /**
