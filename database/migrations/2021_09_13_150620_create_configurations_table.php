@@ -22,6 +22,7 @@ class CreateConfigurationsTable extends Migration
             $table->integer('action_points_required_to_attack');
             $table->integer('amount_of_action_points_distributed');
             $table->integer('max_num_of_players');
+            $table->integer('minutes_between_action_point_distribution');
             $table->timestamps();
         });
     }

@@ -2,21 +2,30 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Collection;
 
 /**
  * Class Game
  * @package App\Models
+ * @property ?DateTime action_points_last_distributed_at
  * @property Configuration configuration
  * @property Collection<Submarine> submarines
  * @property Collection<Submarine> aliveSubmarines
  */
 class Game extends Model
 {
+    protected $fillable = [
+        'action_points_last_distributed_at',
+    ];
+
+    protected $casts = [
+        'action_points_last_distributed_at' => DateTime::class
+    ];
+
     public function configuration(): BelongsTo
     {
         return $this->belongsTo(Configuration::class);

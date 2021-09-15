@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Adapters\GameAdapter;
 use App\Factories\SubmarineFactory;
+use App\Game\Services\DistributeActionPointsService;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
@@ -12,6 +14,7 @@ class GameService
 {
     public function __construct(
         protected SubmarineFactory $submarineFactory,
+        protected DistributeActionPointsService $distributeActionPointsService,
     ) {
     }
 
@@ -54,6 +57,21 @@ class GameService
             ->first();
 
         return $submarine;
+    }
+
+    public function distributeActionPointsIfNeeded(Game $game): void
+    {
+        if (
+            $game->action_points_last_distributed_at
+            && $game->action_points_last_distributed_at > now()->addMinutes(- $game->configuration->minutes_between_action_point_distribution)
+        ) {
+            return;
+        }
+
+        $this->distributeActionPointsService->distributeActionPoints(new GameAdapter($game));
+
+        $game->action_points_last_distributed_at = now();
+        $game->save();
     }
 
     protected function deleteDeadSubmarines(User $user, Game $game): void

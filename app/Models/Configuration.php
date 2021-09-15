@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int action_points_required_to_attack
  * @property int amount_of_action_points_distributed
  * @property int max_num_of_players
+ * @property int minutes_between_action_point_distribution
  * @property Game game
  */
 class Configuration extends Model
@@ -37,6 +38,7 @@ class Configuration extends Model
         'action_points_required_to_attack',
         'amount_of_action_points_distributed',
         'max_num_of_players',
+        'minutes_between_action_point_distribution',
     ];
 
     public function game(): HasOne
