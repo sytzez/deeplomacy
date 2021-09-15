@@ -57,7 +57,11 @@ class MoveSubmarineValidator
     {
         $actionPointsRequired = $this->moveSubmarineService->getActionPointsRequired($this->data);
 
-        if ($this->data->getSubmarine()->getActionPoints() < $actionPointsRequired) {
+        if (
+            ! $this->data->getSubmarine()
+                ->getActionPoints()
+                ->canAfford($actionPointsRequired)
+        ) {
             throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }

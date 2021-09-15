@@ -77,11 +77,13 @@ class GiveActionPointsValidator
      */
     protected function checkAmount(): void
     {
-        if ($this->data->getAmount() < 1) {
+        $actionPoints = $this->data->getActionPoints();
+
+        if ($this->data->getActionPoints()->getAmount() < 1) {
             throw new Exception(Errors::AMOUNT_TOO_LOW);
         }
 
-        if ($this->data->getAmount() > $this->data->getDonor()->getActionPoints()) {
+        if ($this->data->getDonor()->getActionPoints()->canAfford($actionPoints)) {
             throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }

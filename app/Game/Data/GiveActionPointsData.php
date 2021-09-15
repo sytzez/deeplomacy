@@ -9,7 +9,7 @@ class GiveActionPointsData
     public function __construct(
         protected SubmarineContract $donor,
         protected SubmarineContract $recipient,
-        protected ActionPoints $amount,
+        protected ActionPoints $actionPoints,
     ) {
     }
 
@@ -23,8 +23,8 @@ class GiveActionPointsData
         return $this->recipient;
     }
 
-    public function getAmount(): ActionPoints
+    public function getActionPoints(): ActionPoints
     {
-        return $this->amount;
+        return $this->actionPoints;
     }
 }

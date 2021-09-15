@@ -31,7 +31,7 @@ class GiveActionPointsService
     {
         $donor     = $data->getDonor();
         $recipient = $data->getRecipient();
-        $amount    = $data->getAmount();
+        $amount    = $data->getActionPoints();
 
         $donor->setActionPoints(
             $donor->getActionPoints()->decreasedBy($amount)

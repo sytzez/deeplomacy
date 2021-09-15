@@ -59,7 +59,11 @@ class ShareSonarValidator
     {
         $actionPointsRequired = $this->shareSonarService->getActionPointsRequired($this->data);
 
-        if ($this->data->getDonor()->getActionPoints() < $actionPointsRequired) {
+        if (
+            ! $this->data->getDonor()
+                ->getActionPoints()
+                ->canAfford($actionPointsRequired)
+        ) {
             throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }
@@ -69,7 +73,12 @@ class ShareSonarValidator
      */
     protected function checkRecipientVisibleByDonor(): void
     {
-        if (! $this->visibilityService->canSeeSubmarine($this->data->getRecipient(), $this->data->getDonor())) {
+        if (
+            ! $this->visibilityService->canSeeSubmarine(
+                $this->data->getRecipient(),
+                $this->data->getDonor()
+            )
+        ) {
             throw new Exception(Errors::TARGET_NOT_VISIBLE);
         }
     }

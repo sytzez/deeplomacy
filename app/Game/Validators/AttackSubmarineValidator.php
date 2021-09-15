@@ -57,7 +57,11 @@ class AttackSubmarineValidator
     {
         $actionPointsRequired = $this->attackSubmarineService->getActionPointsRequired($this->data);
 
-        if ($this->data->getAttacker()->getActionPoints() < $actionPointsRequired) {
+        if (
+            ! $this->data->getAttacker()
+                ->getActionPoints()
+                ->canAfford($actionPointsRequired)
+        ) {
             throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }
@@ -67,7 +71,12 @@ class AttackSubmarineValidator
      */
     protected function getTargetVisibleByAttacker(): void
     {
-        if (! $this->visibilityService->canSeeSubmarine($this->data->getAttacker(), $this->data->getTarget())) {
+        if (
+            ! $this->visibilityService->canSeeSubmarine(
+                $this->data->getAttacker(),
+                $this->data->getTarget()
+            )
+        ) {
             throw new Exception(Errors::TARGET_NOT_VISIBLE);
         }
     }
