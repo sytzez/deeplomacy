@@ -50,7 +50,7 @@ class SubmarineRepository implements SubmarineRepositoryContract
             throw new DomainException();
         }
 
-        return $game->getModel()->submarines->map(
+        return $game->getModel()->aliveSubmarines->map(
             fn (Submarine $submarine) => new SubmarineAdapter($submarine)
         );
     }
@@ -63,7 +63,7 @@ class SubmarineRepository implements SubmarineRepositoryContract
 
         /** @var ?Submarine $submarine */
         $submarine = $game->getModel()
-            ->submarines()
+            ->aliveSubmarines()
             ->where('x', $position->getX())
             ->where('y', $position->getY())
             ->first();

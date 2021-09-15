@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  * @package App\Models
  * @property Configuration configuration
  * @property Collection<Submarine> submarines
+ * @property Collection<Submarine> aliveSubmarines
  */
 class Game extends Model
 {
@@ -26,18 +27,22 @@ class Game extends Model
         return $this->hasMany(Submarine::class);
     }
 
+    public function aliveSubmarines(): HasMany
+    {
+        return $this->hasMany(Submarine::class)
+            ->where('is_alive', true);
+    }
+
     public function isJoinedBy(User $user): bool
     {
-        return $this->submarines()
+        return $this->aliveSubmarines()
             ->where('user_id', $user->getKey())
-            ->where('is_alive', true)
             ->exists();
     }
 
     public function isFull(): bool
     {
-        return $this->submarines()
-            ->where('is_alive')
+        return $this->aliveSubmarines()
             ->count() >= $this->configuration->max_num_of_players;
     }
 }
