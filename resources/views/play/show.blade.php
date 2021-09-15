@@ -27,11 +27,11 @@
                     @endif
                 >
                     @if($cell->canMoveTowards())
-                        @include('play.sections.movable', compact('game', 'cell'))
+                        @include('play.cells.movable', compact('game', 'cell'))
                     @elseif($cell->getSubmarine() && $cell->getSubmarine()->is($submarine))
                         🚢
                     @elseif($cell->getSubmarine())
-                        @include('play.sections.submarine', compact('game', 'cell'))
+                        @include('play.cells.submarine', compact('game', 'cell'))
                     @else
                         🌊
                     @endif
