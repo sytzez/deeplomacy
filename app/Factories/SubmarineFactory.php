@@ -3,8 +3,8 @@
 namespace App\Factories;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Actions\JoinAction;
-use App\Game\Data\JoinData;
+use App\Game\Actions\JoinGameAction;
+use App\Game\Data\JoinGameData;
 use App\Game\Strategies\RandomPlacementStrategy;
 use App\Models\Game;
 use App\Models\Submarine;
@@ -14,7 +14,7 @@ use Exception;
 class SubmarineFactory
 {
     public function __construct(
-        protected JoinAction $placeSubmarineAction,
+        protected JoinGameAction $placeSubmarineAction,
         protected RandomPlacementStrategy $randomPlacementStrategy,
     ) {
     }
@@ -37,7 +37,7 @@ class SubmarineFactory
         $submarine->game()->associate($game);
 
         $this->placeSubmarineAction->do(
-            new JoinData(
+            new JoinGameData(
                 new SubmarineAdapter($submarine),
                 $this->randomPlacementStrategy,
             )

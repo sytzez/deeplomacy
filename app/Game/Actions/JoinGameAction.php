@@ -3,16 +3,16 @@
 namespace App\Game\Actions;
 
 use App\Game\Contracts\SubmarineRepositoryContract;
-use App\Game\Data\JoinData;
+use App\Game\Data\JoinGameData;
 
-class JoinAction
+class JoinGameAction
 {
     public function __construct(
         protected SubmarineRepositoryContract $submarineRepository,
     ) {
     }
 
-    public function do(JoinData $data): void
+    public function do(JoinGameData $data): void
     {
         $submarine = $data->getSubmarine();
 
@@ -23,7 +23,7 @@ class JoinAction
         $this->submarineRepository->update($submarine);
     }
 
-    protected function placeSubmarine(JoinData $data): void
+    protected function placeSubmarine(JoinGameData $data): void
     {
         $submarine = $data->getSubmarine();
 
@@ -37,7 +37,7 @@ class JoinAction
         );
     }
 
-    protected function grantActionPoints(JoinData $data): void
+    protected function grantActionPoints(JoinGameData $data): void
     {
         $data->getSubmarine()->setActionPoints(
             $data->getSubmarine()
