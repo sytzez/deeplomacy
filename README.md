@@ -56,13 +56,27 @@ The `SubmarineAdapter` class then wraps around the `Submarine` model class, and 
 
 This way the Laravel models don't need to know about what the game needs, and the game doesn't need to know the specifics of Laravel models.
 
+### Strategy pattern
+
+Some details of the game could be implemented in various different ways, and these ways could be changed and switched back-and-forth over time.
+However, we don't want the code that relies on these things happen to suffer instability from these changes, we only want to edit the relevant class.
+
+An example of this is the placement of new submarines on the game grid. There are many different ways, simple and complex, to calculate the ideal position at which a new player should enter the game.
+The rest of the game code couldn't care less how this is done, it just needs the submarine to be placed.
+
+To facilitate this separation, a `PlacementStrategyContract` interface is used by the rest of the game logic to do this placement.
+A specific placement strategy class instance implementing this contract is passed to the `JoinGameAction->do` method,
+leaving the caller of the method to decide what strategy will be used.
+
 ### Action pattern
 
 The easiest way to understand the rules of a game, especially a (semi) turn based one, is in terms of actions performed by the players, which mutate the state of the game.
 
 Using the action pattern with a single public `do` method makes it very clear to the reader what these classes will do.
+Examples: `JoinGameAction`, `AttackSubmarineAction`, `GiveActionPointsAction`.
 
-The idea is similar to the Controller pattern, as the classes themselves don't contain much logic, but usually only call a validation method and a service method to facilitate the action.
+The idea is similar to the Controller pattern, as the classes themselves don't contain much logic.
+The action classes usually only call a validation method and a service method to facilitate the action.
 Instead of taking an HTTP request, they take the intended move of the game player, and instead of returning a response, they mutate the state of the game.
 
 ### Factory pattern
