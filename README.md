@@ -38,7 +38,7 @@ Some noteworthy  directories.
         - `/Strategies` - Currently only used for placing new submarines in the game. Various placement strategies could be chosen.
     - `/Http` - Our controllers, form requests, view composers etc.
     - `/Models` - The models represent the content of our database, standard Laravel stuff.
-    - `/Jobs` - Stuff that has to be done regularly, like distributing action points to all players
+    - `/Jobs` - Things that need to be done regularly, like distributing action points to all players.
 - `/resources`
     - `/angular` - The frontend Angular project.
         - *TODO*
@@ -90,3 +90,42 @@ The gameplay code provides some immutable data classes to represent things that 
 Being immutable makes the code using these classes less prone to bugs. If they were mutable, one part of the code could make changes to an instance, while another part of the code could expect the instance to remain the same.
 With immutable objects you can pass the instance into the method of another class, even through an interface without being aware of the implementation of the method,
 and be assured the instance will not be modified.
+
+## Usage of SOLID principles
+
+### Single responsibility
+
+As much as possible, each class only does one thing. There are separate classes for validation, creating objects (factories), doing specific things (services), etc.
+All the business logic pertaining to that one thing is contained in that single class.
+
+### Open–closed
+
+Interfaces have been designed in the gameplay logic, specifying the exact methods the game needs to be able to call on instances it's given.
+The implementation of these classes is open for modification. See also: `Adapter pattern` and `Strategy pattern` above.
+
+### Liskov principle
+
+Class inheritance has not been made use of much.
+
+### Interface segregation
+
+The `GameContract`, `ConfigurationContract` and `SubmarineRepositoryContract` could have been one big contract,
+since a game will have a configuration, and it should be possible to retrieve and update submarines in the game.
+To satisfy the interface segregation principle, they were made into separate contracts.
+
+Some parts of the code might only need the methods that fetch submarines, while another part might only need to get configuration details.
+With smaller contracts, the provided classes don't necessarily need to implement all the functionality at once, but only the required functionality,
+reducing the need to implement unused methods. It also helps with the single responsibility principle.
+
+### Dependency inversion
+
+The backend code is roughly made up of two modules: the part that serves requests and deals with the database, and the game logic.
+Both modules depend on each other; the game logic needs to get user input from HTTP requests, and needs to know the game state from the database,
+while the serving part of the code needs the game logic to perform actions on the game, and to be able to return information about the game back to the user.
+
+The interaction between the game and the web framework has been made abstract, so that the game logic does not need to rely on low-level framework specifics.
+The game logic module provides contracts for the framework to implement, and data objects for the framework to pass on to its methods, and for the game to return to the framework.
+The game now only needs to know how to deal with these contracts and data objects.
+The web framework only needs to implement the contracts and provide information in the shape of the data objects.
+The web framework and the game logic are not dependent on each other directly, they both depend on this abstract layer defining the interaction between the two.
+See also: `Adapter pattern` above.
