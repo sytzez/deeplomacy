@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `b.json`.
 
 export const environment = {
-  production: false
+    production: false,
+    apiBase: 'http://deeplomacy.test/api/v1/',
 };
 
 /*
