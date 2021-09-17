@@ -29,5 +29,12 @@
             <mat-header-row *matHeaderRowDef="['configuration', 'players', 'actions']"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ['configuration', 'players', 'actions']"></mat-row>
         </mat-table>
+
+        <button mat-raised-button
+                color="accent"
+                routerLink="/create-game"
+        >
+            Create game
+        </button>
     </mat-card-content>
 </mat-card>

@@ -11,22 +11,30 @@ import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatCommonModule } from "@angular/material/core";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatDividerModule } from "@angular/material/divider";
+import { MatListModule } from "@angular/material/list";
+import { GamesCreateComponent } from './pages/games-create/games-create.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         GamesIndexComponent,
         LobbyComponent,
-        PlayComponent
+        PlayComponent,
+        GamesCreateComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         MatCommonModule,
+        MatToolbarModule,
         MatTableModule,
         MatButtonModule,
         MatCardModule,
+        MatListModule,
+        MatDividerModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
