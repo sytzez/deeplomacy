@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    apiBase: 'http://deeplomacy.test/api/v1/',
+    apiBase: 'http://deeplomacy.test/api/',
 };
 
 /*
