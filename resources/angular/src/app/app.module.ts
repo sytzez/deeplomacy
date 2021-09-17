@@ -14,7 +14,10 @@ import { MatCommonModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
-import { GamesCreateComponent } from './pages/games-create/games-create.component';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { CreateGameFormComponent } from './components/create-game-form/create-game-form.component';
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @NgModule({
     declarations: [
@@ -22,7 +25,7 @@ import { GamesCreateComponent } from './pages/games-create/games-create.componen
         GamesIndexComponent,
         LobbyComponent,
         PlayComponent,
-        GamesCreateComponent
+        CreateGameFormComponent
     ],
     imports: [
         BrowserModule,
@@ -35,6 +38,9 @@ import { GamesCreateComponent } from './pages/games-create/games-create.componen
         MatCardModule,
         MatListModule,
         MatDividerModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatExpansionModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

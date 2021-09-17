@@ -1,4 +1,4 @@
-<mat-card class="mat-elevation-z24">
+<mat-card class="mat-elevation-z10">
     <mat-card-header>
         <mat-card-title>Games</mat-card-title>
     </mat-card-header>
@@ -29,12 +29,7 @@
             <mat-header-row *matHeaderRowDef="['configuration', 'players', 'actions']"></mat-header-row>
             <mat-row *matRowDef="let row; columns: ['configuration', 'players', 'actions']"></mat-row>
         </mat-table>
-
-        <button mat-raised-button
-                color="accent"
-                routerLink="/create-game"
-        >
-            Create game
-        </button>
     </mat-card-content>
 </mat-card>
+
+<app-create-game-form></app-create-game-form>
