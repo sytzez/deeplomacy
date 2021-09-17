@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GamesIndexComponent } from './pages/games-index/games-index.component';
 import { LobbyComponent } from './pages/lobby/lobby.component';
 import { PlayComponent } from './pages/play/play.component';
+import { MatTableModule } from "@angular/material/table";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatCommonModule } from "@angular/material/core";
 
 @NgModule({
     declarations: [
@@ -19,6 +23,10 @@ import { PlayComponent } from './pages/play/play.component';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        MatCommonModule,
+        MatTableModule,
+        MatButtonModule,
+        MatCardModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
