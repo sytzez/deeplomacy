@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { Response } from "../data/response";
+import { map } from "rxjs/operators";
+import { environment } from "../../environments/environment";
 
 export type RequestMethod = 'get' | 'post' | 'patch' | 'delete';
 
@@ -14,16 +17,28 @@ export class ApiService {
     ) {
     }
 
-    public get<R extends object>(route: string): Observable<R> {
+    public get<R>(
+        route: string,
+    ): Observable<R> {
         return this.request<R>('get', route);
     }
 
-    public post<R extends object>(route: string, body: any): Observable<R> {
+    public post<R>(
+        route: string, body: any,
+    ): Observable<R> {
         return this.request<R>('post', route, { body });
     }
 
-    protected request<R extends object>(method: RequestMethod, route: string, options = {}): Observable<R> {
-        return this.http.request<R>(method, route, options);
+    protected request<R>(
+        method: RequestMethod, route: string, options = {},
+    ): Observable<R> {
+
+        const url = `${environment.apiBase}${route}`;
+
+        return this.http.request<Response<R>>(method, url, options)
+            .pipe(
+                map((response) => response.data),
+            );
     }
 
 }

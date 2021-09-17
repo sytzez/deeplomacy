@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from "../../models/game";
+import { GamesService } from "../../services/games.service";
 
 @Component({
     selector: 'app-games-index',
@@ -20,10 +21,21 @@ export class GamesIndexComponent implements OnInit {
         },
     ];
 
-    constructor() {
+    constructor(
+        protected gamesService: GamesService,
+    ) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
+        this.loadGames();
+    }
+
+    public loadGames(): void {
+
+        this.gamesService.getAll()
+            .subscribe((games) => {
+                this.games = games;
+            });
     }
 
 }
