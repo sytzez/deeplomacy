@@ -19,13 +19,15 @@ import { CreateGameFormComponent } from './components/create-game-form/create-ga
 import { MatExpansionModule } from "@angular/material/expansion";
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         GamesIndexComponent,
         PlayComponent,
-        CreateGameFormComponent
+        CreateGameFormComponent,
+        MapComponent
     ],
     imports: [
         BrowserModule,
