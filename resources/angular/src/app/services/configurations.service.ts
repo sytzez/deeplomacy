@@ -18,7 +18,7 @@ export class ConfigurationsService {
     }
 
     public getById(
-        id: string,
+        id: number,
     ): Observable<Configuration> {
         return this.api.get<Configuration>(`configurations/${id}`);
     }

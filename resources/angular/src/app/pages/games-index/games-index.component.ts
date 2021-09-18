@@ -33,7 +33,8 @@ export class GamesIndexComponent implements OnInit {
 
     public loadGames(): void {
 
-        this.gamesService.getAll()
+        this.gamesService
+            .getAll()
             .subscribe((games) => {
                 console.log(games);
                 this.games = games;

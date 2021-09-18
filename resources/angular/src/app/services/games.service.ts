@@ -19,7 +19,7 @@ export class GamesService {
     }
 
     public getById(
-        id: string,
+        id: number,
     ): Observable<Game> {
         return this.api.get<Game>(`games/${id}`);
     }

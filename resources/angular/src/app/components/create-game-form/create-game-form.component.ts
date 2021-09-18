@@ -35,7 +35,8 @@ export class CreateGameFormComponent implements OnInit {
             return;
         }
 
-        this.gamesService.create({
+        this.gamesService
+            .create({
                 configuration: this.form.get('configuration')?.value as Configuration,
             })
             .subscribe((game) => {
@@ -45,7 +46,8 @@ export class CreateGameFormComponent implements OnInit {
 
     protected getConfigurations(): void {
 
-        this.configurationsService.getAll()
+        this.configurationsService
+            .getAll()
             .subscribe((configurations) => {
                 this.configurations = configurations;
             });
