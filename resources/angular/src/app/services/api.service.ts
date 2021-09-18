@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { Observable, of } from "rxjs";
 import { Response } from "../data/response";
-import { map } from "rxjs/operators";
+import { concatAll, map, tap } from "rxjs/operators";
 import { environment } from "../../environments/environment";
+import { flatMap } from "rxjs/internal/operators";
 
 export type RequestMethod = 'get' | 'post' | 'patch' | 'delete';
 
@@ -12,9 +13,12 @@ export type RequestMethod = 'get' | 'post' | 'patch' | 'delete';
 })
 export class ApiService {
 
+    protected authToken: string|null = null;
+
     constructor(
         protected http: HttpClient,
     ) {
+        this.authToken = localStorage.getItem('token');
     }
 
     public get<R>(
@@ -30,14 +34,48 @@ export class ApiService {
     }
 
     protected request<R>(
-        method: RequestMethod, route: string, options = {},
+        method: RequestMethod, route: string, customOptions = {},
     ): Observable<R> {
 
         const url = `${environment.apiBase}${route}`;
 
-        return this.http.request<Response<R>>(method, url, options)
+        return this.getAuthHeaders()
             .pipe(
+                flatMap((headers) => {
+                    const options = {
+                        headers,
+                        ...customOptions,
+                    };
+
+                    return this.http.request<Response<R>>(method, url, options);
+                }),
                 map((response) => response.data),
+            );
+    }
+
+    protected getAuthHeaders(): Observable<HttpHeaders>
+    {
+        if (this.authToken) {
+            return of(
+                new HttpHeaders({
+                    'Authentication': this.authToken
+                })
+            );
+        }
+
+        const url = `${environment.apiBase}token`;
+
+        return this.http
+            .get(url)
+            .pipe(
+                tap((response) => {
+                    console.log(response);
+                    this.authToken = response as string;
+                    localStorage.setItem('token', response as string);
+                }),
+                map((response) => new HttpHeaders({
+                    'Authentication': response as string,
+                }))
             );
     }
 
