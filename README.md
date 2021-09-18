@@ -36,7 +36,7 @@ Some noteworthy  directories.
         - [/Services](app/Game/Services) — These services perform the hard business logic of the game.
         - [/Validators](app/Game/Validators) — The validators check whether certain actions are valid in the game.
         - [/Strategies](app/Game/Strategies) — Currently only used for placing new submarines in the game. Various placement strategies could be chosen.
-    - [/Http](app/Http) — Our controllers, form requests, view composers etc.
+    - [/Http](app/Http) — Our controllers, form requests, middleware, resources etc.
     - [/Models](app/Models) — The models represent the content of our database, standard Laravel stuff.
     - [/Jobs](app/Jobs) — Things that need to be done regularly, like distributing action points to all players.
 - [/resources/angular](resources/angular) — The frontend Angular project.

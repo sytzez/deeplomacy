@@ -12,26 +12,6 @@ Route::redirect('/', '/games');
 
 Route::middleware('auth.auto')->group(function () {
 
-    Route::name('games.')
-        ->prefix('/games/{game}')
-        ->group(function (): void {
-
-            Route::name('join')
-                ->get(
-                    '/join',
-                    [GameController::class, 'join']
-                );
-
-            Route::name('leave')
-                ->get(
-                    '/leave',
-                    [GameController::class, 'leave']
-                );
-        });
-
-    Route::resource('games', GameController::class)
-        ->only(['index', 'create', 'store', 'show']);
-
     Route::name('play.')
         ->prefix('/play/{game}')
         ->group(function (): void {

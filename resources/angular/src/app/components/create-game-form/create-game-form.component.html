@@ -10,7 +10,7 @@
                     <mat-label>Configuration</mat-label>
                     <mat-select formControlName="configuration">
                         <mat-option *ngFor="let configuration of configurations"
-                                    [value]="configuration.id"
+                                    [value]="configuration"
                         >
                             {{ configuration.name }} - {{ configuration.description }}
                         </mat-option>

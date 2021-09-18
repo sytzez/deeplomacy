@@ -4,32 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Factories\GameFactory;
 use App\Http\Requests\StoreGameRequest;
+use App\Http\Resources\GameResource;
 use App\Models\Game;
 use App\Models\User;
 use App\Services\GameService;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
 
 class GameController extends Controller
 {
-    public function index(): Renderable
+    public function index(): Responsable
     {
-        return View::make('games.index');
-    }
-
-    public function create(): Renderable
-    {
-        return View::make('games.create');
+        return GameResource::collection(
+            Game::query()
+                ->withCount('submarines')
+                ->having('submarines_count', '>', 0)
+                ->get()
+        );
     }
 
     public function store(
         StoreGameRequest $request,
         GameFactory $gameFactory,
         GameService $gameService
-    ): RedirectResponse {
+    ): Responsable {
         $game = $gameFactory->make($request);
 
         $game->save();
@@ -39,32 +37,31 @@ class GameController extends Controller
 
         $gameService->join($user, $game);
 
-        return Redirect::route('games.show', [$game]);
+        return new GameResource($game);
     }
 
-    public function show(Game $game): Renderable
+    public function show(Game $game): Responsable
     {
-        return View::make('games.show')
-            ->with('game', $game);
+        return new GameResource($game);
     }
 
-    public function join(Game $game, GameService $gameService): RedirectResponse
+    public function join(Game $game, GameService $gameService): Responsable
     {
         /** @var User $user */
         $user = Auth::user();
 
         $gameService->join($user, $game);
 
-        return Redirect::route('games.show', [$game]);
+        return new GameResource($game);
     }
 
-    public function leave(Game $game, GameService $gameService): RedirectResponse
+    public function leave(Game $game, GameService $gameService): Responsable
     {
         /** @var User $user */
         $user = Auth::user();
 
         $gameService->leave($user, $game);
 
-        return Redirect::route('games.show', [$game]);
+        return new GameResource($game);
     }
 }

@@ -21,7 +21,7 @@ export class GamesService {
     public getById(
         id: string,
     ): Observable<Game> {
-        return this.api.get<Game>(`game/${id}`);
+        return this.api.get<Game>(`games/${id}`);
     }
 
     public create(
@@ -32,7 +32,7 @@ export class GamesService {
             configuration: request.configuration.id,
         };
 
-        return this.api.post<Game>('game', body);
+        return this.api.post<Game>('games', body);
     }
 
 }
