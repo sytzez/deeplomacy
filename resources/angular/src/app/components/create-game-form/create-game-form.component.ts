@@ -40,7 +40,7 @@ export class CreateGameFormComponent implements OnInit {
                 configuration: this.form.get('configuration')?.value as Configuration,
             })
             .subscribe((game) => {
-                this.router.navigate(['lobby', game.id]);
+                this.router.navigate(['play', game.id]);
             });
     }
 

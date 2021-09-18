@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GamesIndexComponent } from './pages/games-index/games-index.component';
-import { LobbyComponent } from './pages/lobby/lobby.component';
 import { PlayComponent } from './pages/play/play.component';
 import { MatTableModule } from "@angular/material/table";
 import { MatButtonModule } from "@angular/material/button";
@@ -25,7 +24,6 @@ import { ReactiveFormsModule } from "@angular/forms";
     declarations: [
         AppComponent,
         GamesIndexComponent,
-        LobbyComponent,
         PlayComponent,
         CreateGameFormComponent
     ],
