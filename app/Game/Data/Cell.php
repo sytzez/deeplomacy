@@ -57,7 +57,7 @@ class Cell
         bool $canAttack = false,
         bool $canShareSonar = false,
         bool $canGiveActionPoints = false,
-    ): Cell {
+    ): static {
         return new static(
             $this->getPosition(),
             $this->isVisible(),
