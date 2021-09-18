@@ -44,6 +44,7 @@ export class ApiService {
                 flatMap((headers) => {
                     const options = {
                         headers,
+                        withCredentials: true,
                         ...customOptions,
                     };
 
@@ -58,7 +59,7 @@ export class ApiService {
         if (this.authToken) {
             return of(
                 new HttpHeaders({
-                    'Authentication': this.authToken
+                    'Authorization': 'Bearer ' + this.authToken,
                 })
             );
         }
@@ -66,15 +67,14 @@ export class ApiService {
         const url = `${environment.apiBase}token`;
 
         return this.http
-            .get(url)
+            .get<{data: string}>(url)
             .pipe(
                 tap((response) => {
-                    console.log(response);
-                    this.authToken = response as string;
-                    localStorage.setItem('token', response as string);
+                    this.authToken = response.data;
+                    localStorage.setItem('token', response.data);
                 }),
                 map((response) => new HttpHeaders({
-                    'Authentication': response as string,
+                    'Authorization': 'Bearer ' + response.data,
                 }))
             );
     }

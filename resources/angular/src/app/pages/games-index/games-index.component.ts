@@ -9,18 +9,7 @@ import { GamesService } from "../../services/games.service";
 })
 export class GamesIndexComponent implements OnInit {
 
-    public games: Game[] = [
-        {
-            id: 1,
-            configuration: {
-                id: 1,
-                name: 'Name',
-                description: '...',
-                maxNumOfPlayers: 3,
-            },
-            numOfPlayers: 1,
-        },
-    ];
+    public games: Game[] = [];
 
     constructor(
         protected gamesService: GamesService,

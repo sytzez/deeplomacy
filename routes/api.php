@@ -3,24 +3,19 @@
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\TokenController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::name('token')
+    ->get(
+        '/token',
+        [TokenController::class, 'show']
+    );
 
 Route::apiResource('configurations', ConfigurationController::class)
     ->only(['index', 'show']);
 
-Route::middleware('auth.auto')->group(function (): void {
+Route::middleware('auth:sanctum')->group(function (): void {
 
     Route::name('games.')
         ->prefix('/games/{game}')
@@ -76,8 +71,4 @@ Route::middleware('auth.auto')->group(function (): void {
                     [PlayController::class, 'shareSonar']
                 );
         });
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });
