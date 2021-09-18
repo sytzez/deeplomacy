@@ -35,4 +35,11 @@ export class GamesService {
         return this.api.post<Game>('games', body);
     }
 
+    public join(
+        game: Game
+    ): Observable<Game> {
+
+        return this.api.get<Game>(`games/${game.id}/join`);
+    }
+
 }

@@ -22,8 +22,12 @@
 
                 <ng-container matColumnDef="actions">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                    <mat-cell *matCellDef="let element">
-                        <button mat-stroked-button>Join</button>
+                    <mat-cell *matCellDef="let game">
+                        <button mat-stroked-button
+                                (click)="join(game)"
+                        >
+                            Join
+                        </button>
                     </mat-cell>
                 </ng-container>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from "../../models/game";
 import { GamesService } from "../../services/games.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-games-index',
@@ -13,10 +14,12 @@ export class GamesIndexComponent implements OnInit {
 
     constructor(
         protected gamesService: GamesService,
+        protected router: Router,
     ) {
     }
 
     public ngOnInit(): void {
+
         this.loadGames();
     }
 
@@ -27,6 +30,15 @@ export class GamesIndexComponent implements OnInit {
             .subscribe((games) => {
                 console.log(games);
                 this.games = games;
+            });
+    }
+
+    public join(game: Game) {
+
+        this.gamesService
+            .join(game)
+            .subscribe((joinedGame) => {
+                this.router.navigate(['play', joinedGame.id]);
             });
     }
 
