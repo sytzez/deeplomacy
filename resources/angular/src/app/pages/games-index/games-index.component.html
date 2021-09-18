@@ -15,7 +15,7 @@
             <ng-container matColumnDef="players">
                 <mat-header-cell *matHeaderCellDef>Players</mat-header-cell>
                 <mat-cell *matCellDef="let game">
-                    {{ game.submarines.length }} / {{ game.configuration.maxNumOfPlayers }}
+                    {{ game.numOfPlayers }} / {{ game.configuration.maxNumOfPlayers }}
                 </mat-cell>
             </ng-container>
 

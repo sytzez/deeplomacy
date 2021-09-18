@@ -18,7 +18,7 @@ export class GamesIndexComponent implements OnInit {
                 description: '...',
                 maxNumOfPlayers: 3,
             },
-            submarines: [],
+            numOfPlayers: 1,
         },
     ];
 
@@ -35,6 +35,7 @@ export class GamesIndexComponent implements OnInit {
 
         this.gamesService.getAll()
             .subscribe((games) => {
+                console.log(games);
                 this.games = games;
             });
     }

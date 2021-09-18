@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
  * @property Configuration configuration
  * @property Collection<Submarine> submarines
  * @property Collection<Submarine> aliveSubmarines
+ * @property int numOfPlayers
  */
 class Game extends Model
 {
@@ -53,5 +54,10 @@ class Game extends Model
     {
         return $this->aliveSubmarines()
             ->count() >= $this->configuration->max_num_of_players;
+    }
+
+    public function getNumOfPlayersAttribute(): int
+    {
+        return $this->aliveSubmarines()->count();
     }
 }

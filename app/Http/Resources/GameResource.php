@@ -9,8 +9,9 @@ class GameResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id'              => $this->id,
-            'configuration'   => new ConfigurationResource($this->configuration),
+            'id'            => $this->id,
+            'configuration' => new ConfigurationResource($this->configuration),
+            'numOfPlayers'  => $this->numOfPlayers,
         ];
     }
 }
