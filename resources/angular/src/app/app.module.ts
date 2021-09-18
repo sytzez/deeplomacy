@@ -19,6 +19,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { CreateGameFormComponent } from './components/create-game-form/create-game-form.component';
 import { MatExpansionModule } from "@angular/material/expansion";
 import { HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { HttpClientModule } from "@angular/common/http";
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        ReactiveFormsModule,
         MatCommonModule,
         MatToolbarModule,
         MatTableModule,

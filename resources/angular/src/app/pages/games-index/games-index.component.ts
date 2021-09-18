@@ -13,6 +13,7 @@ export class GamesIndexComponent implements OnInit {
         {
             id: 1,
             configuration: {
+                id: 1,
                 name: 'Name',
                 description: '...',
                 maxNumOfPlayers: 3,

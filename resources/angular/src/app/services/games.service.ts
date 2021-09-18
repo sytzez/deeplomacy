@@ -26,13 +26,13 @@ export class GamesService {
 
     public create(
         request: CreateGameRequest,
-    ): Observable<void> {
+    ): Observable<Game> {
 
         const body = {
             configuration: request.configuration.id,
         };
 
-        return this.api.post<void>('game', body);
+        return this.api.post<Game>('game', body);
     }
 
 }
