@@ -1,0 +1,17 @@
+.container {
+    overflow: scroll;
+
+    .map {
+        white-space: nowrap;
+
+        transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
+
+        .row {
+            button {
+                width: 5em !important;
+                height: 5em !important;
+                margin: .5em;
+            }
+        }
+    }
+}

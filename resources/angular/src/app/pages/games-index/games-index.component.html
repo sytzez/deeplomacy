@@ -1,35 +1,37 @@
-<mat-card class="mat-elevation-z10">
-    <mat-card-header>
-        <mat-card-title>Games</mat-card-title>
-    </mat-card-header>
+<div class="container">
+    <mat-card class="mat-elevation-z10">
+        <mat-card-header>
+            <mat-card-title>Games</mat-card-title>
+        </mat-card-header>
 
-    <mat-card-content>
-        <mat-table [dataSource]="games">
-            <ng-container matColumnDef="configuration">
-                <mat-header-cell *matHeaderCellDef>Configuration</mat-header-cell>
-                <mat-cell *matCellDef="let game">
-                    {{ game.configuration.name }}
-                </mat-cell>
-            </ng-container>
+        <mat-card-content>
+            <mat-table [dataSource]="games">
+                <ng-container matColumnDef="configuration">
+                    <mat-header-cell *matHeaderCellDef>Configuration</mat-header-cell>
+                    <mat-cell *matCellDef="let game">
+                        {{ game.configuration.name }}
+                    </mat-cell>
+                </ng-container>
 
-            <ng-container matColumnDef="players">
-                <mat-header-cell *matHeaderCellDef>Players</mat-header-cell>
-                <mat-cell *matCellDef="let game">
-                    {{ game.numOfPlayers }} / {{ game.configuration.maxNumOfPlayers }}
-                </mat-cell>
-            </ng-container>
+                <ng-container matColumnDef="players">
+                    <mat-header-cell *matHeaderCellDef>Players</mat-header-cell>
+                    <mat-cell *matCellDef="let game">
+                        {{ game.numOfPlayers }} / {{ game.configuration.maxNumOfPlayers }}
+                    </mat-cell>
+                </ng-container>
 
-            <ng-container matColumnDef="actions">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <button mat-stroked-button>Join</button>
-                </mat-cell>
-            </ng-container>
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button mat-stroked-button>Join</button>
+                    </mat-cell>
+                </ng-container>
 
-            <mat-header-row *matHeaderRowDef="['configuration', 'players', 'actions']"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: ['configuration', 'players', 'actions']"></mat-row>
-        </mat-table>
-    </mat-card-content>
-</mat-card>
+                <mat-header-row *matHeaderRowDef="['configuration', 'players', 'actions']"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: ['configuration', 'players', 'actions']"></mat-row>
+            </mat-table>
+        </mat-card-content>
+    </mat-card>
 
-<app-create-game-form></app-create-game-form>
+    <app-create-game-form></app-create-game-form>
+</div>

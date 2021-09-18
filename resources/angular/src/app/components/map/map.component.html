@@ -1,5 +1,18 @@
-<div class="row" *ngFor="let row of grid">
-    <span class="cell" *ngFor="let cell of row">
-        {{ cell.x }}
-    </span>
+<div class="container">
+    <div class="map">
+        <div class="row" *ngFor="let row of grid">
+            <span *ngFor="let cell of row"
+                  class="cell"
+            >
+                <button *ngIf="cell.isVisible"
+                        mat-raised-button
+                        color="primary"
+                ></button>
+                <button *ngIf="! cell.isVisible"
+                        mat-stroked-button
+                        disabled="true"
+                ></button>
+            </span>
+        </div>
+    </div>
 </div>
