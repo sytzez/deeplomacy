@@ -24,7 +24,7 @@ class GiveActionPointsService
             ->getConfiguration()
             ->getDistanceSquaredAllowedToGiveActionPoints();
 
-        return $distanceSquared <= $distanceSquaredAllowed;
+        return $distanceSquared->fitsInside($distanceSquaredAllowed);
     }
 
     public function giveActionPoints(GiveActionPointsData $data): void

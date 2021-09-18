@@ -4,18 +4,19 @@ namespace App\Game\Contracts;
 
 use App\Game\Data\ActionPoints;
 use App\Game\Data\Bounds;
+use App\Game\Data\DistanceSquared;
 
 interface ConfigurationContract
 {
     public function getBounds(): Bounds;
 
-    public function getDistanceSquaredMovablePerActionPoint(): int;
+    public function getDistanceSquaredMovablePerActionPoint(): DistanceSquared;
 
-    public function getFieldOfViewSquared(): int;
+    public function getFieldOfViewSquared(): DistanceSquared;
 
-    public function getDistanceSquaredAllowedToGiveActionPoints(): int;
+    public function getDistanceSquaredAllowedToGiveActionPoints(): DistanceSquared;
 
-    public function getDistanceSquaredAllowedToShareSonar(): int;
+    public function getDistanceSquaredAllowedToShareSonar(): DistanceSquared;
     public function getActionPointsRequiredToShareSonar(): ActionPoints;
 
     public function getActionPointsRequiredToAttack(): ActionPoints;

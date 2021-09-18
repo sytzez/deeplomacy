@@ -20,10 +20,12 @@ class Offset
         return $this->dy;
     }
 
-    public function getDistanceSquared(): int
+    public function getDistanceSquared(): DistanceSquared
     {
-        return $this->dx ** 2
-            + $this->dy ** 2;
+        return new DistanceSquared(
+            $this->dx ** 2
+            + $this->dy ** 2
+        );
     }
 
     public function equals(Offset $offset): bool

@@ -31,7 +31,7 @@ class MoveSubmarineService
             ->getDistanceSquaredMovablePerActionPoint();
 
         return new ActionPoints(
-            ceil($distanceSquared / $distanceSquaredMovablePerActionPoint)
+            ceil($distanceSquared->getValue() / $distanceSquaredMovablePerActionPoint->getValue())
         );
     }
 

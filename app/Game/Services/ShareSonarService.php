@@ -25,7 +25,7 @@ class ShareSonarService
             ->getConfiguration()
             ->getDistanceSquaredAllowedToShareSonar();
 
-        return $distanceSquared <= $distanceSquaredAllowed;
+        return $distanceSquared->fitsInside($distanceSquaredAllowed);
     }
 
     public function getActionPointsRequired(ShareSonarData $data): ActionPoints

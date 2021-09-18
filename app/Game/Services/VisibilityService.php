@@ -37,6 +37,6 @@ class VisibilityService
             ->getConfiguration()
             ->getFieldOfViewSquared();
 
-        return $distanceSquared <= $fieldOfViewSquared;
+        return $distanceSquared->fitsInside($fieldOfViewSquared);
     }
 }

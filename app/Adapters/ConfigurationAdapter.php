@@ -5,6 +5,7 @@ namespace App\Adapters;
 use App\Game\Contracts\ConfigurationContract;
 use App\Game\Data\ActionPoints;
 use App\Game\Data\Bounds;
+use App\Game\Data\DistanceSquared;
 use App\Game\Data\Position;
 use App\Models\Configuration;
 
@@ -26,24 +27,32 @@ class ConfigurationAdapter implements ConfigurationContract
         );
     }
 
-    public function getDistanceSquaredMovablePerActionPoint(): int
+    public function getDistanceSquaredMovablePerActionPoint(): DistanceSquared
     {
-        return $this->model->distance_squared_movable_per_action_point;
+        return new DistanceSquared(
+            $this->model->distance_squared_movable_per_action_point
+        );
     }
 
-    public function getFieldOfViewSquared(): int
+    public function getFieldOfViewSquared(): DistanceSquared
     {
-        return $this->model->field_of_view_squared;
+        return new DistanceSquared(
+            $this->model->field_of_view_squared
+        );
     }
 
-    public function getDistanceSquaredAllowedToGiveActionPoints(): int
+    public function getDistanceSquaredAllowedToGiveActionPoints(): DistanceSquared
     {
-        return $this->model->distance_squared_allowed_to_give_action_points;
+        return new DistanceSquared(
+            $this->model->distance_squared_allowed_to_give_action_points
+        );
     }
 
-    public function getDistanceSquaredAllowedToShareSonar(): int
+    public function getDistanceSquaredAllowedToShareSonar(): DistanceSquared
     {
-        return $this->model->distance_squared_allowed_to_share_sonar;
+        return new DistanceSquared(
+            $this->model->distance_squared_allowed_to_share_sonar
+        );
     }
 
     public function getActionPointsRequiredToShareSonar(): ActionPoints
