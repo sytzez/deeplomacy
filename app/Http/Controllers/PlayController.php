@@ -17,17 +17,19 @@ use App\Http\Requests\AttackSubmarineRequest;
 use App\Http\Requests\GiveActionPointsRequest;
 use App\Http\Requests\MoveSubmarineRequest;
 use App\Http\Requests\ShareSonarRequest;
+use App\Http\Resources\GridResource;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
 use App\Services\GameService;
 use Exception;
-use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Response;
 
 class PlayController
 {
@@ -36,10 +38,13 @@ class PlayController
     ) {
     }
 
-    public function show(Game $game, GridFactory $gridFactory): Renderable|RedirectResponse
+    public function show(Game $game, GridFactory $gridFactory): Responsable|JsonResponse
     {
         if (! ($submarine = $this->getSubmarine($game))) {
-            return Redirect::route('games.show', [$game]);
+            return Response::json([
+                'error'   => true,
+                'message' => 'not joined'
+            ]);
         }
 
         $grid = $gridFactory->make(
@@ -47,12 +52,7 @@ class PlayController
             new SubmarineAdapter($submarine),
         );
 
-        return View::make('play.show')
-            ->with([
-                'game' => $game,
-                'grid' => $grid,
-                'mySubmarine' => new SubmarineAdapter($submarine),
-            ]);
+        return new GridResource($grid);
     }
 
     public function move(

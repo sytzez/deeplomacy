@@ -4,6 +4,8 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { GamesService } from "../../services/games.service";
 import { Game } from "../../models/game";
+import { PlayService } from "../../services/play.service";
+import { Grid } from "../../models/grid";
 
 @Component({
     selector: 'app-play',
@@ -16,9 +18,12 @@ export class PlayComponent implements OnInit {
 
     public game?: Game;
 
+    public grid?: Grid;
+
     constructor(
         protected route: ActivatedRoute,
         protected gamesService: GamesService,
+        protected playService: PlayService,
     ) {
         this.gameId$ = route.paramMap
             .pipe(
@@ -33,18 +38,16 @@ export class PlayComponent implements OnInit {
                 return;
             }
 
-            this.loadGame(+id);
+            this.loadGrid(+id);
         })
     }
 
-    public loadGame(id: number): void {
+    public loadGrid(gameId: number): void {
 
-        this.game = undefined;
-
-        this.gamesService
-            .getById(id)
-            .subscribe((game) => {
-                this.game = game;
+        this.playService
+            .getGrid(gameId)
+            .subscribe((grid) => {
+                this.grid = grid;
             });
     }
 

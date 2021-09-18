@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\PlayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,41 @@ Route::middleware('auth.auto')->group(function (): void {
 
     Route::apiResource('games', GameController::class)
         ->only(['index', 'store', 'show']);
+
+    Route::name('play.')
+        ->prefix('/play/{game}')
+        ->group(function (): void {
+
+            Route::name('show')
+                ->get(
+                    '/',
+                    [PlayController::class, 'show']
+                );
+
+            Route::name('move')
+                ->post(
+                    '/move',
+                    [PlayController::class, 'move']
+                );
+
+            Route::name('attack')
+                ->post(
+                    '/attack',
+                    [PlayController::class, 'attack']
+                );
+
+            Route::name('give-action-points')
+                ->post(
+                    '/give-action-points',
+                    [PlayController::class, 'giveActionPoints']
+                );
+
+            Route::name('share-sonar')
+                ->post(
+                    '/share-sonar',
+                    [PlayController::class, 'shareSonar']
+                );
+        });
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
