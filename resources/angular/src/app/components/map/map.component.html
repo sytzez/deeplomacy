@@ -27,9 +27,16 @@
                     </span>
                 </button>
                 <button *ngIf="getCellType(cell) === 'submarine'"
-                        mat-stroked-button
-                        color="primary"
-                ></button>
+                        mat-flat-button
+                        color="accent"
+                >
+                    <span class="icon">⚓</span>
+                    <span class="tooltip-container">
+                        <span class="tooltip">
+                            {{ cell.submarine?.name }}
+                        </span>
+                    </span>
+                </button>
                 <button *ngIf="getCellType(cell) === 'unreachable'"
                         mat-raised-button
                         disabled

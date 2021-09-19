@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Adapters\SubmarineAdapter;
 use App\Game\Contracts\SubmarineContract;
 use App\Game\Data\Cell;
+use App\Models\Submarine;
 use DomainException;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -53,8 +54,11 @@ class GridResource extends JsonResource
             throw new DomainException();
         }
 
+        $submarineModel = $submarine->getModel();
+
         return [
-            'id' => $submarine->getModel()->getKey(),
+            'id'   => $submarineModel->getKey(),
+            'name' => $submarineModel->user->name,
         ];
     }
 }
