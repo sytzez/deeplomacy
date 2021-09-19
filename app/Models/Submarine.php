@@ -49,7 +49,7 @@ class Submarine extends Model
             'submarine_sonar_shares',
             'recipient_id',
             'donor_id',
-        );
+        )->where('is_alive', true);
     }
 
     public function sonarSharedFrom(): BelongsToMany
@@ -59,6 +59,6 @@ class Submarine extends Model
             'submarine_sonar_shares',
             'donor_id',
             'recipient_id',
-        );
+        )->where('is_alive', true);
     }
 }
