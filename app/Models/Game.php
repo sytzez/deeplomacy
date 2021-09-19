@@ -24,7 +24,7 @@ class Game extends Model
     ];
 
     protected $casts = [
-        'action_points_last_distributed_at' => DateTime::class
+        'action_points_last_distributed_at' => 'datetime',
     ];
 
     public function configuration(): BelongsTo
