@@ -30,6 +30,28 @@
                     left: 0.5em;
                     transform: rotateZ(45deg) scaleY(2);
                 }
+
+                .tooltip-container {
+                    position: absolute;
+                    transform: rotateZ(45deg) scaleY(2);
+                    display: none;
+                    top: 0;
+                    left: 5em;
+
+                    .tooltip {
+                        position: absolute;
+                        left: -5em;
+                        bottom: 0;
+                        width: 10em;
+                        text-align: center;
+                        z-index: 10;
+                        pointer-events: none;
+                    }
+                }
+
+                &:hover .tooltip-container {
+                    display: inherit;
+                }
             }
         }
     }

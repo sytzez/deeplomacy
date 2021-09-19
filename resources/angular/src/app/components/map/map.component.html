@@ -5,16 +5,25 @@
                   class="cell"
             >
                 <button *ngIf="getCellType(cell) === 'me'"
-                        mat-raised-button
+                        mat-flat-button
                         color="primary"
                 >
                     <span class="icon">⚓</span>
                 </button>
                 <button *ngIf="getCellType(cell) === 'reachable'"
-                        mat-raised-button
+                        mat-flat-button
                         color="primary"
                 >
+                    <span class="tooltip-container">
+                        <span class="tooltip">
+                            Move
+                        </span>
+                    </span>
                 </button>
+                <button *ngIf="getCellType(cell) === 'submarine'"
+                        mat-stroked-button
+                        color="primary"
+                ></button>
                 <button *ngIf="getCellType(cell) === 'unreachable'"
                         mat-raised-button
                         disabled
