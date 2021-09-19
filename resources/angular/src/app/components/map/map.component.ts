@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Grid } from "../../models/grid";
 import { MySubmarine } from "../../models/my-submarine";
 import { Cell } from "../../models/cell";
+import { MoveSubmarineRequest } from "../../data/move-submarine-request";
 
 type CellType = 'me' | 'invisible' | 'unreachable' | 'reachable' | 'submarine';
 
@@ -17,6 +18,9 @@ export class MapComponent {
 
     @Input()
     public mySubmarine?: MySubmarine;
+
+    @Output()
+    public move = new EventEmitter<MoveSubmarineRequest>();
 
     public getCellType(cell: Cell): CellType {
         if (
@@ -39,6 +43,12 @@ export class MapComponent {
         }
 
         return 'unreachable';
+    }
+
+    public emitMove(destination: Cell): void {
+        this.move.emit({
+            destination
+        });
     }
 
 }

@@ -27,15 +27,14 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 
 class PlayController
 {
     public function __construct(
         protected GameService $gameService,
+        protected GridFactory $gridFactory,
     ) {
     }
 
@@ -48,7 +47,74 @@ class PlayController
             ], 403);
         }
 
-        $grid = $gridFactory->make(
+        return $this->createGameStatusResponse($game, $submarine);
+    }
+
+    public function move(
+        Game $game,
+        MoveSubmarineRequest $request,
+        MoveSubmarineDataFactory $dataFactory,
+        MoveSubmarineAction $action,
+    ): Responsable|JsonResponse {
+        return $this->doGameAction($game, $request, $dataFactory, $action);
+    }
+
+    public function attack(
+        Game $game,
+        AttackSubmarineRequest $request,
+        AttackSubmarineDataFactory $dataFactory,
+        AttackSubmarineAction $action,
+    ): Responsable|JsonResponse {
+        return $this->doGameAction($game, $request, $dataFactory, $action);
+    }
+
+    public function giveActionPoints(
+        Game $game,
+        GiveActionPointsRequest $request,
+        GiveActionPointsDataFactory $dataFactory,
+        GiveActionPointsAction $action,
+    ): Responsable|JsonResponse {
+        return $this->doGameAction($game, $request, $dataFactory, $action);
+    }
+
+    public function shareSonar(
+        Game $game,
+        ShareSonarRequest $request,
+        ShareSonarDataFactory $dataFactory,
+        ShareSonarAction $action,
+    ): Responsable|JsonResponse {
+        return $this->doGameAction($game, $request, $dataFactory, $action);
+    }
+
+    protected function doGameAction(Game $game, FormRequest $request, $dataFactory, $action): Responsable|JsonResponse
+    {
+        $submarine = $this->getSubmarine($game);
+
+        if (! $submarine) {
+            return Response::json([
+               'error'   => true,
+               'message' => 'not joined'
+            ], 403);
+        }
+
+        try {
+            $data = $dataFactory->make($submarine, $request);
+
+            $action->do($data);
+
+        } catch (Exception $e) {
+            return Response::json([
+                'error'   => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+
+        return $this->createGameStatusResponse($game, $submarine);
+    }
+
+    protected function createGameStatusResponse(Game $game, Submarine $submarine): JsonResponse
+    {
+        $grid = $this->gridFactory->make(
             new GameAdapter($game),
             new SubmarineAdapter($submarine),
         );
@@ -59,63 +125,6 @@ class PlayController
                 'mySubmarine' => new MySubmarineResource($submarine),
             ],
         ]);
-    }
-
-    public function move(
-        Game $game,
-        MoveSubmarineRequest $request,
-        MoveSubmarineDataFactory $dataFactory,
-        MoveSubmarineAction $action,
-    ): RedirectResponse {
-        return $this->doGameAction($game, $request, $dataFactory, $action);
-    }
-
-    public function attack(
-        Game $game,
-        AttackSubmarineRequest $request,
-        AttackSubmarineDataFactory $dataFactory,
-        AttackSubmarineAction $action,
-    ): RedirectResponse {
-        return $this->doGameAction($game, $request, $dataFactory, $action);
-    }
-
-    public function giveActionPoints(
-        Game $game,
-        GiveActionPointsRequest $request,
-        GiveActionPointsDataFactory $dataFactory,
-        GiveActionPointsAction $action,
-    ): RedirectResponse {
-        return $this->doGameAction($game, $request, $dataFactory, $action);
-    }
-
-    public function shareSonar(
-        Game $game,
-        ShareSonarRequest $request,
-        ShareSonarDataFactory $dataFactory,
-        ShareSonarAction $action,
-    ): RedirectResponse {
-        return $this->doGameAction($game, $request, $dataFactory, $action);
-    }
-
-    protected function doGameAction(Game $game, FormRequest $request, $dataFactory, $action): RedirectResponse
-    {
-        $submarine = $this->getSubmarine($game);
-
-        if (! $submarine) {
-            return Redirect::route('games.show', [$game]);
-        }
-
-        try {
-            $data = $dataFactory->make($submarine, $request);
-
-            $action->do($data);
-
-        } catch (Exception $e) {
-            return Redirect::route('play.show', [$game])
-                ->withException($e);
-        }
-
-        return Redirect::route('play.show', [$game]);
     }
 
     protected function getSubmarine(Game $game): ?Submarine

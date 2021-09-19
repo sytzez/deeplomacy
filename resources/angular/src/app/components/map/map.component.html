@@ -9,10 +9,16 @@
                         color="primary"
                 >
                     <span class="icon">⚓</span>
+                    <span class="tooltip-container">
+                        <span class="tooltip">
+                            You
+                        </span>
+                    </span>
                 </button>
                 <button *ngIf="getCellType(cell) === 'reachable'"
                         mat-flat-button
                         color="primary"
+                        (click)="emitMove(cell)"
                 >
                     <span class="tooltip-container">
                         <span class="tooltip">

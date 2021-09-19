@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { GamesService } from "../../services/games.service";
-import { Game } from "../../models/game";
 import { PlayService } from "../../services/play.service";
 import { Grid } from "../../models/grid";
 import { MySubmarine } from "../../models/my-submarine";
+import { MoveSubmarineRequest } from "../../data/move-submarine-request";
+import { GameState } from "../../models/game-state";
 
 @Component({
     selector: 'app-play',
@@ -17,11 +18,13 @@ export class PlayComponent implements OnInit {
 
     public gameId$: Observable<string|null>;
 
-    public game?: Game;
+    public gameId?: number;
 
     public grid?: Grid;
 
     public mySubmarine?: MySubmarine;
+
+    public loading = false;
 
     constructor(
         protected route: ActivatedRoute,
@@ -30,7 +33,12 @@ export class PlayComponent implements OnInit {
     ) {
         this.gameId$ = route.paramMap
             .pipe(
-                map((params) => params.get('id'))
+                map((params) => params.get('id')),
+                tap((id) => {
+                    if (id) {
+                        this.gameId = +id;
+                    }
+                }),
             );
     }
 
@@ -41,18 +49,32 @@ export class PlayComponent implements OnInit {
                 return;
             }
 
-            this.loadGrid(+id);
+            this.playService
+                .getGameState(+id)
+                .subscribe(this.loadGameState.bind(this));
         })
     }
 
-    public loadGrid(gameId: number): void {
+    public loadGameState(state: GameState): void {
+
+        this.grid = state.grid;
+        this.mySubmarine = state.mySubmarine;
+    }
+
+    public moveTo(request: MoveSubmarineRequest): void {
+
+        if (! this.gameId || this.loading) {
+            return;
+        }
+
+        this.loading = true;
 
         this.playService
-            .getGameState(gameId)
-            .subscribe((state) => {
-                this.grid = state.grid;
-                this.mySubmarine = state.mySubmarine;
-            });
+            .move(this.gameId, request)
+            .pipe(tap(() => {
+                this.loading = false;
+            }))
+            .subscribe(this.loadGameState.bind(this));
     }
 
 }

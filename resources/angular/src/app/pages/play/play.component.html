@@ -1,4 +1,5 @@
 <app-map *ngIf="grid && mySubmarine"
          [grid]="grid"
          [mySubmarine]="mySubmarine"
+         (move)="moveTo($event)"
 ></app-map>
