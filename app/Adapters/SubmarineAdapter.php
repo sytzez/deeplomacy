@@ -71,11 +71,13 @@ class SubmarineAdapter implements SubmarineContract
 
     public function shareSonarTo(SubmarineContract $recipient): static
     {
-        if (! $recipient instanceof Submarine) {
+        if (! $recipient instanceof self) {
             throw new DomainException();
         }
 
-        $this->model->sonarSharedTo()->attach($recipient);
+        $this->model->sonarSharedTo()->attach($recipient->getModel());
+
+        return $this;
     }
 
     public function kill(): static

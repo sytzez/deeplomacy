@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { ApiService } from "./api.service";
 import { Observable } from "rxjs";
 import { GameState } from "../models/game-state";
-import { MoveSubmarineRequest } from "../data/move-submarine-request";
+import { MoveSubmarineData } from "../data/move-submarine-data";
+import { ShareSonarData } from "../data/share-sonar-data";
+import { AttackSubmarineData } from "../data/attack-submarine-data";
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +24,7 @@ export class PlayService {
 
     public move(
         gameId: number,
-        request: MoveSubmarineRequest,
+        request: MoveSubmarineData,
     ): Observable<GameState> {
 
         const body = {
@@ -31,5 +33,29 @@ export class PlayService {
         };
 
         return this.api.post<GameState>(`play/${gameId}/move`, body);
+    }
+
+    public attack(
+        gameId: number,
+        request: AttackSubmarineData,
+    ): Observable<GameState> {
+
+        const body = {
+            submarine: request.target.id,
+        };
+
+        return this.api.post<GameState>(`play/${gameId}/attack`, body);
+    }
+
+    public shareSonar(
+        gameId: number,
+        request: ShareSonarData,
+    ): Observable<GameState> {
+
+        const body = {
+            submarine: request.target.id,
+        };
+
+        return this.api.post<GameState>(`play/${gameId}/share-sonar`, body);
     }
 }

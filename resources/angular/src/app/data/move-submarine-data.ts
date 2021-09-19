@@ -1,5 +1,5 @@
 import { Cell } from "../models/cell";
 
-export interface MoveSubmarineRequest {
+export interface MoveSubmarineData {
     destination: Cell;
 }

@@ -6,8 +6,10 @@ import { GamesService } from "../../services/games.service";
 import { PlayService } from "../../services/play.service";
 import { Grid } from "../../models/grid";
 import { MySubmarine } from "../../models/my-submarine";
-import { MoveSubmarineRequest } from "../../data/move-submarine-request";
+import { MoveSubmarineData } from "../../data/move-submarine-data";
 import { GameState } from "../../models/game-state";
+import { ShareSonarData } from "../../data/share-sonar-data";
+import { AttackSubmarineData } from "../../data/attack-submarine-data";
 
 @Component({
     selector: 'app-play',
@@ -57,11 +59,12 @@ export class PlayComponent implements OnInit {
 
     public loadGameState(state: GameState): void {
 
+        this.loading = false;
         this.grid = state.grid;
         this.mySubmarine = state.mySubmarine;
     }
 
-    public moveTo(request: MoveSubmarineRequest): void {
+    public moveTo(request: MoveSubmarineData): void {
 
         if (! this.gameId || this.loading) {
             return;
@@ -71,9 +74,32 @@ export class PlayComponent implements OnInit {
 
         this.playService
             .move(this.gameId, request)
-            .pipe(tap(() => {
-                this.loading = false;
-            }))
+            .subscribe(this.loadGameState.bind(this));
+    }
+
+    public attack(request: AttackSubmarineData): void {
+
+        if (! this.gameId || this.loading) {
+            return;
+        }
+
+        this.loading = true;
+
+        this.playService
+            .attack(this.gameId, request)
+            .subscribe(this.loadGameState.bind(this));
+    }
+
+    public shareSonar(request: ShareSonarData): void {
+
+        if (! this.gameId || this.loading) {
+            return;
+        }
+
+        this.loading = true;
+
+        this.playService
+            .shareSonar(this.gameId, request)
             .subscribe(this.loadGameState.bind(this));
     }
 

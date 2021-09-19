@@ -7,14 +7,14 @@
         transform: rotateX(60deg) rotateZ(-45deg);
 
         .row {
-            button {
+            button.cell-button {
                 width: 5em !important;
                 height: 5em !important;
                 margin: .5em;
 
                 position: relative;
 
-                &:not([disabled]) {
+                &.move {
                     transition: transform .8s;
 
                     &:hover {
@@ -37,6 +37,7 @@
                     display: none;
                     top: 0;
                     left: 5em;
+                    z-index: 1;
 
                     .tooltip {
                         position: absolute;
@@ -44,8 +45,25 @@
                         bottom: 0;
                         width: 20em;
                         text-align: center;
-                        z-index: 100;
                         pointer-events: none;
+                    }
+                }
+
+                .menu-container {
+                    position: absolute;
+                    transform: rotateZ(45deg) scaleY(2);
+                    top: 5em;
+                    left: 0;
+                    z-index: 1;
+
+                    .menu {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+
+                        button {
+                            min-width: 10em;
+                        }
                     }
                 }
 

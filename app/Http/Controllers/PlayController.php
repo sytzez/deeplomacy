@@ -97,17 +97,17 @@ class PlayController
             ], 403);
         }
 
-        try {
+//        try {
             $data = $dataFactory->make($submarine, $request);
 
             $action->do($data);
 
-        } catch (Exception $e) {
-            return Response::json([
-                'error'   => true,
-                'message' => $e->getMessage(),
-            ], 400);
-        }
+//        } catch (Exception $e) {
+//            return Response::json([
+//                'error'   => true,
+//                'message' => $e->getMessage(),
+//            ], 400);
+//        }
 
         return $this->createGameStatusResponse($game, $submarine);
     }

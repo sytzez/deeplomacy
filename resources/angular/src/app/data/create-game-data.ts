@@ -1,5 +1,5 @@
 import { Configuration } from "../models/configuration";
 
-export interface CreateGameRequest {
+export interface CreateGameData {
     configuration: Configuration;
 }

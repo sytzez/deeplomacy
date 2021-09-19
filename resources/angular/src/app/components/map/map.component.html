@@ -7,6 +7,7 @@
                 <button *ngIf="getCellType(cell) === 'me'"
                         mat-flat-button
                         color="primary"
+                        class="cell-button"
                 >
                     <span class="icon">⚓</span>
                     <span class="tooltip-container">
@@ -18,6 +19,7 @@
                 <button *ngIf="getCellType(cell) === 'reachable'"
                         mat-flat-button
                         color="primary"
+                        class="cell-button move"
                         (click)="emitMove(cell)"
                 >
                     <span class="tooltip-container">
@@ -29,6 +31,8 @@
                 <button *ngIf="getCellType(cell) === 'submarine'"
                         mat-flat-button
                         color="accent"
+                        class="cell-button"
+                        (click)="submarineForMenu = cell.submarine"
                 >
                     <span class="icon">⚓</span>
                     <span class="tooltip-container">
@@ -36,14 +40,44 @@
                             {{ cell.submarine?.name }}
                         </span>
                     </span>
+                    <span class="menu-container"
+                          *ngIf="cell.submarine"
+                          [hidden]="submarineForMenu?.id !== cell.submarine?.id"
+                    >
+                        <span class="menu">
+                            <button mat-raised-button
+                                    [disabled]="! cell.canAttack"
+                                    (click)="emitAttack(cell.submarine)"
+                            >
+                                Attack
+                            </button>
+                            <br>
+                            <button mat-raised-button
+                                    [disabled]="! cell.canGiveActionPoints"
+                                    (click)="emitGiveActionPoints(cell.submarine)"
+                            >
+                                Give AP
+                            </button>
+                            <br>
+                            <button mat-raised-button
+                                    [disabled]="! cell.canShareSonar"
+                                    (click)="emitShareSonar(cell.submarine)"
+                            >
+                                Share sonar
+                            </button>
+                            <br>
+                        </span>
+                </span>
                 </button>
                 <button *ngIf="getCellType(cell) === 'unreachable'"
                         mat-raised-button
                         disabled
+                        class="cell-button"
                 ></button>
                 <button *ngIf="getCellType(cell) === 'invisible'"
                         mat-stroked-button
                         disabled
+                        class="cell-button"
                 ></button>
             </span>
         </div>

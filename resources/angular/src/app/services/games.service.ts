@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from "./api.service";
 import { Observable } from "rxjs";
 import { Game } from "../models/game";
-import { CreateGameRequest } from "../data/create-game-request";
+import { CreateGameData } from "../data/create-game-data";
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +25,7 @@ export class GamesService {
     }
 
     public create(
-        request: CreateGameRequest,
+        request: CreateGameData,
     ): Observable<Game> {
 
         const body = {

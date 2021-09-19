@@ -30,8 +30,7 @@ class ShareSonarService
 
     public function getActionPointsRequired(ShareSonarData $data): ActionPoints
     {
-        return $data
-            ->getDonor()
+        return $data->getDonor()
             ->getGame()
             ->getConfiguration()
             ->getActionPointsRequiredToShareSonar();
