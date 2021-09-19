@@ -18,6 +18,7 @@ use App\Http\Requests\GiveActionPointsRequest;
 use App\Http\Requests\MoveSubmarineRequest;
 use App\Http\Requests\ShareSonarRequest;
 use App\Http\Resources\GridResource;
+use App\Http\Resources\MySubmarineResource;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
@@ -44,7 +45,7 @@ class PlayController
             return Response::json([
                 'error'   => true,
                 'message' => 'not joined'
-            ]);
+            ], 403);
         }
 
         $grid = $gridFactory->make(
@@ -52,7 +53,12 @@ class PlayController
             new SubmarineAdapter($submarine),
         );
 
-        return new GridResource($grid);
+        return Response::json([
+            'data' => [
+                'grid'        => new GridResource($grid),
+                'mySubmarine' => new MySubmarineResource($submarine),
+            ],
+        ]);
     }
 
     public function move(

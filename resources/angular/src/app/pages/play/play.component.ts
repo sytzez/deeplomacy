@@ -6,6 +6,7 @@ import { GamesService } from "../../services/games.service";
 import { Game } from "../../models/game";
 import { PlayService } from "../../services/play.service";
 import { Grid } from "../../models/grid";
+import { MySubmarine } from "../../models/my-submarine";
 
 @Component({
     selector: 'app-play',
@@ -19,6 +20,8 @@ export class PlayComponent implements OnInit {
     public game?: Game;
 
     public grid?: Grid;
+
+    public mySubmarine?: MySubmarine;
 
     constructor(
         protected route: ActivatedRoute,
@@ -45,9 +48,10 @@ export class PlayComponent implements OnInit {
     public loadGrid(gameId: number): void {
 
         this.playService
-            .getGrid(gameId)
-            .subscribe((grid) => {
-                this.grid = grid;
+            .getGameState(gameId)
+            .subscribe((state) => {
+                this.grid = state.grid;
+                this.mySubmarine = state.mySubmarine;
             });
     }
 

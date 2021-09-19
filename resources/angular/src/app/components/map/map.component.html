@@ -1,9 +1,10 @@
-<div class="container">
+<div class="container" *ngIf="grid && mySubmarine">
     <div class="map">
         <div class="row" *ngFor="let row of grid">
             <span *ngFor="let cell of row"
                   class="cell"
             >
+                <button *ngIf="getCellType(cell) === 'me'"></button>
                 <button *ngIf="cell.isVisible"
                         mat-raised-button
                         color="primary"

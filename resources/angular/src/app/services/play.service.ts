@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from "./api.service";
 import { Observable } from "rxjs";
-import { Grid } from "../models/grid";
+import { GameState } from "../models/game-state";
 
 @Injectable({
     providedIn: 'root'
@@ -13,9 +13,9 @@ export class PlayService {
     ) {
     }
 
-    public getGrid(
+    public getGameState(
         gameId: number,
-    ): Observable<Grid> {
-        return this.api.get<Grid>(`play/${gameId}`);
+    ): Observable<GameState> {
+        return this.api.get<GameState>(`play/${gameId}`);
     }
 }
