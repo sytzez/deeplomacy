@@ -4,13 +4,32 @@
     .map {
         white-space: nowrap;
 
-        transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
+        transform: rotateX(60deg) rotateZ(-45deg);
 
         .row {
             button {
                 width: 5em !important;
                 height: 5em !important;
                 margin: .5em;
+
+                position: relative;
+
+                &:not([disabled]) {
+                    transition: transform .8s;
+
+                    &:hover {
+                        transform: translate(.3em, -.3em);
+                        transition: transform .2s;
+                    }
+                }
+
+                .icon {
+                    font-size: 3em;
+                    position: absolute;
+                    top: .2em;
+                    left: 0.5em;
+                    transform: rotateZ(45deg) scaleY(2);
+                }
             }
         }
     }

@@ -4,14 +4,24 @@
             <span *ngFor="let cell of row"
                   class="cell"
             >
-                <button *ngIf="getCellType(cell) === 'me'"></button>
-                <button *ngIf="cell.isVisible"
+                <button *ngIf="getCellType(cell) === 'me'"
                         mat-raised-button
                         color="primary"
+                >
+                    <span class="icon">⚓</span>
+                </button>
+                <button *ngIf="getCellType(cell) === 'reachable'"
+                        mat-raised-button
+                        color="primary"
+                >
+                </button>
+                <button *ngIf="getCellType(cell) === 'unreachable'"
+                        mat-raised-button
+                        disabled
                 ></button>
-                <button *ngIf="! cell.isVisible"
+                <button *ngIf="getCellType(cell) === 'invisible'"
                         mat-stroked-button
-                        disabled="true"
+                        disabled
                 ></button>
             </span>
         </div>
