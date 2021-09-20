@@ -6,13 +6,18 @@ use App\Game\Contracts\GameContract;
 use App\Game\Contracts\SubmarineContract;
 use App\Game\Contracts\SubmarineRepositoryContract;
 use App\Game\Data\ActionPoints;
+use App\Game\Data\AttackSubmarineData;
 use App\Game\Data\Cell;
 use App\Game\Data\GiveActionPointsData;
 use App\Game\Data\Grid;
 use App\Game\Data\MoveSubmarineData;
 use App\Game\Data\Position;
 use App\Game\Data\ShareSonarData;
+use App\Game\Services\AttackSubmarineService;
+use App\Game\Services\MoveSubmarineService;
+use App\Game\Services\ShareSonarService;
 use App\Game\Services\VisibilityService;
+use App\Game\Validators\AttackSubmarineValidator;
 use App\Game\Validators\GiveActionPointsValidator;
 use App\Game\Validators\MoveSubmarineValidator;
 use App\Game\Validators\ShareSonarValidator;
@@ -31,8 +36,13 @@ class GridFactory
         protected VisibilityService $visibilityService,
         protected SubmarineRepositoryContract $submarineRepositoryContract,
         protected MoveSubmarineValidator $moveSubmarineValidator,
+        protected AttackSubmarineValidator $attackSubmarineValidator,
         protected ShareSonarValidator $shareSonarValidator,
         protected GiveActionPointsValidator $giveActionPointsValidator,
+        protected MoveSubmarineService $moveSubmarineService,
+        protected AttackSubmarineService $attackSubmarineService,
+        protected ShareSonarService $shareSonarService,
+
     ) {
     }
 
@@ -72,25 +82,42 @@ class GridFactory
     {
         $isVisible = $this->visibilityService->canSeePosition($this->viewer, $position);
 
+        $canMoveTowards = $this->canMoveTowards($position);
+
+        $actionPointsToMove = $canMoveTowards ? $this->getActionPointsToMoveTowards($position) : null;
+
         return new Cell(
             $position,
             $isVisible,
-            $this->canMoveTowards($position),
+            $canMoveTowards,
+            $actionPointsToMove,
         );
     }
 
     protected function canMoveTowards(Position $position): bool
     {
         try {
-            $this->moveSubmarineValidator->validate(new MoveSubmarineData(
-                $this->viewer,
-                $this->viewer->getPosition()->getOffsetTo($position)
-            ));
+            $this->moveSubmarineValidator->validate(
+                new MoveSubmarineData(
+                    $this->viewer,
+                    $this->viewer->getPosition()->getOffsetTo($position)
+                )
+            );
 
             return true;
         } catch(Exception $e) {
             return false;
         }
+    }
+
+    protected function getActionPointsToMoveTowards(Position $position): ActionPoints
+    {
+        $this->moveSubmarineService->getActionPointsRequired(
+            new MoveSubmarineData(
+                $this->viewer,
+                $this->viewer->getPosition()->getOffsetTo($position)
+            )
+        );
     }
 
     protected function insertSubmarines(): void
@@ -105,7 +132,10 @@ class GridFactory
             $cell = $this->getCell($submarine->getPosition())
                 ->withSubmarine(
                     $submarine,
+                    $this->canAttack($submarine),
+                    $this->getActionPointsToAttack($submarine),
                     $this->canShareSonar($submarine),
+                    $this->getActionPointsToShareSonar($submarine),
                     $this->canGiveActionPoints($submarine),
                 );
 
@@ -114,6 +144,24 @@ class GridFactory
                 $cell,
             );
         }
+    }
+
+    protected function canAttack(SubmarineContract $submarine): bool
+    {
+        try {
+            $this->attackSubmarineValidator->validate(new AttackSubmarineData($this->viewer, $submarine));
+
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    protected function getActionPointsToAttack(SubmarineContract $submarine): ActionPoints
+    {
+        return $this->attackSubmarineService->getActionPointsRequired(
+            new AttackSubmarineData($this->viewer, $submarine)
+        );
     }
 
     protected function canShareSonar(SubmarineContract $submarine): bool
@@ -125,6 +173,13 @@ class GridFactory
         } catch (Exception $e) {
             return false;
         }
+    }
+
+    protected function getActionPointsToShareSonar(SubmarineContract $submarine): ActionPoints
+    {
+        return $this->shareSonarService->getActionPointsRequired(
+            new ShareSonarData($this->viewer, $submarine)
+        );
     }
 
     protected function canGiveActionPoints(SubmarineContract $submarine): bool
