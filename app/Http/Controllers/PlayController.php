@@ -121,8 +121,8 @@ class PlayController
             'data' => [
                 'grid'        => new GridResource($grid),
                 'mySubmarine' => new MySubmarineResource($submarine),
+                'message'     => $message,
             ],
-            'message' => $message,
         ]);
     }
 

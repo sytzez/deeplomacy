@@ -4,4 +4,5 @@ import { MySubmarine } from "./my-submarine";
 export interface GameState {
     grid: Grid,
     mySubmarine: MySubmarine,
+    message?: string;
 }

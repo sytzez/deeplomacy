@@ -20,6 +20,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MapComponent } from './components/map/map.component';
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import { MapComponent } from './components/map/map.component';
         MatFormFieldModule,
         MatSelectModule,
         MatExpansionModule,
+        MatSnackBarModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

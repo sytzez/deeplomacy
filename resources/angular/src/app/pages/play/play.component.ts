@@ -10,6 +10,7 @@ import { MoveSubmarineData } from "../../data/move-submarine-data";
 import { GameState } from "../../models/game-state";
 import { ShareSonarData } from "../../data/share-sonar-data";
 import { AttackSubmarineData } from "../../data/attack-submarine-data";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-play',
@@ -32,6 +33,7 @@ export class PlayComponent implements OnInit {
         protected route: ActivatedRoute,
         protected gamesService: GamesService,
         protected playService: PlayService,
+        protected snackbar: MatSnackBar,
     ) {
         this.gameId$ = route.paramMap
             .pipe(
@@ -62,6 +64,10 @@ export class PlayComponent implements OnInit {
         this.loading = false;
         this.grid = state.grid;
         this.mySubmarine = state.mySubmarine;
+
+        if (state.message) {
+            this.snackbar.open(state.message, 'Ok');
+        }
     }
 
     public moveTo(request: MoveSubmarineData): void {
