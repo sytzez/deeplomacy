@@ -10,10 +10,14 @@ class Cell
         protected Position $position,
         protected bool $isVisible,
         protected bool $canMoveTowards,
+        protected ?ActionPoints $actionPointsToMove = null,
         protected ?SubmarineContract $submarine = null,
         protected bool $canAttack = false,
+        protected ?ActionPoints $actionPointsToAttack = null,
         protected bool $canShareSonar = false,
+        protected ?ActionPoints $actionPointsToShareSonar = null,
         protected bool $canGiveActionPoints = false,
+        protected ?string $message = null,
     ) {
     }
 
@@ -32,6 +36,11 @@ class Cell
         return $this->canMoveTowards;
     }
 
+    public function getActionPointsToMove(): ?ActionPoints
+    {
+        return $this->actionPointsToMove;
+    }
+
     public function getSubmarine(): ?SubmarineContract
     {
         return $this->submarine;
@@ -42,9 +51,19 @@ class Cell
         return $this->canAttack;
     }
 
+    public function getActionPointsToAttack(): ?ActionPoints
+    {
+        return $this->actionPointsToAttack;
+    }
+
     public function canShareSonar(): bool
     {
         return $this->canShareSonar;
+    }
+
+    public function getActionPointsToShareSonar(): ?ActionPoints
+    {
+        return $this->actionPointsToShareSonar;
     }
 
     public function canGiveActionPoints(): bool
@@ -52,20 +71,48 @@ class Cell
         return $this->canGiveActionPoints;
     }
 
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
     public function withSubmarine(
         ?SubmarineContract $submarine,
         bool $canAttack = false,
+        ?ActionPoints $actionPointsToAttack = null,
         bool $canShareSonar = false,
+        ?ActionPoints $actionPointsToShareSonar = null,
         bool $canGiveActionPoints = false,
     ): static {
         return new static(
             $this->getPosition(),
             $this->isVisible(),
             $this->canMoveTowards(),
+            $this->getActionPointsToMove(),
             $submarine,
             $canAttack,
+            $actionPointsToAttack,
             $canShareSonar,
+            $actionPointsToShareSonar,
             $canGiveActionPoints,
+            $this->getMessage(),
+        );
+    }
+
+    public function withMessage(?string $message): static
+    {
+        return new static(
+            $this->getPosition(),
+            $this->isVisible(),
+            $this->canMoveTowards(),
+            $this->getActionPointsToMove(),
+            $this->getSubmarine(),
+            $this->canAttack(),
+            $this->getActionPointsToAttack(),
+            $this->canShareSonar(),
+            $this->getActionPointsToShareSonar(),
+            $this->canGiveActionPoints(),
+            $message,
         );
     }
 }
