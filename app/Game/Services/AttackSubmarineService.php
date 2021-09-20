@@ -30,7 +30,7 @@ class AttackSubmarineService
         return 0.5;
     }
 
-    public function attackSubmarine(AttackSubmarineData $data): void
+    public function attackSubmarine(AttackSubmarineData $data): bool
     {
         $attacker = $data->getAttacker();
 
@@ -44,7 +44,11 @@ class AttackSubmarineService
 
         if ($this->rngService->getBool($this->getHitChance($data))) {
             $this->hitSubmarine($data->getTarget());
+
+            return true;
         }
+
+        return false;
     }
 
     protected function hitSubmarine(SubmarineContract $submarine): void

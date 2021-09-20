@@ -17,7 +17,6 @@ class Cell
         protected bool $canShareSonar = false,
         protected ?ActionPoints $actionPointsToShareSonar = null,
         protected bool $canGiveActionPoints = false,
-        protected ?string $message = null,
     ) {
     }
 
@@ -71,11 +70,6 @@ class Cell
         return $this->canGiveActionPoints;
     }
 
-    public function getMessage(): ?string
-    {
-        return $this->message;
-    }
-
     public function withSubmarine(
         ?SubmarineContract $submarine,
         bool $canAttack = false,
@@ -95,24 +89,6 @@ class Cell
             $canShareSonar,
             $actionPointsToShareSonar,
             $canGiveActionPoints,
-            $this->getMessage(),
-        );
-    }
-
-    public function withMessage(?string $message): static
-    {
-        return new static(
-            $this->getPosition(),
-            $this->isVisible(),
-            $this->canMoveTowards(),
-            $this->getActionPointsToMove(),
-            $this->getSubmarine(),
-            $this->canAttack(),
-            $this->getActionPointsToAttack(),
-            $this->canShareSonar(),
-            $this->getActionPointsToShareSonar(),
-            $this->canGiveActionPoints(),
-            $message,
         );
     }
 }

@@ -4,6 +4,7 @@ namespace App\Game\Actions;
 
 use App\Game\Data\AttackSubmarineData;
 use App\Game\Data\GameActionException;
+use App\Game\Enums\Messages;
 use App\Game\Services\AttackSubmarineService;
 use App\Game\Validators\AttackSubmarineValidator;
 
@@ -17,12 +18,15 @@ class AttackSubmarineAction
 
     /**
      * @param AttackSubmarineData $data
+     * @return string
      * @throws GameActionException
      */
-    public function do(AttackSubmarineData $data): void
+    public function do(AttackSubmarineData $data): string
     {
         $this->validator->validate($data);
 
-        $this->attackSubmarineService->attackSubmarine($data);
+        return $this->attackSubmarineService->attackSubmarine($data)
+            ? Messages::HIT
+            : Messages::MISS;
     }
 }

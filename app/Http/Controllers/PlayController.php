@@ -98,13 +98,13 @@ class PlayController
         try {
             $data = $dataFactory->make($submarine, $request);
 
-            $action->do($data);
+            $message = $action->do($data);
 
         } catch (GameActionException $e) {
             return $this->createGameStatusResponse($game, $submarine, $e->getMessage());
         }
 
-        return $this->createGameStatusResponse($game, $submarine);
+        return $this->createGameStatusResponse($game, $submarine, $message);
     }
 
     protected function createGameStatusResponse(
