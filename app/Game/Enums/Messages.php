@@ -4,6 +4,6 @@ namespace App\Game\Enums;
 
 class Messages
 {
-    public const HIT = 'hit';
-    public const MISS = 'miss';
+    public const HIT = 'Hit!';
+    public const MISS = 'Miss!';
 }
