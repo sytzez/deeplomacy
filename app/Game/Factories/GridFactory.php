@@ -112,7 +112,7 @@ class GridFactory
 
     protected function getActionPointsToMoveTowards(Position $position): ActionPoints
     {
-        $this->moveSubmarineService->getActionPointsRequired(
+        return $this->moveSubmarineService->getActionPointsRequired(
             new MoveSubmarineData(
                 $this->viewer,
                 $this->viewer->getPosition()->getOffsetTo($position)
