@@ -11,6 +11,12 @@
         mat-card-content {
             max-height: 30em;
             overflow: auto;
+
+            .empty-state {
+                font-style: italic;
+                text-align: center;
+                padding: 3em;
+            }
         }
     }
 }

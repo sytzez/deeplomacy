@@ -34,6 +34,10 @@
                 <mat-header-row *matHeaderRowDef="['configuration', 'players', 'actions']"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: ['configuration', 'players', 'actions']"></mat-row>
             </mat-table>
+
+            <div class="empty-state">
+                There are no games at this moment.
+            </div>
         </mat-card-content>
     </mat-card>
 
