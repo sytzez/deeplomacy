@@ -35,16 +35,19 @@ class GridResource extends JsonResource
     public function cellToArray(Cell $cell): array
     {
         return [
-            'x'                   => $cell->getPosition()->getX(),
-            'y'                   => $cell->getPosition()->getY(),
-            'isVisible'           => $cell->isVisible(),
-            'canMoveTowards'      => $cell->canMoveTowards(),
-            'submarine'           => $cell->getSubmarine()
+            'x'                        => $cell->getPosition()->getX(),
+            'y'                        => $cell->getPosition()->getY(),
+            'isVisible'                => $cell->isVisible(),
+            'canMoveTowards'           => $cell->canMoveTowards(),
+            'actionPointsToMove'       => $cell->getActionPointsToMove(),
+            'submarine'                => $cell->getSubmarine()
                 ? $this->submarineToArray($cell->getSubmarine())
                 : null,
-            'canAttack'           => $cell->canAttack(),
-            'canShareSonar'       => $cell->canShareSonar(),
-            'canGiveActionPoints' => $cell->canGiveActionPoints(),
+            'canAttack'                => $cell->canAttack(),
+            'actionPointsToAttack'     => $cell->getActionPointsToAttack(),
+            'canShareSonar'            => $cell->canShareSonar(),
+            'actionPointsToShareSonar' => $cell->getActionPointsToShareSonar(),
+            'canGiveActionPoints'      => $cell->canGiveActionPoints(),
         ];
     }
 
