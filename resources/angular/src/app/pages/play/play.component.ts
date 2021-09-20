@@ -32,7 +32,6 @@ export class PlayComponent implements OnInit {
 
     constructor(
         protected route: ActivatedRoute,
-        protected gamesService: GamesService,
         protected playService: PlayService,
         protected snackbar: MatSnackBar,
     ) {
