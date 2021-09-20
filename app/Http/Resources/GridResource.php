@@ -39,14 +39,14 @@ class GridResource extends JsonResource
             'y'                        => $cell->getPosition()->getY(),
             'isVisible'                => $cell->isVisible(),
             'canMoveTowards'           => $cell->canMoveTowards(),
-            'actionPointsToMove'       => $cell->getActionPointsToMove()->getAmount(),
+            'actionPointsToMove'       => $cell->getActionPointsToMove()?->getAmount(),
             'submarine'                => $cell->getSubmarine()
                 ? $this->submarineToArray($cell->getSubmarine())
                 : null,
             'canAttack'                => $cell->canAttack(),
-            'actionPointsToAttack'     => $cell->getActionPointsToAttack()->getAmount(),
+            'actionPointsToAttack'     => $cell->getActionPointsToAttack()?->getAmount(),
             'canShareSonar'            => $cell->canShareSonar(),
-            'actionPointsToShareSonar' => $cell->getActionPointsToShareSonar()->getAmount(),
+            'actionPointsToShareSonar' => $cell->getActionPointsToShareSonar()?->getAmount(),
             'canGiveActionPoints'      => $cell->canGiveActionPoints(),
         ];
     }
