@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 })
 export class GamesIndexComponent implements OnInit {
 
-    public games: Game[] = [];
+    public games: Game[]|null = null;
 
     constructor(
         protected gamesService: GamesService,
