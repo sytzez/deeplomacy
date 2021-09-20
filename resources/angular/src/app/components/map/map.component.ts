@@ -34,6 +34,7 @@ export class MapComponent {
     public submarineForMenu: Submarine|null = null;
 
     public getCellType(cell: Cell): CellType {
+
         if (
             cell.x === this.mySubmarine?.x
             && cell.y === this.mySubmarine?.y
@@ -57,10 +58,16 @@ export class MapComponent {
     }
 
     public emitMove(destination: Cell): void {
+
+        this.submarineForMenu = null;
+
         this.move.emit({ destination });
     }
 
     public emitAttack(target: Submarine): void {
+
+        this.submarineForMenu = null;
+
         this.attack.emit({ target });
     }
 
@@ -71,6 +78,9 @@ export class MapComponent {
     }
 
     public emitShareSonar(target: Submarine): void {
+
+        this.submarineForMenu = null;
+        
         this.shareSonar.emit({ target });
     }
 
