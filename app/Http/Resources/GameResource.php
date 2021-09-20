@@ -12,6 +12,7 @@ class GameResource extends JsonResource
             'id'            => $this->id,
             'configuration' => new ConfigurationResource($this->configuration),
             'numOfPlayers'  => $this->numOfPlayers,
+            'isJoined'      => $this->isJoinedBy(auth()->user()),
         ];
     }
 }

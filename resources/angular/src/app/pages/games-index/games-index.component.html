@@ -24,9 +24,17 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let game">
                         <button mat-stroked-button
+                                *ngIf="! game.isJoined"
                                 (click)="join(game)"
                         >
                             Join
+                        </button>
+                        <button mat-raised-button
+                                color="accent"
+                                *ngIf="game.isJoined"
+                                (click)="play(game)"
+                        >
+                            Continue
                         </button>
                     </mat-cell>
                 </ng-container>

@@ -51,8 +51,13 @@ export class GamesIndexComponent implements OnInit {
         this.gamesService
             .join(game)
             .subscribe((joinedGame) => {
-                this.router.navigate(['play', joinedGame.id]);
+                this.play(joinedGame);
             });
+    }
+
+    public play(game: Game) {
+
+        this.router.navigate(['play', game.id]);
     }
 
 }
