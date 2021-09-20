@@ -60,6 +60,17 @@ class SubmarineAdapter implements SubmarineContract
             ->map(fn (Submarine $submarine) => new static($submarine));
     }
 
+    public function hasSonarSharedFrom(SubmarineContract $submarine): bool
+    {
+        if (! $submarine instanceof self) {
+            throw new DomainException();
+        }
+
+        return $this->model->sonarSharedFrom()
+            ->where('id', $submarine->getModel()->getKey())
+            ->exists();
+    }
+
     /**
      * @return iterable<SubmarineContract>
      */
@@ -67,6 +78,17 @@ class SubmarineAdapter implements SubmarineContract
     {
         return $this->model->sonarSharedTo
             ->map(fn (Submarine $submarine) => new static($submarine));
+    }
+
+    public function hasSonarSharedTo(SubmarineContract $submarine): bool
+    {
+        if (! $submarine instanceof self) {
+            throw new DomainException();
+        }
+
+        return $this->model->sonarSharedTo()
+            ->where('id', $submarine->getModel()->getKey())
+            ->exists();
     }
 
     public function shareSonarTo(SubmarineContract $recipient): static

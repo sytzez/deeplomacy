@@ -20,10 +20,14 @@ interface SubmarineContract
      */
     public function getSonarSharedFrom(): iterable;
 
+    public function hasSonarSharedFrom(self $submarine): bool;
+
     /**
      * @return iterable<static>
      */
     public function getSonarSharedTo(): iterable;
+
+    public function hasSonarSharedTo(self $submarine): bool;
 
     public function shareSonarTo(self $recipient): static;
 

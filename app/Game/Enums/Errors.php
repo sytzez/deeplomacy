@@ -12,4 +12,5 @@ class Errors
     public const TARGET_TOO_FAR_AWAY = 'The target is too far away';
     public const TARGET_NOT_VISIBLE = 'The target is not visible to you';
     public const TARGET_NOT_IN_GAME = 'The target is not part of the current game';
+    public const SONAR_ALREADY_SHARED = 'You have already shared your sonar with this submarine';
 }

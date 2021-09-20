@@ -33,6 +33,8 @@ class ShareSonarValidator
         $this->checkRecipientVisibleByDonor();
 
         $this->checkSubmarinesWithinRange();
+
+        $this->checkSonarNotShared();
     }
 
     /**
@@ -90,6 +92,19 @@ class ShareSonarValidator
     {
         if (! $this->shareSonarService->areSubmarinesWithinRange($this->data)) {
             throw new GameActionException(Errors::TARGET_TOO_FAR_AWAY);
-        };
+        }
+    }
+
+    /**
+     * @throws GameActionException
+     */
+    protected function checkSonarNotShared(): void
+    {
+        $donor     = $this->data->getDonor();
+        $recipient = $this->data->getRecipient();
+
+        if ($donor->hasSonarSharedTo($recipient)) {
+            throw new GameActionException(Errors::SONAR_ALREADY_SHARED);
+        }
     }
 }
