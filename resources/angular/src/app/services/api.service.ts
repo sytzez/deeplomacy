@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { Observable, of, throwError } from "rxjs";
 import { Response } from "../data/response";
-import { concatAll, map, tap } from "rxjs/operators";
+import { catchError, concatAll, map, tap } from "rxjs/operators";
 import { environment } from "../../environments/environment";
 import { flatMap } from "rxjs/internal/operators";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 export type RequestMethod = 'get' | 'post' | 'patch' | 'delete';
 
@@ -17,6 +18,7 @@ export class ApiService {
 
     constructor(
         protected http: HttpClient,
+        protected snackbar: MatSnackBar,
     ) {
         this.authToken = localStorage.getItem('token');
     }
@@ -50,12 +52,13 @@ export class ApiService {
 
                     return this.http.request<Response<R>>(method, url, options);
                 }),
+                catchError((error) => this.handleErrorResponse(error)),
                 map((response) => response.data),
             );
     }
 
-    protected getAuthHeaders(): Observable<HttpHeaders>
-    {
+    protected getAuthHeaders(): Observable<HttpHeaders> {
+
         if (this.authToken) {
             return of(
                 new HttpHeaders({
@@ -77,6 +80,17 @@ export class ApiService {
                     'Authorization': 'Bearer ' + response.data,
                 }))
             );
+    }
+
+    protected handleErrorResponse(error: HttpErrorResponse): Observable<never> {
+
+        if (error.error.message) {
+            this.snackbar.open(error.error.message, 'Ok');
+        } else {
+            this.snackbar.open('A server error has occurred', 'Ok');
+        }
+
+        return throwError(error);
     }
 
 }
