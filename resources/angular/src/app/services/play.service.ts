@@ -5,6 +5,7 @@ import { GameState } from "../models/game-state";
 import { MoveSubmarineData } from "../data/move-submarine-data";
 import { ShareSonarData } from "../data/share-sonar-data";
 import { AttackSubmarineData } from "../data/attack-submarine-data";
+import { GiveActionPointsData } from "../data/give-action-points-data";
 
 @Injectable({
     providedIn: 'root'
@@ -24,12 +25,12 @@ export class PlayService {
 
     public move(
         gameId: number,
-        request: MoveSubmarineData,
+        data: MoveSubmarineData,
     ): Observable<GameState> {
 
         const body = {
-            x: request.destination.x,
-            y: request.destination.y,
+            x: data.destination.x,
+            y: data.destination.y,
         };
 
         return this.api.post<GameState>(`play/${gameId}/move`, body);
@@ -37,11 +38,11 @@ export class PlayService {
 
     public attack(
         gameId: number,
-        request: AttackSubmarineData,
+        data: AttackSubmarineData,
     ): Observable<GameState> {
 
         const body = {
-            submarine: request.target.id,
+            submarine: data.target.id,
         };
 
         return this.api.post<GameState>(`play/${gameId}/attack`, body);
@@ -49,13 +50,26 @@ export class PlayService {
 
     public shareSonar(
         gameId: number,
-        request: ShareSonarData,
+        data: ShareSonarData,
     ): Observable<GameState> {
 
         const body = {
-            submarine: request.recipient.id,
+            submarine: data.recipient.id,
         };
 
         return this.api.post<GameState>(`play/${gameId}/share-sonar`, body);
+    }
+
+    public giveActionPoints(
+        gameId: number,
+        data: GiveActionPointsData,
+    ): Observable<GameState> {
+
+        const body = {
+            submarine: data.recipient.id,
+            amount: data.amount,
+        };
+
+        return this.api.post<GameState>(`play/${gameId}/give-action-points`, body);
     }
 }

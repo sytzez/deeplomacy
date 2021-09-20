@@ -11,6 +11,7 @@ import { GameState } from "../../models/game-state";
 import { ShareSonarData } from "../../data/share-sonar-data";
 import { AttackSubmarineData } from "../../data/attack-submarine-data";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { GiveActionPointsData } from "../../data/give-action-points-data";
 
 @Component({
     selector: 'app-play',
@@ -70,7 +71,7 @@ export class PlayComponent implements OnInit {
         }
     }
 
-    public moveTo(request: MoveSubmarineData): void {
+    public moveTo(data: MoveSubmarineData): void {
 
         if (! this.gameId || this.loading) {
             return;
@@ -79,11 +80,11 @@ export class PlayComponent implements OnInit {
         this.loading = true;
 
         this.playService
-            .move(this.gameId, request)
+            .move(this.gameId, data)
             .subscribe(this.loadGameState.bind(this));
     }
 
-    public attack(request: AttackSubmarineData): void {
+    public attack(data: AttackSubmarineData): void {
 
         if (! this.gameId || this.loading) {
             return;
@@ -92,11 +93,11 @@ export class PlayComponent implements OnInit {
         this.loading = true;
 
         this.playService
-            .attack(this.gameId, request)
+            .attack(this.gameId, data)
             .subscribe(this.loadGameState.bind(this));
     }
 
-    public shareSonar(request: ShareSonarData): void {
+    public shareSonar(data: ShareSonarData): void {
 
         if (! this.gameId || this.loading) {
             return;
@@ -105,7 +106,20 @@ export class PlayComponent implements OnInit {
         this.loading = true;
 
         this.playService
-            .shareSonar(this.gameId, request)
+            .shareSonar(this.gameId, data)
+            .subscribe(this.loadGameState.bind(this));
+    }
+
+    public giveActionPoints(data: GiveActionPointsData): void {
+
+        if (! this.gameId || this.loading) {
+            return;
+        }
+
+        this.loading = true;
+
+        this.playService
+            .giveActionPoints(this.gameId, data)
             .subscribe(this.loadGameState.bind(this));
     }
 
