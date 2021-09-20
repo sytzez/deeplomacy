@@ -42,8 +42,7 @@ class PlayController
     {
         if (! ($submarine = $this->getSubmarine($game))) {
             return Response::json([
-                'error'   => true,
-                'message' => 'not joined'
+                'message' => 'not_joined'
             ], 403);
         }
 
@@ -92,8 +91,7 @@ class PlayController
 
         if (! $submarine) {
             return Response::json([
-               'error'   => true,
-               'message' => 'not joined'
+               'message' => 'not_joined',
             ], 403);
         }
 
@@ -103,17 +101,17 @@ class PlayController
             $action->do($data);
 
         } catch (GameActionException $e) {
-            return Response::json([
-                'error'   => true,
-                'message' => $e->getMessage(),
-            ], 400);
+            return $this->createGameStatusResponse($game, $submarine, $e->getMessage());
         }
 
         return $this->createGameStatusResponse($game, $submarine);
     }
 
-    protected function createGameStatusResponse(Game $game, Submarine $submarine): JsonResponse
-    {
+    protected function createGameStatusResponse(
+        Game $game,
+        Submarine $submarine,
+        ?string $message = null,
+    ): JsonResponse {
         $grid = $this->gridFactory->make(
             new GameAdapter($game),
             new SubmarineAdapter($submarine),
@@ -124,6 +122,7 @@ class PlayController
                 'grid'        => new GridResource($grid),
                 'mySubmarine' => new MySubmarineResource($submarine),
             ],
+            'message' => $message,
         ]);
     }
 
