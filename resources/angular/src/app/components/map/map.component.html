@@ -47,21 +47,21 @@
                         <span class="menu">
                             <button mat-raised-button
                                     [disabled]="! cell.canAttack"
-                                    (click)="emitAttack(cell.submarine)"
+                                    (click)="emitAttack(cell.submarine, $event)"
                             >
                                 Attack ({{ cell?.actionPointsToAttack }})
                             </button>
                             <br>
                             <button mat-raised-button
                                     [disabled]="! cell.canGiveActionPoints"
-                                    (click)="emitGiveActionPoints(cell.submarine)"
+                                    (click)="emitGiveActionPoints(cell.submarine, $event)"
                             >
                                 Give AP
                             </button>
                             <br>
                             <button mat-raised-button
                                     [disabled]="! cell.canShareSonar"
-                                    (click)="emitShareSonar(cell.submarine)"
+                                    (click)="emitShareSonar(cell.submarine, $event)"
                             >
                                 Share sonar ({{ cell?.actionPointsToShareSonar }})
                             </button>

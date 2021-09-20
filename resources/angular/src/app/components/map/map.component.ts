@@ -75,14 +75,18 @@ export class MapComponent {
         this.move.emit({ destination });
     }
 
-    public emitAttack(target: Submarine): void {
+    public emitAttack(target: Submarine, event: Event): void {
+
+        event.stopPropagation();
 
         this.submarineForMenu = null;
 
         this.attack.emit({ target });
     }
 
-    public emitGiveActionPoints(recipient: Submarine): void {
+    public emitGiveActionPoints(recipient: Submarine, event: Event): void {
+
+        event.stopPropagation();
 
         this.submarineForMenu = null;
 
@@ -102,7 +106,9 @@ export class MapComponent {
 
     }
 
-    public emitShareSonar(recipient: Submarine): void {
+    public emitShareSonar(recipient: Submarine, event: Event): void {
+
+        event.stopPropagation();
 
         this.submarineForMenu = null;
 
