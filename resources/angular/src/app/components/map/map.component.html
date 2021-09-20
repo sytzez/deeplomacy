@@ -24,7 +24,7 @@
                 >
                     <span class="tooltip-container">
                         <span class="tooltip">
-                            Move
+                            Move ({{ cell?.actionPointsToMove }})
                         </span>
                     </span>
                 </button>
@@ -49,7 +49,7 @@
                                     [disabled]="! cell.canAttack"
                                     (click)="emitAttack(cell.submarine)"
                             >
-                                Attack
+                                Attack ({{ cell?.actionPointsToAttack }})
                             </button>
                             <br>
                             <button mat-raised-button
@@ -63,7 +63,7 @@
                                     [disabled]="! cell.canShareSonar"
                                     (click)="emitShareSonar(cell.submarine)"
                             >
-                                Share sonar
+                                Share sonar ({{ cell?.actionPointsToShareSonar }})
                             </button>
                             <br>
                         </span>
