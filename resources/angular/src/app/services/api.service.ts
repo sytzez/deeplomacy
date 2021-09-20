@@ -84,6 +84,11 @@ export class ApiService {
 
     protected handleErrorResponse(error: HttpErrorResponse): Observable<never> {
 
+        if (error.status === 401) {
+            this.authToken = null;
+            localStorage.removeItem('token');
+        }
+
         if (error.error.message) {
             this.snackbar.open(error.error.message, 'Ok');
         } else {
