@@ -6,26 +6,37 @@ use DomainException;
 
 class DistanceSquared
 {
+    protected ?float $root = null;
+
     public function __construct(
-        protected int $value,
+        protected int $squared,
     ) {
-        if ($this->value < 0) {
+        if ($this->squared < 0) {
             throw new DomainException();
         }
     }
 
-    public function getValue(): int
+    public function getSquared(): int
     {
-        return $this->value;
+        return $this->squared;
+    }
+
+    public function getRoot(): float
+    {
+        if ($this->root) {
+            return $this->root;
+        }
+
+        return $this->root = sqrt($this->getSquared());
     }
 
     public function fitsInside(DistanceSquared $other): bool
     {
-        return $this->getValue() <= $other->getValue();
+        return $this->getSquared() <= $other->getSquared();
     }
 
     public function equals(DistanceSquared $other): bool
     {
-        return $this->getValue() === $other->getValue();
+        return $this->getSquared() === $other->getSquared();
     }
 }
