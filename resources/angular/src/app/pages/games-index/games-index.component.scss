@@ -12,6 +12,10 @@
             max-height: 30em;
             overflow: auto;
 
+            mat-spinner {
+                margin: 2em auto;
+            }
+
             .empty-state {
                 font-style: italic;
                 text-align: center;

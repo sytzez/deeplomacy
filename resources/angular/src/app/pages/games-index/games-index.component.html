@@ -35,6 +35,8 @@
                 <mat-row *matRowDef="let row; columns: ['configuration', 'players', 'actions']"></mat-row>
             </mat-table>
 
+            <mat-spinner *ngIf="games === null"></mat-spinner>
+
             <div class="empty-state" *ngIf="games?.length === 0">
                 There are no games at this moment.
             </div>

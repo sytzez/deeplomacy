@@ -24,6 +24,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatDialogModule } from "@angular/material/dialog";
 import { GiveActionPointsDialogComponent } from './components/give-action-points-dialog/give-action-points-dialog.component';
 import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { MatInputModule } from "@angular/material/input";
         MatExpansionModule,
         MatSnackBarModule,
         MatDialogModule,
+        MatProgressSpinnerModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
