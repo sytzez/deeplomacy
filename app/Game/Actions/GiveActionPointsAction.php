@@ -2,10 +2,10 @@
 
 namespace App\Game\Actions;
 
+use App\Game\Data\GameActionException;
 use App\Game\Data\GiveActionPointsData;
 use App\Game\Services\GiveActionPointsService;
 use App\Game\Validators\GiveActionPointsValidator;
-use Exception;
 
 class GiveActionPointsAction
 {
@@ -17,7 +17,7 @@ class GiveActionPointsAction
 
     /**
      * @param GiveActionPointsData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function do(GiveActionPointsData $data): void
     {

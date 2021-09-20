@@ -2,10 +2,10 @@
 
 namespace App\Game\Actions;
 
+use App\Game\Data\GameActionException;
 use App\Game\Data\MoveSubmarineData;
 use App\Game\Services\MoveSubmarineService;
 use App\Game\Validators\MoveSubmarineValidator;
-use Exception;
 
 class MoveSubmarineAction
 {
@@ -17,7 +17,7 @@ class MoveSubmarineAction
 
     /**
      * @param MoveSubmarineData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function do(MoveSubmarineData $data): void
     {

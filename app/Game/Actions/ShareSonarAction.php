@@ -2,10 +2,10 @@
 
 namespace App\Game\Actions;
 
+use App\Game\Data\GameActionException;
 use App\Game\Data\ShareSonarData;
 use App\Game\Services\ShareSonarService;
 use App\Game\Validators\ShareSonarValidator;
-use Exception;
 
 class ShareSonarAction
 {
@@ -17,7 +17,7 @@ class ShareSonarAction
 
     /**
      * @param ShareSonarData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function do(ShareSonarData $data): void
     {

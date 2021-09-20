@@ -2,11 +2,11 @@
 
 namespace App\Game\Validators;
 
+use App\Game\Data\GameActionException;
 use App\Game\Data\GiveActionPointsData;
 use App\Game\Enums\Errors;
 use App\Game\Services\GiveActionPointsService;
 use App\Game\Services\VisibilityService;
-use Exception;
 
 class GiveActionPointsValidator
 {
@@ -20,7 +20,7 @@ class GiveActionPointsValidator
 
     /**
      * @param GiveActionPointsData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function validate(GiveActionPointsData $data): void
     {
@@ -36,7 +36,7 @@ class GiveActionPointsValidator
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkValidRecipient(): void
     {
@@ -44,43 +44,43 @@ class GiveActionPointsValidator
         $recipient = $this->data->getRecipient();
 
         if ($donor->is($recipient)) {
-            throw new Exception(Errors::CANNOT_TARGET_SELF);
+            throw new GameActionException(Errors::CANNOT_TARGET_SELF);
         }
 
         if (! $donor->getGame()->is($recipient->getGame())) {
-            throw new Exception(Errors::TARGET_NOT_IN_GAME);
+            throw new GameActionException(Errors::TARGET_NOT_IN_GAME);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkRecipientVisibleByDonor(): void
     {
         if (! $this->visibilityService->canSeeSubmarine($this->data->getRecipient(), $this->data->getDonor())) {
-            throw new Exception(Errors::TARGET_NOT_VISIBLE);
+            throw new GameActionException(Errors::TARGET_NOT_VISIBLE);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkSubmarinesWithinRange(): void
     {
         if (! $this->giveActionPointsService->areSubmarinesWithinRange($this->data)) {
-            throw new Exception(Errors::TARGET_TOO_FAR_AWAY);
+            throw new GameActionException(Errors::TARGET_TOO_FAR_AWAY);
         };
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkAmount(): void
     {
         $actionPoints = $this->data->getActionPoints();
 
         if ($this->data->getActionPoints()->getAmount() < 1) {
-            throw new Exception(Errors::AMOUNT_TOO_LOW);
+            throw new GameActionException(Errors::AMOUNT_TOO_LOW);
         }
 
         if (
@@ -88,7 +88,7 @@ class GiveActionPointsValidator
                 ->getActionPoints()
                 ->canAfford($actionPoints)
         ) {
-            throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
+            throw new GameActionException(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }
 }

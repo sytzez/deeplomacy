@@ -3,10 +3,10 @@
 namespace App\Game\Validators;
 
 use App\Game\Contracts\SubmarineRepositoryContract;
+use App\Game\Data\GameActionException;
 use App\Game\Data\MoveSubmarineData;
 use App\Game\Enums\Errors;
 use App\Game\Services\MoveSubmarineService;
-use Exception;
 
 class MoveSubmarineValidator
 {
@@ -20,7 +20,7 @@ class MoveSubmarineValidator
 
     /**
      * @param MoveSubmarineData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function validate(MoveSubmarineData $data): void
     {
@@ -34,7 +34,7 @@ class MoveSubmarineValidator
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkDestinationWithinBounds(): void
     {
@@ -46,12 +46,12 @@ class MoveSubmarineValidator
             ->getBounds()
             ->containsPosition($destination)
         ) {
-            throw new Exception(Errors::DESTINATION_OUT_OF_BOUNDS);
+            throw new GameActionException(Errors::DESTINATION_OUT_OF_BOUNDS);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkSufficientActionPoints(): void
     {
@@ -62,12 +62,12 @@ class MoveSubmarineValidator
                 ->getActionPoints()
                 ->canAfford($actionPointsRequired)
         ) {
-            throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
+            throw new GameActionException(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkIfNoSubmarineExistsAtDestination(): void
     {
@@ -78,7 +78,7 @@ class MoveSubmarineValidator
         $submarineAtDestination = $this->submarineRepository->getAtPosition($game, $destination);
 
         if (! is_null($submarineAtDestination)) {
-            throw new Exception(Errors::SUBMARINE_AT_DESTINATION);
+            throw new GameActionException(Errors::SUBMARINE_AT_DESTINATION);
         }
     }
 }

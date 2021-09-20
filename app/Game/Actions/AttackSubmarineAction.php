@@ -3,9 +3,9 @@
 namespace App\Game\Actions;
 
 use App\Game\Data\AttackSubmarineData;
+use App\Game\Data\GameActionException;
 use App\Game\Services\AttackSubmarineService;
 use App\Game\Validators\AttackSubmarineValidator;
-use Exception;
 
 class AttackSubmarineAction
 {
@@ -17,7 +17,7 @@ class AttackSubmarineAction
 
     /**
      * @param AttackSubmarineData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function do(AttackSubmarineData $data): void
     {

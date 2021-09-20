@@ -2,11 +2,11 @@
 
 namespace App\Game\Validators;
 
+use App\Game\Data\GameActionException;
 use App\Game\Data\ShareSonarData;
 use App\Game\Enums\Errors;
 use App\Game\Services\ShareSonarService;
 use App\Game\Services\VisibilityService;
-use Exception;
 
 class ShareSonarValidator
 {
@@ -20,7 +20,7 @@ class ShareSonarValidator
 
     /**
      * @param ShareSonarData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function validate(ShareSonarData $data): void
     {
@@ -36,7 +36,7 @@ class ShareSonarValidator
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkValidRecipient(): void
     {
@@ -44,16 +44,16 @@ class ShareSonarValidator
         $recipient = $this->data->getRecipient();
 
         if ($donor->is($recipient)) {
-            throw new Exception(Errors::CANNOT_TARGET_SELF);
+            throw new GameActionException(Errors::CANNOT_TARGET_SELF);
         }
 
         if (!$donor->getGame()->is($recipient->getGame())) {
-            throw new Exception(Errors::TARGET_NOT_IN_GAME);
+            throw new GameActionException(Errors::TARGET_NOT_IN_GAME);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkSufficientActionPoints(): void
     {
@@ -64,12 +64,12 @@ class ShareSonarValidator
                 ->getActionPoints()
                 ->canAfford($actionPointsRequired)
         ) {
-            throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
+            throw new GameActionException(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkRecipientVisibleByDonor(): void
     {
@@ -79,17 +79,17 @@ class ShareSonarValidator
                 $this->data->getDonor()
             )
         ) {
-            throw new Exception(Errors::TARGET_NOT_VISIBLE);
+            throw new GameActionException(Errors::TARGET_NOT_VISIBLE);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkSubmarinesWithinRange(): void
     {
         if (! $this->shareSonarService->areSubmarinesWithinRange($this->data)) {
-            throw new Exception(Errors::TARGET_TOO_FAR_AWAY);
+            throw new GameActionException(Errors::TARGET_TOO_FAR_AWAY);
         };
     }
 }

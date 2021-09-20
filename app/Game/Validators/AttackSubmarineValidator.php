@@ -3,10 +3,10 @@
 namespace App\Game\Validators;
 
 use App\Game\Data\AttackSubmarineData;
+use App\Game\Data\GameActionException;
 use App\Game\Enums\Errors;
 use App\Game\Services\AttackSubmarineService;
 use App\Game\Services\VisibilityService;
-use Exception;
 
 class AttackSubmarineValidator
 {
@@ -20,7 +20,7 @@ class AttackSubmarineValidator
 
     /**
      * @param AttackSubmarineData $data
-     * @throws Exception
+     * @throws GameActionException
      */
     public function validate(AttackSubmarineData $data): void
     {
@@ -34,7 +34,7 @@ class AttackSubmarineValidator
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkValidTarget(): void
     {
@@ -42,16 +42,16 @@ class AttackSubmarineValidator
         $target = $this->data->getTarget();
 
         if ($attacker->is($target)) {
-            throw new Exception(Errors::CANNOT_TARGET_SELF);
+            throw new GameActionException(Errors::CANNOT_TARGET_SELF);
         }
 
         if (! $attacker->getGame()->is($target->getGame())) {
-            throw new Exception(Errors::TARGET_NOT_IN_GAME);
+            throw new GameActionException(Errors::TARGET_NOT_IN_GAME);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function checkSufficientActionPoints(): void
     {
@@ -62,12 +62,12 @@ class AttackSubmarineValidator
                 ->getActionPoints()
                 ->canAfford($actionPointsRequired)
         ) {
-            throw new Exception(Errors::INSUFFICIENT_ACTION_POINTS);
+            throw new GameActionException(Errors::INSUFFICIENT_ACTION_POINTS);
         }
     }
 
     /**
-     * @throws Exception
+     * @throws GameActionException
      */
     protected function getTargetVisibleByAttacker(): void
     {
@@ -77,7 +77,7 @@ class AttackSubmarineValidator
                 $this->data->getTarget()
             )
         ) {
-            throw new Exception(Errors::TARGET_NOT_VISIBLE);
+            throw new GameActionException(Errors::TARGET_NOT_VISIBLE);
         }
     }
 }

@@ -12,6 +12,7 @@ use App\Game\Actions\AttackSubmarineAction;
 use App\Game\Actions\GiveActionPointsAction;
 use App\Game\Actions\MoveSubmarineAction;
 use App\Game\Actions\ShareSonarAction;
+use App\Game\Data\GameActionException;
 use App\Game\Factories\GridFactory;
 use App\Http\Requests\AttackSubmarineRequest;
 use App\Http\Requests\GiveActionPointsRequest;
@@ -23,7 +24,6 @@ use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;
 use App\Services\GameService;
-use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
@@ -97,17 +97,17 @@ class PlayController
             ], 403);
         }
 
-//        try {
+        try {
             $data = $dataFactory->make($submarine, $request);
 
             $action->do($data);
 
-//        } catch (Exception $e) {
-//            return Response::json([
-//                'error'   => true,
-//                'message' => $e->getMessage(),
-//            ], 400);
-//        }
+        } catch (GameActionException $e) {
+            return Response::json([
+                'error'   => true,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
 
         return $this->createGameStatusResponse($game, $submarine);
     }
