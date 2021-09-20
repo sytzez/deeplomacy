@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>
+    Give Action Points
+</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input [formControl]="amount"
+               matInput
+               type="number"
+               min="1"
+               [max]="data.max"
+        >
+        <mat-hint>1 - {{ data.max }}</mat-hint>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button
+            (click)="cancel()"
+    >
+        Cancel
+    </button>
+    <button mat-button
+            [mat-dialog-close]="amount.value"
+            [disabled]="amount.invalid"
+    >
+        Give
+    </button>
+</div>

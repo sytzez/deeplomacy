@@ -53,7 +53,7 @@ export class PlayService {
     ): Observable<GameState> {
 
         const body = {
-            submarine: request.target.id,
+            submarine: request.recipient.id,
         };
 
         return this.api.post<GameState>(`play/${gameId}/share-sonar`, body);

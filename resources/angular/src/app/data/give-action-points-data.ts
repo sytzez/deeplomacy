@@ -1,5 +1,6 @@
 import { Submarine } from "../models/submarine";
 
-export interface ShareSonarData {
+export interface GiveActionPointsData {
     recipient: Submarine;
+    amount: number
 }

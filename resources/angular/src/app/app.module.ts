@@ -21,6 +21,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MapComponent } from './components/map/map.component';
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatDialogModule } from "@angular/material/dialog";
+import { GiveActionPointsDialogComponent } from './components/give-action-points-dialog/give-action-points-dialog.component';
+import { MatInputModule } from "@angular/material/input";
 
 @NgModule({
     declarations: [
@@ -28,7 +31,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
         GamesIndexComponent,
         PlayComponent,
         CreateGameFormComponent,
-        MapComponent
+        MapComponent,
+        GiveActionPointsDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -44,9 +48,11 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
         MatListModule,
         MatDividerModule,
         MatFormFieldModule,
+        MatInputModule,
         MatSelectModule,
         MatExpansionModule,
         MatSnackBarModule,
+        MatDialogModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -6,6 +6,9 @@ import { MoveSubmarineData } from "../../data/move-submarine-data";
 import { Submarine } from "../../models/submarine";
 import { ShareSonarData } from "../../data/share-sonar-data";
 import { AttackSubmarineData } from "../../data/attack-submarine-data";
+import { GiveActionPointsData } from "../../data/give-action-points-data";
+import { MatDialog } from "@angular/material/dialog";
+import { GiveActionPointsDialogComponent } from "../give-action-points-dialog/give-action-points-dialog.component";
 
 type CellType = 'me' | 'invisible' | 'unreachable' | 'reachable' | 'submarine';
 
@@ -29,9 +32,17 @@ export class MapComponent {
     public attack = new EventEmitter<AttackSubmarineData>();
 
     @Output()
+    public giveActionPoints = new EventEmitter<GiveActionPointsData>();
+
+    @Output()
     public shareSonar = new EventEmitter<ShareSonarData>();
 
     public submarineForMenu: Submarine|null = null;
+
+    constructor(
+        protected dialog: MatDialog,
+    ) {
+    }
 
     public getCellType(cell: Cell): CellType {
 
@@ -71,17 +82,31 @@ export class MapComponent {
         this.attack.emit({ target });
     }
 
-    public emitGiveActionPoints(target: Submarine): void {
-        // this.move.emit({
-        //     destination
-        // });
-    }
-
-    public emitShareSonar(target: Submarine): void {
+    public emitGiveActionPoints(recipient: Submarine): void {
 
         this.submarineForMenu = null;
-        
-        this.shareSonar.emit({ target });
+
+        const dialogRef = this.dialog.open(GiveActionPointsDialogComponent, {
+            data: {
+                max: this.mySubmarine?.actionPoints,
+            },
+        });
+
+        dialogRef.afterClosed().subscribe((amount: number) => {
+            if (amount < 1) {
+                return;
+            }
+
+            this.giveActionPoints.emit({ recipient, amount });
+        })
+
+    }
+
+    public emitShareSonar(recipient: Submarine): void {
+
+        this.submarineForMenu = null;
+
+        this.shareSonar.emit({ recipient });
     }
 
 }
