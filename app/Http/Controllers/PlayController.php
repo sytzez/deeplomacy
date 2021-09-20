@@ -32,6 +32,8 @@ use Illuminate\Support\Facades\Response;
 
 class PlayController
 {
+    public const MESSAGE_NOT_JOINED = 'You are not part of this game';
+
     public function __construct(
         protected GameService $gameService,
         protected GridFactory $gridFactory,
@@ -42,7 +44,7 @@ class PlayController
     {
         if (! ($submarine = $this->getSubmarine($game))) {
             return Response::json([
-                'message' => 'not_joined'
+                'message' => self::MESSAGE_NOT_JOINED
             ], 403);
         }
 
@@ -91,7 +93,7 @@ class PlayController
 
         if (! $submarine) {
             return Response::json([
-               'message' => 'not_joined',
+               'message' => self::MESSAGE_NOT_JOINED,
             ], 403);
         }
 
