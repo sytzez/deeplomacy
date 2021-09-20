@@ -12,6 +12,8 @@ export class GamesIndexComponent implements OnInit {
 
     public games: Game[]|null = null;
 
+    public isLoadingGames = false;
+
     constructor(
         protected gamesService: GamesService,
         protected router: Router,
@@ -25,12 +27,23 @@ export class GamesIndexComponent implements OnInit {
 
     public loadGames(): void {
 
+        if (this.isLoadingGames) {
+            return;
+        }
+
+        this.isLoadingGames = true;
+
         this.gamesService
             .getAll()
-            .subscribe((games) => {
-                console.log(games);
-                this.games = games;
-            });
+            .subscribe(
+                (games) => {
+                    this.games = games;
+                },
+                () => {},
+                () => {
+                    this.isLoadingGames = false;
+                }
+            );
     }
 
     public join(game: Game) {

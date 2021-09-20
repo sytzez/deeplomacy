@@ -35,12 +35,20 @@
                 <mat-row *matRowDef="let row; columns: ['configuration', 'players', 'actions']"></mat-row>
             </mat-table>
 
-            <mat-spinner *ngIf="games === null"></mat-spinner>
+            <mat-spinner *ngIf="games === null && isLoadingGames"></mat-spinner>
 
             <div class="empty-state" *ngIf="games?.length === 0">
                 There are no games at this moment.
             </div>
         </mat-card-content>
+        <mat-card-actions style="text-align: right">
+            <button mat-icon-button
+                    [disabled]="isLoadingGames"
+                    (click)="loadGames()"
+            >
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </mat-card-actions>
     </mat-card>
 
     <app-create-game-form></app-create-game-form>
