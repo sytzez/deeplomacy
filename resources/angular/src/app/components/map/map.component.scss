@@ -1,10 +1,19 @@
 .container {
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     overflow: scroll;
 
     .map {
         white-space: nowrap;
 
-        transform: rotateX(60deg) rotateZ(-45deg);
+        transform:
+            translateY(-15%)
+            rotateX(60deg)
+            rotateZ(-45deg)
+            translateY(50%);
 
         .row {
             button.cell-button {
@@ -28,7 +37,9 @@
                     position: absolute;
                     top: .2em;
                     left: 0.5em;
-                    transform: rotateZ(45deg) scaleY(2);
+                    transform:
+                        rotateZ(45deg)
+                        scaleY(2);
                 }
 
                 .tooltip-container {
@@ -72,5 +83,11 @@
                 }
             }
         }
+    }
+}
+
+@media (max-width: 599px) {
+    .container {
+        top: 56px;
     }
 }
