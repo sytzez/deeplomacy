@@ -58,11 +58,11 @@
               ],
               "outputHashing": "all",
               "outputPath": "../../public/assets/angular",
-              "deployUrl": "/assets/angular"
+              "deployUrl": "/assets/angular/"
             },
             "development": {
               "outputPath": "dist/assets/angular",
-              "baseHref": "/assets/angular/",
+              "baseHref": "",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
