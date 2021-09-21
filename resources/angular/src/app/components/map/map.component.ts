@@ -100,7 +100,7 @@ export class MapComponent {
         });
 
         dialogRef.afterClosed().subscribe((amount: number) => {
-            if (amount < 1) {
+            if (! amount || amount < 1) {
                 return;
             }
 
