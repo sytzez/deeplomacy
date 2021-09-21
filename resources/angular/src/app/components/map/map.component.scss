@@ -6,6 +6,14 @@
     right: 0;
     overflow: scroll;
 
+    &.loading {
+        cursor: wait;
+
+        button {
+            cursor: wait;
+        }
+    }
+
     .map {
         white-space: nowrap;
 

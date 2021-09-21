@@ -1,8 +1,10 @@
 <app-map *ngIf="grid && mySubmarine"
          [grid]="grid"
          [mySubmarine]="mySubmarine"
+         [isLoading]="isLoading"
          (move)="moveTo($event)"
          (attack)="attack($event)"
          (shareSonar)="shareSonar($event)"
          (giveActionPoints)="giveActionPoints($event)"
 ></app-map>
+<mat-spinner *ngIf="! (grid && mySubmarine)"></mat-spinner>

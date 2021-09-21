@@ -28,7 +28,7 @@ export class PlayComponent implements OnInit {
 
     public mySubmarine?: MySubmarine;
 
-    public loading = false;
+    public isLoading = false;
 
     constructor(
         protected route: ActivatedRoute,
@@ -61,7 +61,7 @@ export class PlayComponent implements OnInit {
 
     public loadGameState(state: GameState): void {
 
-        this.loading = false;
+        this.isLoading = false;
         this.grid = state.grid;
         this.mySubmarine = state.mySubmarine;
 
@@ -72,11 +72,11 @@ export class PlayComponent implements OnInit {
 
     public moveTo(data: MoveSubmarineData): void {
 
-        if (! this.gameId || this.loading) {
+        if (! this.gameId || this.isLoading) {
             return;
         }
 
-        this.loading = true;
+        this.isLoading = true;
 
         this.playService
             .move(this.gameId, data)
@@ -85,11 +85,11 @@ export class PlayComponent implements OnInit {
 
     public attack(data: AttackSubmarineData): void {
 
-        if (! this.gameId || this.loading) {
+        if (! this.gameId || this.isLoading) {
             return;
         }
 
-        this.loading = true;
+        this.isLoading = true;
 
         this.playService
             .attack(this.gameId, data)
@@ -98,11 +98,11 @@ export class PlayComponent implements OnInit {
 
     public shareSonar(data: ShareSonarData): void {
 
-        if (! this.gameId || this.loading) {
+        if (! this.gameId || this.isLoading) {
             return;
         }
 
-        this.loading = true;
+        this.isLoading = true;
 
         this.playService
             .shareSonar(this.gameId, data)
@@ -111,11 +111,11 @@ export class PlayComponent implements OnInit {
 
     public giveActionPoints(data: GiveActionPointsData): void {
 
-        if (! this.gameId || this.loading) {
+        if (! this.gameId || this.isLoading) {
             return;
         }
 
-        this.loading = true;
+        this.isLoading = true;
 
         this.playService
             .giveActionPoints(this.gameId, data)

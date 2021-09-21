@@ -34,6 +34,9 @@ export class MapComponent {
     @Output()
     public giveActionPoints = new EventEmitter<GiveActionPointsData>();
 
+    @Input()
+    public isLoading = true;
+
     @Output()
     public shareSonar = new EventEmitter<ShareSonarData>();
 

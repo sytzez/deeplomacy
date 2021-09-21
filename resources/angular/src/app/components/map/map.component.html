@@ -1,4 +1,7 @@
-<div class="container" *ngIf="grid && mySubmarine">
+<div class="container"
+     *ngIf="grid && mySubmarine"
+     [class.loading]="isLoading"
+>
     <div class="map">
         <div class="row" *ngFor="let row of grid">
             <span *ngFor="let cell of row"
