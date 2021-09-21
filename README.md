@@ -4,7 +4,44 @@ A game about friendship and betrayal deep under the surface of the ocean.
 
 ## Getting started
 
-*TODO: write getting started guide*
+- Clone the git repository by opening a terminal and running:
+
+`git clone https://github.com/sytzez/deeplomacy.git`
+
+- Enter the project directory:
+
+`cd deeplomacy`
+
+- Install composer packages:
+
+`composer install`
+
+- Customize the database connection info inside your `.env`, for example:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=deeplomacy
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+- Run the migrations:
+
+`php artisan migrate:fresh`
+
+- Start the local server (if not using valet):
+
+`php artisan serve`
+
+- Run the scheduler if you want games to progress properly:
+
+`php artisan schedule:work`
+
+- Open the app in your browser:
+
+[http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## Game rules
 

@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "sytzez/deeplomacy",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "A game about friendship and betrayal deep under the surface of the ocean.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
