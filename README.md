@@ -76,7 +76,7 @@ Some noteworthy  directories.
     - [/Http](app/Http) — Our controllers, form requests, middleware, resources etc.
     - [/Models](app/Models) — The models represent the content of our database, standard Laravel stuff.
     - [/Jobs](app/Jobs) — Things that need to be done regularly, like distributing action points to all players.
-- [/resources/angular](resources/angular/src/app) — The frontend Angular project.
+- [/resources/angular/src/app](resources/angular/src/app) — The frontend Angular project.
     - [/pages](resources/angular/src/app/components) - Custom UI components used in the app, including the game map.
     - [/data](resources/angular/src/app/data) - Data interfaces used in the Angular services.
     - [/models](resources/angular/src/app/models) - Data interfaces representing models returned from the backend.
