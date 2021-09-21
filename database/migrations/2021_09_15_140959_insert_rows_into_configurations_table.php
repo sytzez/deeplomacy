@@ -37,7 +37,7 @@ class InsertRowsIntoConfigurationsTable extends Migration
                     'action_points_required_to_attack'               => 2,
                     'amount_of_action_points_distributed'            => 2,
                     'max_num_of_players'                             => 8,
-                    'minutes_between_action_point_distribution'      => 1,
+                    'minutes_between_action_point_distribution'      => 5,
                 ],
                 [
                     'name'                                           => 'Large',
@@ -52,7 +52,7 @@ class InsertRowsIntoConfigurationsTable extends Migration
                     'action_points_required_to_attack'               => 2,
                     'amount_of_action_points_distributed'            => 2,
                     'max_num_of_players'                             => 32,
-                    'minutes_between_action_point_distribution'      => 1,
+                    'minutes_between_action_point_distribution'      => 10,
                 ],
             ]);
     }
