@@ -22,4 +22,4 @@ jobs:
       - name: Install Composer dependencies
         uses: "ramsey/composer-install@v1"
       - name: Run PHPCS
-        run: ./vendor/bin/phpcs --standard=PSR12 app/.
+        run: ./vendor/bin/phpcs --standard=PSR12 app/. game/.
