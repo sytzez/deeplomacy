@@ -37,4 +37,9 @@ class ActionPoints
     {
         return $this->getAmount() >= $points->getAmount();
     }
+
+    public function equals(self $actionPoints): bool
+    {
+        return $this->getAmount() === $actionPoints->getAmount();
+    }
 }
