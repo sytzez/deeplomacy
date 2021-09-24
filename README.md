@@ -1,6 +1,8 @@
 # Deeplomacy
 
-A game about friendship and betrayal deep under the surface of the ocean.
+![Laravel](https://github.com/sytzez/deeplomacy/actions/workflows/laravel.yml/badge.svg)
+![Larastan](https://github.com/sytzez/deeplomacy/actions/workflows/larastan.yml/badge.svg)
+![PSR-12](https://github.com/sytzez/deeplomacy/actions/workflows/phpcs.yml/badge.svg)
 
 ## Getting started
 
@@ -180,11 +182,11 @@ See also: [Adapter pattern](#adapter-pattern).
 
 *TODO*
 
-## Code style
+## Code quality
 
 ### PSR-12
 
-This project adheres to the [PSR-12](https://www.php-fig.org/psr/psr-12/) standard.
+This project adheres to the [PSR-12](https://www.php-fig.org/psr/psr-12/) standard. Phpcs is used to verify the code quality.
 
 ### Larastan
 
