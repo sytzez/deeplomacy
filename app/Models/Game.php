@@ -11,11 +11,11 @@ use Illuminate\Support\Collection;
 /**
  * Class Game
  * @package App\Models
- * @property ?DateTime action_points_last_distributed_at
- * @property Configuration configuration
- * @property Collection<Submarine> submarines
- * @property Collection<Submarine> aliveSubmarines
- * @property int numOfPlayers
+ * @property ?DateTime $action_points_last_distributed_at
+ * @property Configuration $configuration
+ * @property Collection<Submarine> $submarines
+ * @property Collection<Submarine> $aliveSubmarines
+ * @property int $numOfPlayers
  */
 class Game extends Model
 {

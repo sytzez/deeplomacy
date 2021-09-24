@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * Class Configuration
  * @package App\Models
- * @property string name
- * @property string description
- * @property int width
- * @property int height
- * @property int distance_squared_movable_per_action_point
- * @property int field_of_view_squared
- * @property int distance_squared_allowed_to_give_action_points
- * @property int distance_squared_allowed_to_share_sonar
- * @property int action_points_required_to_share_sonar
- * @property int action_points_required_to_attack
- * @property int amount_of_action_points_distributed
- * @property int max_num_of_players
- * @property int minutes_between_action_point_distribution
- * @property Game game
+ * @property string $name
+ * @property string $description
+ * @property int $width
+ * @property int $height
+ * @property int $distance_squared_movable_per_action_point
+ * @property int $field_of_view_squared
+ * @property int $distance_squared_allowed_to_give_action_points
+ * @property int $distance_squared_allowed_to_share_sonar
+ * @property int $action_points_required_to_share_sonar
+ * @property int $action_points_required_to_attack
+ * @property int $amount_of_action_points_distributed
+ * @property int $max_num_of_players
+ * @property int $minutes_between_action_point_distribution
+ * @property Game $game
  */
 class Configuration extends Model
 {

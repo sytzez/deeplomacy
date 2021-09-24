@@ -10,14 +10,14 @@ use Illuminate\Support\Collection;
 /**
  * Class Submarine
  * @package App\Models
- * @property int x
- * @property int y
- * @property int action_points
- * @property bool is_alive
- * @property User user
- * @property Game game
- * @property Collection<Submarine> sonarSharedTo
- * @property Collection<Submarine> sonarSharedFrom
+ * @property int $x
+ * @property int $y
+ * @property int $action_points
+ * @property bool $is_alive
+ * @property User $user
+ * @property Game $game
+ * @property Collection<Submarine> $sonarSharedTo
+ * @property Collection<Submarine> $sonarSharedFrom
  */
 class Submarine extends Model
 {
