@@ -42,7 +42,6 @@ class GridFactory
         protected MoveSubmarineService $moveSubmarineService,
         protected AttackSubmarineService $attackSubmarineService,
         protected ShareSonarService $shareSonarService,
-
     ) {
     }
 
@@ -67,7 +66,7 @@ class GridFactory
 
         $this->rows = [];
 
-        for ($y = $topLeft->getY(); $y <=$bottomRight->getY(); $y++) {
+        for ($y = $topLeft->getY(); $y <= $bottomRight->getY(); $y++) {
             $row = [];
 
             for ($x = $topLeft->getX(); $x <= $bottomRight->getX(); $x++) {
@@ -105,7 +104,7 @@ class GridFactory
             );
 
             return true;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }

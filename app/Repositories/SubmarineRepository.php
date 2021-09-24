@@ -15,10 +15,12 @@ class SubmarineRepository implements SubmarineRepositoryContract
 {
     public function create(GameContract $game, SubmarineContract $submarine): static
     {
-        if (! (
-            $game instanceof GameAdapter
-            && $submarine instanceof SubmarineAdapter
-        )) {
+        if (
+            ! (
+                $game instanceof GameAdapter
+                && $submarine instanceof SubmarineAdapter
+            )
+        ) {
             throw new DomainException();
         }
 

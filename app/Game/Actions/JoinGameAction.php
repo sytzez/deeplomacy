@@ -29,7 +29,7 @@ class JoinGameAction
 
         do {
             $data->getPlacementStrategy()->placeSubmarine($submarine);
-        } while(
+        } while (
             $this->submarineRepository->getAtPosition(
                 $submarine->getGame(),
                 $submarine->getPosition(),

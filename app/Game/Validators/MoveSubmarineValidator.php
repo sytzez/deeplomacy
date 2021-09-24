@@ -40,7 +40,8 @@ class MoveSubmarineValidator
     {
         $destination = $this->moveSubmarineService->getDestination($this->data);
 
-        if (! $this->data->getSubmarine()
+        if (
+            ! $this->data->getSubmarine()
             ->getGame()
             ->getConfiguration()
             ->getBounds()

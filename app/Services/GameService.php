@@ -63,7 +63,8 @@ class GameService
     {
         if (
             $game->action_points_last_distributed_at
-            && $game->action_points_last_distributed_at > now()->addMinutes(- $game->configuration->minutes_between_action_point_distribution)
+            && $game->action_points_last_distributed_at > now()
+                ->addMinutes(- $game->configuration->minutes_between_action_point_distribution)
         ) {
             return;
         }

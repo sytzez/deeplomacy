@@ -12,7 +12,10 @@ use Illuminate\Queue\SerializesModels;
 
 class DistributeActionPointsJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function handle(
         GameService $gameService,
