@@ -1,4 +1,4 @@
-name: PHPCS PSR-12
+name: phpcs PSR-12
 
 on:
   push:
