@@ -190,7 +190,7 @@ This project adheres to the [PSR-12](https://www.php-fig.org/psr/psr-12/) standa
 
 ### Larastan
 
-The project has 0 errors at level 8 (maximum) of Larastan statistical analysis
+The project has 0 errors at level 8 (maximum) of Larastan static analysis
 
 ## Algorithms
 
