@@ -65,16 +65,16 @@ There is much advantage in playing within a group over playing alone, but eventu
 
 Some noteworthy  directories.
 
+- [/game](game) — Contains the high level logic for the game itself, decoupled from our framework.
+    - [/Actions](game/Actions) — Actions a player can take to mutate the state of the game.
+    - [/Contracts](game/Contracts) — These contracts (interfaces) should be implemented by the lower level framework to work with the game logic.
+    - [/Data](game/Data) — Immutable data objects representing things inside the game.
+    - [/Services](game/Services) — These services perform the hard business logic of the game.
+    - [/Validators](game/Validators) — The validators check whether certain actions are valid in the game.
+    - [/Strategies](game/Strategies) — Currently only used for placing new submarines in the game. Various placement strategies could be chosen.
 - [/app](app) — The backend Laravel project.
     - [/Adapters](app/Adapters) — These classes represent the layer adapting our Laravel models to their Game contracts.
     - [/Factories](app/Factories) — They turn HTTP requests into objects we need for the game.
-    - [/Game](app/Game) — Contains the high level logic for the game itself, agnostic of our framework.
-        - [/Actions](game/Actions) — Actions a player can take to mutate the state of the game.
-        - [/Contracts](game/Contracts) — These contracts (interfaces) should be implemented by the lower level framework to work with the game logic.
-        - [/Data](game/Data) — Immutable data objects representing things inside the game.
-        - [/Services](game/Services) — These services perform the hard business logic of the game.
-        - [/Validators](game/Validators) — The validators check whether certain actions are valid in the game.
-        - [/Strategies](game/Strategies) — Currently only used for placing new submarines in the game. Various placement strategies could be chosen.
     - [/Http](app/Http) — Our controllers, form requests, middleware, resources etc.
     - [/Models](app/Models) — The models represent the content of our database, standard Laravel stuff.
     - [/Jobs](app/Jobs) — Things that need to be done regularly, like distributing action points to all players.
