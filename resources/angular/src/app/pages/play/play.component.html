@@ -7,4 +7,9 @@
          (shareSonar)="shareSonar($event)"
          (giveActionPoints)="giveActionPoints($event)"
 ></app-map>
+<mat-card class="overlay mat-elevation-z12" *ngIf="mySubmarine">
+    <mat-card-content>
+        Action points: {{ mySubmarine.actionPoints }}
+    </mat-card-content>
+</mat-card>
 <mat-spinner *ngIf="! (grid && mySubmarine)"></mat-spinner>
