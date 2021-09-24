@@ -3,8 +3,8 @@
 namespace App\Factories;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Data\ActionPoints;
-use App\Game\Data\GiveActionPointsData;
+use Game\Data\ActionPoints;
+use Game\Data\GiveActionPointsData;
 use App\Http\Requests\GiveActionPointsRequest;
 use App\Models\Submarine;
 use Exception;

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Adapters\GameAdapter;
 use App\Factories\SubmarineFactory;
-use App\Game\Services\DistributeActionPointsService;
+use Game\Services\DistributeActionPointsService;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;

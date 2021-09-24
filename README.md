@@ -69,12 +69,12 @@ Some noteworthy  directories.
     - [/Adapters](app/Adapters) — These classes represent the layer adapting our Laravel models to their Game contracts.
     - [/Factories](app/Factories) — They turn HTTP requests into objects we need for the game.
     - [/Game](app/Game) — Contains the high level logic for the game itself, agnostic of our framework.
-        - [/Actions](app/Game/Actions) — Actions a player can take to mutate the state of the game.
-        - [/Contracts](app/Game/Contracts) — These contracts (interfaces) should be implemented by the lower level framework to work with the game logic.
-        - [/Data](app/Game/Data) — Immutable data objects representing things inside the game.
-        - [/Services](app/Game/Services) — These services perform the hard business logic of the game.
-        - [/Validators](app/Game/Validators) — The validators check whether certain actions are valid in the game.
-        - [/Strategies](app/Game/Strategies) — Currently only used for placing new submarines in the game. Various placement strategies could be chosen.
+        - [/Actions](game/Actions) — Actions a player can take to mutate the state of the game.
+        - [/Contracts](game/Contracts) — These contracts (interfaces) should be implemented by the lower level framework to work with the game logic.
+        - [/Data](game/Data) — Immutable data objects representing things inside the game.
+        - [/Services](game/Services) — These services perform the hard business logic of the game.
+        - [/Validators](game/Validators) — The validators check whether certain actions are valid in the game.
+        - [/Strategies](game/Strategies) — Currently only used for placing new submarines in the game. Various placement strategies could be chosen.
     - [/Http](app/Http) — Our controllers, form requests, middleware, resources etc.
     - [/Models](app/Models) — The models represent the content of our database, standard Laravel stuff.
     - [/Jobs](app/Jobs) — Things that need to be done regularly, like distributing action points to all players.
@@ -93,7 +93,7 @@ To keep the gameplay module (everything within [/app/Game](app/Game)) agnostic o
 the `App/Game` namespace provides contracts to interface with the framework in a useful way.
 
 Adapter classes have been implemented for each Laravel model to make them work in a way that satisfies their corresponding game contract.
-For example, the game specifies a [SubmarineContract](app/Game/Contracts/SubmarineContract.php) with all the methods it needs to be able to call on a submarine.
+For example, the game specifies a [SubmarineContract](game/Contracts/SubmarineContract.php) with all the methods it needs to be able to call on a submarine.
 The [SubmarineAdapter](app/Adapters/SubmarineAdapter.php) class then wraps around the [Submarine](app/Models/Submarine.php) model class, and implements the contract's methods using Laravel-style operations, such as magic properties.
 
 This way the Laravel models don't need to know about what the game needs, and the game doesn't need to know the specifics of Laravel models.
@@ -106,8 +106,8 @@ However, we don't want the code that relies on these details to suffer instabili
 An example of this is the placement of new submarines on the game grid. There are many ways, both simple and complex, to calculate the ideal position at which a new player should enter the game.
 The rest of the game code couldn't care less *how* this is done, it just needs the submarine to be placed.
 
-To facilitate this separation, a [PlacementStrategyContract](app/Game/Contracts/PlacementStrategyContract.php) interface is used by the rest of the game logic to do this placement.
-A specific placement strategy class instance implementing this contract, such as [RandomPlacementStrategy](app/Game/Strategies/RandomPlacementStrategy.php) is passed to the [JoinGameAction->do()](app/Game/Actions/JoinGameAction.php) method,
+To facilitate this separation, a [PlacementStrategyContract](game/Contracts/PlacementStrategyContract.php) interface is used by the rest of the game logic to do this placement.
+A specific placement strategy class instance implementing this contract, such as [RandomPlacementStrategy](game/Strategies/RandomPlacementStrategy.php) is passed to the [JoinGameAction->do()](game/Actions/JoinGameAction.php) method,
 leaving the caller of the method to decide what strategy will be used. At any point new strategies can be created, without having to change the code dependent on submarine placement.
 
 ### Action pattern
@@ -116,9 +116,9 @@ The easiest way to understand the rules of a game, especially a (semi) turn base
 
 Using the action pattern with a single public `->do()` method makes it very clear to the reader what these classes will do.
 For example: 
-[JoinGameAction](app/Game/Actions/JoinGameAction.php), 
-[AttackSubmarineAction](app/Game/Actions/AttackSubmarineAction.php), 
-[GiveActionPointsAction](app/Game/Actions/GiveActionPointsAction.php).
+[JoinGameAction](game/Actions/JoinGameAction.php), 
+[AttackSubmarineAction](game/Actions/AttackSubmarineAction.php), 
+[GiveActionPointsAction](game/Actions/GiveActionPointsAction.php).
 
 The idea is similar to the Controller pattern, as the classes themselves don't contain much logic.
 The Action classes usually only call a validation method, and a service method to facilitate the action.
@@ -154,9 +154,9 @@ Class inheritance has not been made use of much.
 
 ### Interface segregation
 
-The [GameContract](app/Game/Contracts/GameContract.php), 
-[ConfigurationContract](app/Game/Contracts/ConfigurationContract.php)
-and [SubmarineRepositoryContract](app/Game/Contracts/SubmarineRepositoryContract.php)
+The [GameContract](game/Contracts/GameContract.php), 
+[ConfigurationContract](game/Contracts/ConfigurationContract.php)
+and [SubmarineRepositoryContract](game/Contracts/SubmarineRepositoryContract.php)
 could have been designed as one big contract,
 since a game will have a configuration, and it should be possible to retrieve and update submarines in the game.
 To satisfy the interface segregation principle, they were made into separate contracts.
@@ -172,7 +172,7 @@ Both modules depend on each other; the game logic needs to get user input from H
 while the web server needs game logic to be applied, and to be able to return information about the game back to the user.
 
 The interaction between the game and the web framework has been made abstract, so that the game logic does not need to rely on low-level framework specifics.
-The game namespace defines [contracts](app/Game/Contracts) for the web framework to implement, and [data objects](app/Game/Data) for the web framework to pass onto and expect back from its methods.
+The game namespace defines [contracts](game/Contracts) for the web framework to implement, and [data objects](game/Data) for the web framework to pass onto and expect back from its methods.
 The game module code just needs to know how to deal with these contracts and data objects.
 The web framework only needs to implement the contracts and provide information in the form of the given data objects.
 In this way the web framework and game logic modules are not dependent on each other directly; they both depend on an abstract layer which defines possible interactions between the two.

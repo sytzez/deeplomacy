@@ -2,11 +2,11 @@
 
 namespace App\Adapters;
 
-use App\Game\Contracts\ConfigurationContract;
-use App\Game\Data\ActionPoints;
-use App\Game\Data\Bounds;
-use App\Game\Data\DistanceSquared;
-use App\Game\Data\Position;
+use Game\Contracts\ConfigurationContract;
+use Game\Data\ActionPoints;
+use Game\Data\Bounds;
+use Game\Data\DistanceSquared;
+use Game\Data\Position;
 use App\Models\Configuration;
 
 class ConfigurationAdapter implements ConfigurationContract

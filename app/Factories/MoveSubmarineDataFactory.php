@@ -3,8 +3,8 @@
 namespace App\Factories;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Data\MoveSubmarineData;
-use App\Game\Data\Position;
+use Game\Data\MoveSubmarineData;
+use Game\Data\Position;
 use App\Http\Requests\MoveSubmarineRequest;
 use App\Models\Submarine;
 

@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Game\Contracts\RngServiceContract;
-use App\Game\Contracts\SubmarineRepositoryContract;
+use Game\Contracts\RngServiceContract;
+use Game\Contracts\SubmarineRepositoryContract;
 use App\Repositories\SubmarineRepository;
 use App\Services\RngService;
 use Illuminate\Support\ServiceProvider;

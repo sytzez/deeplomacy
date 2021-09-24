@@ -4,10 +4,10 @@ namespace App\Repositories;
 
 use App\Adapters\GameAdapter;
 use App\Adapters\SubmarineAdapter;
-use App\Game\Contracts\GameContract;
-use App\Game\Contracts\SubmarineContract;
-use App\Game\Contracts\SubmarineRepositoryContract;
-use App\Game\Data\Position;
+use Game\Contracts\GameContract;
+use Game\Contracts\SubmarineContract;
+use Game\Contracts\SubmarineRepositoryContract;
+use Game\Data\Position;
 use App\Models\Submarine;
 use DomainException;
 

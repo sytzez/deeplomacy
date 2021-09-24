@@ -2,10 +2,10 @@
 
 namespace App\Adapters;
 
-use App\Game\Contracts\GameContract;
-use App\Game\Contracts\SubmarineContract;
-use App\Game\Data\ActionPoints;
-use App\Game\Data\Position;
+use Game\Contracts\GameContract;
+use Game\Contracts\SubmarineContract;
+use Game\Data\ActionPoints;
+use Game\Data\Position;
 use App\Models\Submarine;
 use DomainException;
 

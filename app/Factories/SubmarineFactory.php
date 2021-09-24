@@ -3,9 +3,9 @@
 namespace App\Factories;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Actions\JoinGameAction;
-use App\Game\Data\JoinGameData;
-use App\Game\Strategies\RandomPlacementStrategy;
+use Game\Actions\JoinGameAction;
+use Game\Data\JoinGameData;
+use Game\Strategies\RandomPlacementStrategy;
 use App\Models\Game;
 use App\Models\Submarine;
 use App\Models\User;

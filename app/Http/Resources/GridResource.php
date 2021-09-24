@@ -3,8 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Contracts\SubmarineContract;
-use App\Game\Data\Cell;
+use Game\Contracts\SubmarineContract;
+use Game\Data\Cell;
 use App\Models\Submarine;
 use DomainException;
 use Illuminate\Http\Request;

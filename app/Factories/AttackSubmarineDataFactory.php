@@ -3,7 +3,7 @@
 namespace App\Factories;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Data\AttackSubmarineData;
+use Game\Data\AttackSubmarineData;
 use App\Http\Requests\AttackSubmarineRequest;
 use App\Models\Submarine;
 use Exception;

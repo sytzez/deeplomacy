@@ -2,22 +2,22 @@
 
 namespace App\Providers;
 
-use App\Game\Actions\AttackSubmarineAction;
-use App\Game\Actions\GiveActionPointsAction;
-use App\Game\Actions\MoveSubmarineAction;
-use App\Game\Actions\JoinGameAction;
-use App\Game\Actions\ShareSonarAction;
-use App\Game\Factories\GridFactory;
-use App\Game\Services\AttackSubmarineService;
-use App\Game\Services\GiveActionPointsService;
-use App\Game\Services\MoveSubmarineService;
-use App\Game\Services\ShareSonarService;
-use App\Game\Services\SubmarineService;
-use App\Game\Services\VisibilityService;
-use App\Game\Validators\AttackSubmarineValidator;
-use App\Game\Validators\GiveActionPointsValidator;
-use App\Game\Validators\MoveSubmarineValidator;
-use App\Game\Validators\ShareSonarValidator;
+use Game\Actions\AttackSubmarineAction;
+use Game\Actions\GiveActionPointsAction;
+use Game\Actions\MoveSubmarineAction;
+use Game\Actions\JoinGameAction;
+use Game\Actions\ShareSonarAction;
+use Game\Factories\GridFactory;
+use Game\Services\AttackSubmarineService;
+use Game\Services\GiveActionPointsService;
+use Game\Services\MoveSubmarineService;
+use Game\Services\ShareSonarService;
+use Game\Services\SubmarineService;
+use Game\Services\VisibilityService;
+use Game\Validators\AttackSubmarineValidator;
+use Game\Validators\GiveActionPointsValidator;
+use Game\Validators\MoveSubmarineValidator;
+use Game\Validators\ShareSonarValidator;
 use Illuminate\Support\ServiceProvider;
 
 class GameServiceProvider extends ServiceProvider

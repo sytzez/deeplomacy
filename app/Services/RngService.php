@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Game\Contracts\RngServiceContract;
+use Game\Contracts\RngServiceContract;
 
 class RngService implements RngServiceContract
 {

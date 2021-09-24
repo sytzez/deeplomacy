@@ -2,8 +2,8 @@
 
 namespace App\Adapters;
 
-use App\Game\Contracts\ConfigurationContract;
-use App\Game\Contracts\GameContract;
+use Game\Contracts\ConfigurationContract;
+use Game\Contracts\GameContract;
 use App\Models\Game;
 
 class GameAdapter implements GameContract

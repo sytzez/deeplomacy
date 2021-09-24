@@ -3,7 +3,7 @@
 namespace App\Factories;
 
 use App\Adapters\SubmarineAdapter;
-use App\Game\Data\ShareSonarData;
+use Game\Data\ShareSonarData;
 use App\Http\Requests\ShareSonarRequest;
 use App\Models\Submarine;
 use Exception;
