@@ -18,7 +18,7 @@ class GameController extends Controller
         return GameResource::collection(
             Game::query()
                 ->withCount('submarines')
-                ->having('submarines_count', '>', 0)
+                ->having('submarines_count', '>', '0')
                 ->get()
         );
     }
