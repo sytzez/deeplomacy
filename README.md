@@ -182,7 +182,9 @@ See also: [Adapter pattern](#adapter-pattern).
 
 ## Code style
 
-*TODO*
+### Larastan
+
+The project has 0 errors at level 8 (maximum) of Larastan
 
 ## Algorithms
 
