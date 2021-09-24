@@ -87,7 +87,7 @@ class PlayController
         return $this->doGameAction($game, $request, $dataFactory, $action);
     }
 
-    protected function doGameAction(Game $game, FormRequest $request, $dataFactory, $action): Responsable|JsonResponse
+    protected function doGameAction(Game $game, FormRequest $request, mixed $dataFactory, mixed $action): Responsable|JsonResponse
     {
         $submarine = $this->getSubmarine($game);
 
