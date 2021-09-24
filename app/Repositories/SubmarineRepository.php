@@ -42,7 +42,7 @@ class SubmarineRepository implements SubmarineRepositoryContract
 
     /**
      * @param GameContract $game
-     * @return iterable<Submarine>
+     * @return iterable<SubmarineContract>
      */
     public function getAll(GameContract $game): iterable
     {

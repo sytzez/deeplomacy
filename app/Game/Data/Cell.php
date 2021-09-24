@@ -77,8 +77,8 @@ class Cell
         bool $canShareSonar = false,
         ?ActionPoints $actionPointsToShareSonar = null,
         bool $canGiveActionPoints = false,
-    ): static {
-        return new Cell(
+    ): self {
+        return new self(
             $this->getPosition(),
             $this->isVisible(),
             $this->canMoveTowards(),
