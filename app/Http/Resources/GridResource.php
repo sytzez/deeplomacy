@@ -49,7 +49,7 @@ class GridResource extends JsonResource
             'isVisible'                => $cell->isVisible(),
             'canMoveTowards'           => $cell->canMoveTowards(),
             'actionPointsToMove'       => $cell->getActionPointsToMove()?->getAmount(),
-            'submarine'                => $cell->getSubmarine()
+            'submarine'                => ! empty($cell->getSubmarine())
                 ? $this->submarineToArray($cell->getSubmarine())
                 : null,
             'canAttack'                => $cell->canAttack(),
