@@ -6,6 +6,9 @@ use App\Models\User;
 
 class TokenController extends Controller
 {
+    /**
+     * @return array<string, string>
+     */
     public function show(): array
     {
         /** @var User $user */

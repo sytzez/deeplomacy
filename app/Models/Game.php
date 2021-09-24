@@ -19,10 +19,16 @@ use Illuminate\Support\Collection;
  */
 class Game extends Model
 {
+    /**
+     * @var array<string>
+     */
     protected $fillable = [
         'action_points_last_distributed_at',
     ];
 
+    /**
+     * @var array<string, string>
+     */
     protected $casts = [
         'action_points_last_distributed_at' => 'datetime',
     ];

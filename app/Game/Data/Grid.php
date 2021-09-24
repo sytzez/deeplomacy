@@ -4,6 +4,9 @@ namespace App\Game\Data;
 
 class Grid
 {
+    /**
+     * @param array<array<Cell>> $rows
+     */
     public function __construct(
         protected array $rows,
     ) {

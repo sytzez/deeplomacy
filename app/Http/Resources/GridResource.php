@@ -7,6 +7,7 @@ use App\Game\Contracts\SubmarineContract;
 use App\Game\Data\Cell;
 use App\Models\Submarine;
 use DomainException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -15,6 +16,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
  */
 class GridResource extends JsonResource
 {
+    /**
+     * @param Request $request
+     * @return array<array<array<string, mixed>>>
+     */
     public function toArray($request): array
     {
         $array = [];
@@ -32,6 +37,10 @@ class GridResource extends JsonResource
         return $array;
     }
 
+    /**
+     * @param Cell $cell
+     * @return array<string, mixed>
+     */
     public function cellToArray(Cell $cell): array
     {
         return [
@@ -51,6 +60,10 @@ class GridResource extends JsonResource
         ];
     }
 
+    /**
+     * @param SubmarineContract $submarine
+     * @return array<string, mixed>
+     */
     public function submarineToArray(SubmarineContract $submarine): array
     {
         if (! $submarine instanceof SubmarineAdapter) {

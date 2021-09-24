@@ -21,6 +21,9 @@ use Illuminate\Support\Collection;
  */
 class Submarine extends Model
 {
+    /**
+     * @var array<string>
+     */
     protected $fillable = [
         'x',
         'y',
@@ -28,6 +31,9 @@ class Submarine extends Model
         'is_alive',
     ];
 
+    /**
+     * @var array<string, string>
+     */
     protected $casts = [
         'is_alive' => 'bool',
     ];
