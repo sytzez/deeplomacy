@@ -23,8 +23,10 @@ class Offset
     public function getDistanceSquared(): DistanceSquared
     {
         return new DistanceSquared(
-            $this->dx ** 2
-            + $this->dy ** 2
+            (int) (
+                $this->dx ** 2
+                + $this->dy ** 2
+            )
         );
     }
 
