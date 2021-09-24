@@ -182,9 +182,13 @@ See also: [Adapter pattern](#adapter-pattern).
 
 ## Code style
 
+### PSR-12
+
+This project adheres to the [PSR-12](https://www.php-fig.org/psr/psr-12/) standard.
+
 ### Larastan
 
-The project has 0 errors at level 8 (maximum) of Larastan
+The project has 0 errors at level 8 (maximum) of Larastan statistical analysis
 
 ## Algorithms
 
