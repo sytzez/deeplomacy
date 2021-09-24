@@ -6,7 +6,7 @@ use DomainException;
 
 class ActionPoints
 {
-    public function __construct(
+    final public function __construct(
         protected int $amount,
     ) {
         if ($this->amount < 0) {

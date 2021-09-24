@@ -4,7 +4,7 @@ namespace App\Game\Data;
 
 class Position
 {
-    public function __construct(
+    final public function __construct(
         protected int $x,
         protected int $y,
     ) {

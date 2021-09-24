@@ -11,7 +11,7 @@ use DomainException;
 
 class SubmarineAdapter implements SubmarineContract
 {
-    public function __construct(
+    final public function __construct(
         protected Submarine $model,
     ) {
     }
