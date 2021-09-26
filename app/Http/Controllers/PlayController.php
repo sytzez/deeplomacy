@@ -42,7 +42,7 @@ class PlayController
     ) {
     }
 
-    public function show(Game $game, GridFactory $gridFactory): Responsable|JsonResponse
+    public function show(Game $game): Responsable|JsonResponse
     {
         if (! ($submarine = $this->getSubmarine($game))) {
             return Response::json([
@@ -53,7 +53,7 @@ class PlayController
         return $this->createGameStatusResponse($game, $submarine);
     }
 
-    public function needsUpdate(Game $game): JsonResponse
+    public function showIfNeeded(Game $game): JsonResponse
     {
         if (! ($submarine = $this->getSubmarine($game))) {
             return Response::json([
@@ -61,9 +61,13 @@ class PlayController
             ], 403);
         }
 
-        return Response::json([
-            'data' => $this->mapUpdateTracker->doesSubmarineNeedUpdating($submarine),
-        ]);
+        if (! $this->mapUpdateTracker->doesSubmarineNeedUpdating($submarine)) {
+            return Response::json([
+                'data' => false,
+            ]);
+        }
+
+        return $this->createGameStatusResponse($game, $submarine);
     }
 
     public function move(
