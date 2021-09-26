@@ -15,7 +15,7 @@ use Illuminate\Support\Collection;
  * @property int $y
  * @property int $action_points
  * @property bool $is_alive
- * @property DateTime $map_last_received_at
+ * @property ?DateTime $map_last_received_at
  * @property User $user
  * @property Game $game
  * @property Collection<Submarine> $sonarSharedTo
