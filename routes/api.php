@@ -47,6 +47,12 @@ Route::middleware('auth:sanctum')->group(function (): void {
                     [PlayController::class, 'show']
                 );
 
+            Route::name('needs-update')
+                ->get(
+                    '/',
+                    [PlayController::class, 'needsUpdate']
+                );
+
             Route::name('move')
                 ->post(
                     '/move',

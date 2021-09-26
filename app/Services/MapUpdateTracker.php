@@ -20,6 +20,10 @@ class MapUpdateTracker
 
     public function doesSubmarineNeedUpdating(Submarine $submarine): bool
     {
+        if (! $submarine->map_last_received_at) {
+            return true;
+        }
+
         return $submarine->map_last_received_at < $submarine->game->updated_at;
     }
 }

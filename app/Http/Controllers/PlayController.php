@@ -8,6 +8,7 @@ use App\Factories\AttackSubmarineDataFactory;
 use App\Factories\GiveActionPointsDataFactory;
 use App\Factories\MoveSubmarineDataFactory;
 use App\Factories\ShareSonarDataFactory;
+use App\Services\MapUpdateTracker;
 use Game\Actions\AttackSubmarineAction;
 use Game\Actions\GiveActionPointsAction;
 use Game\Actions\MoveSubmarineAction;
@@ -37,6 +38,7 @@ class PlayController
     public function __construct(
         protected GameService $gameService,
         protected GridFactory $gridFactory,
+        protected MapUpdateTracker $mapUpdateTracker,
     ) {
     }
 
@@ -49,6 +51,19 @@ class PlayController
         }
 
         return $this->createGameStatusResponse($game, $submarine);
+    }
+
+    public function needsUpdate(Game $game): JsonResponse
+    {
+        if (! ($submarine = $this->getSubmarine($game))) {
+            return Response::json([
+                'message' => self::MESSAGE_NOT_JOINED
+            ], 403);
+        }
+
+        return Response::json([
+            'data' => $this->mapUpdateTracker->doesSubmarineNeedUpdating($submarine),
+        ]);
     }
 
     public function move(
@@ -110,6 +125,8 @@ class PlayController
             return $this->createGameStatusResponse($game, $submarine, $e->getMessage());
         }
 
+        $this->mapUpdateTracker->markGameChanged($game);
+
         return $this->createGameStatusResponse($game, $submarine, $message);
     }
 
@@ -122,6 +139,8 @@ class PlayController
             new GameAdapter($game),
             new SubmarineAdapter($submarine),
         );
+
+        $this->mapUpdateTracker->markSubmarineUpdated($submarine);
 
         return Response::json([
             'data' => [
