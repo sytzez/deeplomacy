@@ -6,18 +6,6 @@
     right: 0;
     overflow: scroll;
 
-    button {
-
-    }
-
-    &.loading {
-        cursor: wait;
-
-        button {
-            cursor: wait;
-        }
-    }
-
     .map {
         white-space: nowrap;
 
@@ -130,6 +118,14 @@
                     display: inherit;
                 }
             }
+        }
+    }
+
+    &.loading {
+        cursor: wait;
+
+        button {
+            cursor: wait !important;
         }
     }
 }
