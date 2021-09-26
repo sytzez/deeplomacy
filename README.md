@@ -3,6 +3,7 @@
 ![Laravel](https://github.com/sytzez/deeplomacy/actions/workflows/laravel.yml/badge.svg)
 ![Larastan](https://github.com/sytzez/deeplomacy/actions/workflows/larastan.yml/badge.svg)
 ![PSR-12](https://github.com/sytzez/deeplomacy/actions/workflows/phpcs.yml/badge.svg)
+![ESlint](https://github.com/sytzez/deeplomacy/actions/workflows/eslint.yml/badge.svg)
 
 ## Getting started
 
@@ -191,6 +192,10 @@ This project adheres to the [PSR-12](https://www.php-fig.org/psr/psr-12/) standa
 ### Larastan
 
 The project has 0 errors at level 8 (maximum) of Larastan static analysis
+
+### ESLint
+
+The typescript part of the project has 0 errors when analysed by ESLint, using a configuration based on `@pxlwidgets/eslint-config`
 
 ## Algorithms
 
