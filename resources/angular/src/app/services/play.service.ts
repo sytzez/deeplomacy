@@ -34,8 +34,8 @@ export class PlayService {
 
     public pollGameState(
         gameId: number,
-        stopPolling: Subject<void>,
-    ) {
+        stopPolling: Observable<void>,
+    ): Observable<GameState> {
         return timer(0, this.POLL_INTERVAL)
             .pipe(
                 switchMap(
