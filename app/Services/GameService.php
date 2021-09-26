@@ -26,6 +26,8 @@ class GameService
      */
     public function join(User $user, Game $game): void
     {
+        $this->deleteDeadSubmarines($user, $game);
+
         if ($game->isJoinedBy($user)) {
             throw new Exception('You have already joined this game');
         }
@@ -33,8 +35,6 @@ class GameService
         if ($game->isFull()) {
             throw new Exception('This game is full');
         }
-
-        $this->deleteDeadSubmarines($user, $game);
 
         $submarine = $this->submarineFactory->make($user, $game);
 
