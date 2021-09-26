@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { Observable, of, throwError } from "rxjs";
-import { Response } from "../data/response";
-import { catchError, concatAll, map, tap } from "rxjs/operators";
-import { environment } from "../../environments/environment";
-import { flatMap } from "rxjs/internal/operators";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
+import { Response } from '../data/response';
+import { catchError, map, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { flatMap } from 'rxjs/internal/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export type RequestMethod = 'get' | 'post' | 'patch' | 'delete';
 
@@ -30,7 +30,7 @@ export class ApiService {
     }
 
     public post<R>(
-        route: string, body: any,
+        route: string, body: Record<string, unknown>,
     ): Observable<R> {
         return this.request<R>('post', route, { body });
     }
