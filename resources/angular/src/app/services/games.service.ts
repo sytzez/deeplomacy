@@ -42,4 +42,11 @@ export class GamesService {
         return this.api.get<Game>(`games/${game.id}/join`);
     }
 
+    public leave(
+        game: Game,
+    ): Observable<void> {
+
+        return this.api.get<void>(`games/${game.id}/leave`);
+    }
+
 }

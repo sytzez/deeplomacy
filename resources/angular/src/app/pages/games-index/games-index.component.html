@@ -29,13 +29,23 @@
                         >
                             Join
                         </button>
-                        <button mat-raised-button
-                                color="accent"
-                                *ngIf="game.isJoined"
-                                (click)="play(game)"
-                        >
-                            Continue
-                        </button>
+                        <ng-container *ngIf="game.isJoined">
+                            <button mat-raised-button
+                                    color="accent"
+                                    *ngIf="game.isJoined"
+                                    (click)="play(game)"
+                            >
+                                Continue
+                            </button>
+
+                            <button mat-raised-button
+                                    color="warn"
+                                    *ngIf="game.isJoined"
+                                    (click)="abandon(game)"
+                            >
+                                Abandon
+                            </button>
+                        </ng-container>
                     </mat-cell>
                 </ng-container>
 

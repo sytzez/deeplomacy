@@ -21,6 +21,10 @@
                 text-align: center;
                 padding: 3em;
             }
+
+            mat-cell button {
+                margin-right: .5em;
+            }
         }
     }
 }

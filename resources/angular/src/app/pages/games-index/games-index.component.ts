@@ -62,4 +62,14 @@ export class GamesIndexComponent implements OnInit {
         this.router.navigate(['play', game.id]);
     }
 
+    public abandon(game: Game): void {
+
+        this.gamesService
+            .leave(game)
+            .subscribe(() => {
+                game.numOfPlayers--;
+                game.isJoined = false;
+            });
+    }
+
 }
