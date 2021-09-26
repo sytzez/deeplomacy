@@ -15,6 +15,7 @@ class GameService
     public function __construct(
         protected SubmarineFactory $submarineFactory,
         protected DistributeActionPointsService $distributeActionPointsService,
+        protected MapUpdateTracker $mapUpdateTracker,
     ) {
     }
 
@@ -38,6 +39,8 @@ class GameService
         $submarine = $this->submarineFactory->make($user, $game);
 
         $submarine->save();
+
+        $this->mapUpdateTracker->markGameChanged($game);
     }
 
     public function leave(User $user, Game $game): void
@@ -45,8 +48,9 @@ class GameService
         $user->submarines()
             ->where('game_id', $game->getKey())
             ->delete();
-    }
 
+        $this->mapUpdateTracker->markGameChanged($game);
+    }
 
     public function getUserSubmarine(User $user, Game $game): ?Submarine
     {
