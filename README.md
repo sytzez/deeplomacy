@@ -179,9 +179,19 @@ The web framework only needs to implement the contracts and provide information 
 In this way the web framework and game logic modules are not dependent on each other directly; they both depend on an abstract layer which defines possible interactions between the two.
 See also: [Adapter pattern](#adapter-pattern).
 
-## Tests
+## Performance optimization
 
-*TODO*
+### Gameplay map rendering
+
+It used to take a long while to rerender the gameplay map everytime the game state changed on big maps.
+On every move, the server returns the state of the entire map from the perspective of the player,
+which means angular has to rerender all tile elements.
+On a large map of 128x128 tiles we are talking about 16384 tiles.
+
+The biggest culprit turned out to be the use of an Angular Materials button on each tile. These buttons are styled relatively fancy,
+including a ripple effect. When replacing these buttons with similar but less complex custom buttons, the rendering process because significantly faster.
+
+The following commit contains the changes: [95ab009](https://github.com/sytzez/deeplomacy/commit/95ab009ac9fce7bf50adf52b7a4a419ff33948e8)
 
 ## Code quality
 
@@ -196,6 +206,10 @@ The project has 0 errors at level 8 (maximum) of Larastan static analysis
 ### ESLint
 
 The typescript part of the project has 0 errors when analysed by ESLint, using a configuration based on `@pxlwidgets/eslint-config`
+
+### Tests
+
+The Game namespace has some unit tests using PHPUnit. More tests will be written to increase test coverage.
 
 ## Algorithms
 
