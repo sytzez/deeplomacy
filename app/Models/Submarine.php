@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,6 +15,7 @@ use Illuminate\Support\Collection;
  * @property int $y
  * @property int $action_points
  * @property bool $is_alive
+ * @property DateTime $map_last_received_at
  * @property User $user
  * @property Game $game
  * @property Collection<Submarine> $sonarSharedTo
@@ -29,6 +31,7 @@ class Submarine extends Model
         'y',
         'action_points',
         'is_alive',
+        'map_last_received_at',
     ];
 
     /**
@@ -36,6 +39,7 @@ class Submarine extends Model
      */
     protected $casts = [
         'is_alive' => 'bool',
+        'map_last_received_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

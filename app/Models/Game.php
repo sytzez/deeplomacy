@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
  * Class Game
  * @package App\Models
  * @property ?DateTime $action_points_last_distributed_at
+ * @property DateTime $updated_at
  * @property Configuration $configuration
  * @property Collection<Submarine> $submarines
  * @property Collection<Submarine> $aliveSubmarines
@@ -24,6 +25,7 @@ class Game extends Model
      */
     protected $fillable = [
         'action_points_last_distributed_at',
+        'updated_at',
     ];
 
     /**
@@ -31,6 +33,7 @@ class Game extends Model
      */
     protected $casts = [
         'action_points_last_distributed_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function configuration(): BelongsTo
