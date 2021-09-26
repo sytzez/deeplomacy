@@ -85,6 +85,7 @@ Some noteworthy  directories.
     - [/models](resources/angular/src/app/models) - Data interfaces representing models returned from the backend.
     - [/pages](resources/angular/src/app/pages) - The two pages for our app: the index and the gameplay view.
     - [/services](resources/angular/src/app/services) - These services send and receive data to and from the backend.
+- [/tests](tests) - Unit tests.
 
 ## Design patterns utilized
 
@@ -209,7 +210,7 @@ The typescript part of the project has 0 errors when analysed by ESLint, using a
 
 ### Tests
 
-The Game namespace has some unit tests using PHPUnit. More tests will be written to increase test coverage.
+The Game namespace has some [unit tests](tests) using PHPUnit. More tests will be written to increase test coverage.
 
 ## Algorithms
 
