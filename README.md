@@ -1,6 +1,6 @@
 # Deeplomacy
 
-![Laravel](https://github.com/sytzez/deeplomacy/actions/workflows/laravel.yml/badge.svg)
+![PHPUnit](https://github.com/sytzez/deeplomacy/actions/workflows/laravel.yml/badge.svg)
 ![Larastan](https://github.com/sytzez/deeplomacy/actions/workflows/larastan.yml/badge.svg)
 ![PSR-12](https://github.com/sytzez/deeplomacy/actions/workflows/phpcs.yml/badge.svg)
 ![ESlint](https://github.com/sytzez/deeplomacy/actions/workflows/eslint.yml/badge.svg)
