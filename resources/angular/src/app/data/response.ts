@@ -1,3 +1,3 @@
-export interface Response<T extends any> {
+export interface Response<T> {
     data: T;
 }

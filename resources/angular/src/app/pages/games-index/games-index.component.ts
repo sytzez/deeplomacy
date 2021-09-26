@@ -39,14 +39,16 @@ export class GamesIndexComponent implements OnInit {
                 (games) => {
                     this.games = games;
                 },
-                () => {},
+                () => {
+                    // errors are caught in the api service
+                },
                 () => {
                     this.isLoadingGames = false;
                 }
             );
     }
 
-    public join(game: Game) {
+    public join(game: Game): void {
 
         this.gamesService
             .join(game)
@@ -55,7 +57,7 @@ export class GamesIndexComponent implements OnInit {
             });
     }
 
-    public play(game: Game) {
+    public play(game: Game): void {
 
         this.router.navigate(['play', game.id]);
     }
