@@ -1,4 +1,4 @@
-import { Cell } from "../models/cell";
+import { Cell } from '../models/cell';
 
 export interface MoveSubmarineData {
     destination: Cell;

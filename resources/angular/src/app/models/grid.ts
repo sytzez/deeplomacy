@@ -1,3 +1,3 @@
-import { Cell } from "./cell";
+import { Cell } from './cell';
 
 export type Grid = Cell[][];

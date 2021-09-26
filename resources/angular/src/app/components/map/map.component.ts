@@ -1,14 +1,14 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { Grid } from "../../models/grid";
-import { MySubmarine } from "../../models/my-submarine";
-import { Cell } from "../../models/cell";
-import { MoveSubmarineData } from "../../data/move-submarine-data";
-import { Submarine } from "../../models/submarine";
-import { ShareSonarData } from "../../data/share-sonar-data";
-import { AttackSubmarineData } from "../../data/attack-submarine-data";
-import { GiveActionPointsData } from "../../data/give-action-points-data";
-import { MatDialog } from "@angular/material/dialog";
-import { GiveActionPointsDialogComponent } from "../give-action-points-dialog/give-action-points-dialog.component";
+import { Grid } from '../../models/grid';
+import { MySubmarine } from '../../models/my-submarine';
+import { Cell } from '../../models/cell';
+import { MoveSubmarineData } from '../../data/move-submarine-data';
+import { Submarine } from '../../models/submarine';
+import { ShareSonarData } from '../../data/share-sonar-data';
+import { AttackSubmarineData } from '../../data/attack-submarine-data';
+import { GiveActionPointsData } from '../../data/give-action-points-data';
+import { MatDialog } from '@angular/material/dialog';
+import { GiveActionPointsDialogComponent } from '../give-action-points-dialog/give-action-points-dialog.component';
 
 type CellType = 'me' | 'invisible' | 'unreachable' | 'reachable' | 'submarine';
 
@@ -105,7 +105,7 @@ export class MapComponent {
             }
 
             this.giveActionPoints.emit({ recipient, amount });
-        })
+        });
 
     }
 

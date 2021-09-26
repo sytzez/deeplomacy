@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
-import { GamesService } from "../../services/games.service";
-import { PlayService } from "../../services/play.service";
-import { Grid } from "../../models/grid";
-import { MySubmarine } from "../../models/my-submarine";
-import { MoveSubmarineData } from "../../data/move-submarine-data";
-import { GameState } from "../../models/game-state";
-import { ShareSonarData } from "../../data/share-sonar-data";
-import { AttackSubmarineData } from "../../data/attack-submarine-data";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { GiveActionPointsData } from "../../data/give-action-points-data";
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { PlayService } from '../../services/play.service';
+import { Grid } from '../../models/grid';
+import { MySubmarine } from '../../models/my-submarine';
+import { MoveSubmarineData } from '../../data/move-submarine-data';
+import { GameState } from '../../models/game-state';
+import { ShareSonarData } from '../../data/share-sonar-data';
+import { AttackSubmarineData } from '../../data/attack-submarine-data';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { GiveActionPointsData } from '../../data/give-action-points-data';
 
 @Component({
     selector: 'app-play',
     templateUrl: './play.component.html',
-    styleUrls: ['./play.component.scss']
+    styleUrls: ['./play.component.scss'],
 })
 export class PlayComponent implements OnInit {
 
@@ -56,7 +55,7 @@ export class PlayComponent implements OnInit {
             this.playService
                 .getGameState(+id)
                 .subscribe(this.loadGameState.bind(this));
-        })
+        });
     }
 
     public loadGameState(state: GameState): void {

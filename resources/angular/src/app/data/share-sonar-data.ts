@@ -1,4 +1,4 @@
-import { Submarine } from "../models/submarine";
+import { Submarine } from '../models/submarine';
 
 export interface ShareSonarData {
     recipient: Submarine;

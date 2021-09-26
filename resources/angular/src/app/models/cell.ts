@@ -1,4 +1,4 @@
-import { Submarine } from "./submarine";
+import { Submarine } from './submarine';
 
 export interface Cell {
     x: number;

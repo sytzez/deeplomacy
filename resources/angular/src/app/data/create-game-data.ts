@@ -1,4 +1,4 @@
-import { Configuration } from "../models/configuration";
+import { Configuration } from '../models/configuration';
 
 export interface CreateGameData {
     configuration: Configuration;
