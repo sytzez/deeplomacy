@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlayService } from '../../services/play.service';
@@ -17,7 +17,7 @@ import { GiveActionPointsData } from '../../data/give-action-points-data';
     templateUrl: './play.component.html',
     styleUrls: ['./play.component.scss'],
 })
-export class PlayComponent implements OnInit {
+export class PlayComponent implements OnInit, OnDestroy {
 
     public gameId$: Observable<string | null>;
 
@@ -28,6 +28,8 @@ export class PlayComponent implements OnInit {
     public mySubmarine?: MySubmarine;
 
     public isLoading = false;
+
+    protected stopPollingGame$ = new Subject<void>();
 
     constructor(
         protected route: ActivatedRoute,
@@ -45,17 +47,26 @@ export class PlayComponent implements OnInit {
             );
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
 
         this.gameId$.subscribe((id) => {
             if (! id) {
                 return;
             }
 
+            this.stopPollingGame$.next();
+            this.stopPollingGame$ = new Subject<void>();
+
             this.playService
-                .getGameState(+id)
-                .subscribe(this.loadGameState.bind(this));
+                .pollGameState(+id, this.stopPollingGame$)
+                .subscribe((gameState) => {
+                    this.loadGameState(gameState);
+                });
         });
+    }
+
+    public ngOnDestroy(): void {
+        this.stopPollingGame$.next();
     }
 
     public loadGameState(state: GameState): void {

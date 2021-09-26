@@ -49,7 +49,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
 
             Route::name('show-if-needed')
                 ->get(
-                    '/',
+                    '/if-needed',
                     [PlayController::class, 'showIfNeeded']
                 );
 

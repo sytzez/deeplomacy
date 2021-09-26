@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, timer } from 'rxjs';
 import { ApiService } from './api.service';
 import { GameState } from '../models/game-state';
 import { MoveSubmarineData } from '../data/move-submarine-data';
 import { ShareSonarData } from '../data/share-sonar-data';
 import { AttackSubmarineData } from '../data/attack-submarine-data';
 import { GiveActionPointsData } from '../data/give-action-points-data';
+import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PlayService {
+
+    protected readonly POLL_INTERVAL = 2000;
 
     constructor(
         protected api: ApiService,
@@ -21,6 +24,29 @@ export class PlayService {
         gameId: number,
     ): Observable<GameState> {
         return this.api.get<GameState>(`play/${gameId}`);
+    }
+
+    public getGameStateIfNeeded(
+        gameId: number,
+    ): Observable<GameState | false> {
+        return this.api.get<GameState | false>(`play/${gameId}/if-needed`);
+    }
+
+    public pollGameState(
+        gameId: number,
+        stopPolling: Subject<void>,
+    ) {
+        return timer(0, this.POLL_INTERVAL)
+            .pipe(
+                switchMap(
+                    (index) => index === 0
+                        ? this.getGameState(gameId)
+                        : this.getGameStateIfNeeded(gameId)
+                ),
+                tap(console.log),
+                takeUntil(stopPolling),
+                filter((gameState) => gameState !== false),
+            );
     }
 
     public move(
