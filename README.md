@@ -189,8 +189,8 @@ On every move, the server returns the state of the entire map from the perspecti
 which means angular has to rerender all tile elements.
 On a large map of 128x128 tiles we are talking about 16384 tiles.
 
-The biggest culprit turned out to be the use of an Angular Materials button on each tile. These buttons are styled relatively fancy,
-including a ripple effect. When replacing these buttons with similar but less complex custom buttons, the rendering process because significantly faster.
+The biggest culprit turned out to be the use of an Angular Materials button on each tile. These buttons have a relatively fancy styling,
+which includes a ripple effect. When replacing these buttons with similar but less complex custom buttons, the rendering process because significantly faster.
 
 The following commit contains the changes: [95ab009](https://github.com/sytzez/deeplomacy/commit/95ab009ac9fce7bf50adf52b7a4a419ff33948e8)
 
