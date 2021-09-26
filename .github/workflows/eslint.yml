@@ -17,4 +17,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: cd ./resources/angular && npm i
-      - run: eslint resources/angular/app/src --ext .ts
+      - run: cd ./resources/angular && npx eslint src --ext .ts
