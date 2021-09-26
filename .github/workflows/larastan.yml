@@ -2,11 +2,11 @@ name: Larastan
 
 on:
   push:
-    paths-ignore:
-      - '**.md'
+    paths:
+      - '**.php'
   pull_request:
-    paths-ignore:
-      - '**.md'
+    paths:
+      - '**.php'
   workflow_dispatch:
 
 jobs:
