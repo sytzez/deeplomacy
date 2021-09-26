@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { Response } from '../data/response';
 import { catchError, map, tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 import { flatMap } from 'rxjs/internal/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../environments/environment';
+import { Response } from '../data/response';
 
 export type RequestMethod = 'get' | 'post' | 'patch' | 'delete';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ApiService {
 
-    protected authToken: string|null = null;
+    protected authToken: string | null = null;
 
     constructor(
         protected http: HttpClient,
@@ -62,23 +62,23 @@ export class ApiService {
         if (this.authToken) {
             return of(
                 new HttpHeaders({
-                    'Authorization': 'Bearer ' + this.authToken,
-                })
+                    Authorization: `Bearer ${this.authToken}`,
+                }),
             );
         }
 
         const url = `${environment.apiBase}token`;
 
         return this.http
-            .get<{data: string}>(url)
+            .get<{ data: string }>(url)
             .pipe(
                 tap((response) => {
                     this.authToken = response.data;
                     localStorage.setItem('token', response.data);
                 }),
                 map((response) => new HttpHeaders({
-                    'Authorization': 'Bearer ' + response.data,
-                }))
+                    Authorization: `Bearer ${response.data}`,
+                })),
             );
     }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PlayService } from '../../services/play.service';
 import { Grid } from '../../models/grid';
 import { MySubmarine } from '../../models/my-submarine';
@@ -9,7 +10,6 @@ import { MoveSubmarineData } from '../../data/move-submarine-data';
 import { GameState } from '../../models/game-state';
 import { ShareSonarData } from '../../data/share-sonar-data';
 import { AttackSubmarineData } from '../../data/attack-submarine-data';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { GiveActionPointsData } from '../../data/give-action-points-data';
 
 @Component({
@@ -19,7 +19,7 @@ import { GiveActionPointsData } from '../../data/give-action-points-data';
 })
 export class PlayComponent implements OnInit {
 
-    public gameId$: Observable<string|null>;
+    public gameId$: Observable<string | null>;
 
     public gameId?: number;
 

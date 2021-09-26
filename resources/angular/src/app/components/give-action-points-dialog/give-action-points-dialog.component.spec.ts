@@ -8,7 +8,7 @@ describe('GiveActionPointsDialogComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [GiveActionPointsDialogComponent]
+            declarations: [GiveActionPointsDialogComponent],
         })
             .compileComponents();
     });

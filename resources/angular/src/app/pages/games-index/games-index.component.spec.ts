@@ -8,7 +8,7 @@ describe('GamesIndexComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ GamesIndexComponent ]
+            declarations: [GamesIndexComponent],
         })
             .compileComponents();
     });

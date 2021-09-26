@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
 import { Game } from '../models/game';
 import { CreateGameData } from '../data/create-game-data';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class GamesService {
 
@@ -36,7 +36,7 @@ export class GamesService {
     }
 
     public join(
-        game: Game
+        game: Game,
     ): Observable<Game> {
 
         return this.api.get<Game>(`games/${game.id}/join`);

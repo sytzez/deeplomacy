@@ -6,7 +6,7 @@ export interface Cell {
     isVisible: boolean;
     canMoveTowards: boolean;
     actionPointsToMove?: number;
-    submarine: Submarine|null;
+    submarine: Submarine | null;
     canAttack: boolean;
     actionPointsToAttack?: number;
     canShareSonar: boolean;

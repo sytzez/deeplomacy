@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Game } from '../../models/game';
 import { GamesService } from '../../services/games.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-games-index',
     templateUrl: './games-index.component.html',
-    styleUrls: ['./games-index.component.scss']
+    styleUrls: ['./games-index.component.scss'],
 })
 export class GamesIndexComponent implements OnInit {
 
-    public games: Game[]|null = null;
+    public games: Game[] | null = null;
 
     public isLoadingGames = false;
 
@@ -44,7 +44,7 @@ export class GamesIndexComponent implements OnInit {
                 },
                 () => {
                     this.isLoadingGames = false;
-                }
+                },
             );
     }
 

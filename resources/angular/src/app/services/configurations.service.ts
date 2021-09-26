@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
 import { Configuration } from '../models/configuration';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ConfigurationsService {
 

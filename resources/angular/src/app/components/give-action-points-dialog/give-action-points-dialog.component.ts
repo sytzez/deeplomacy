@@ -9,7 +9,7 @@ export interface GiveActionPointsDialogData {
 @Component({
     selector: 'app-give-action-points-dialog',
     templateUrl: './give-action-points-dialog.component.html',
-    styleUrls: ['./give-action-points-dialog.component.scss']
+    styleUrls: ['./give-action-points-dialog.component.scss'],
 })
 export class GiveActionPointsDialogComponent {
 

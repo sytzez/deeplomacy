@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ConfigurationsService } from '../../services/configurations.service';
 import { Configuration } from '../../models/configuration';
 import { GamesService } from '../../services/games.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-create-game-form',
     templateUrl: './create-game-form.component.html',
-    styleUrls: ['./create-game-form.component.scss']
+    styleUrls: ['./create-game-form.component.scss'],
 })
 export class CreateGameFormComponent implements OnInit {
 
