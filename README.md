@@ -189,26 +189,41 @@ On every move, the server returns the state of the entire map from the perspecti
 which means angular has to rerender all tile elements.
 On a large map of 128x128 tiles we are talking about 16384 tiles.
 
-The biggest culprit turned out to be the use of an Angular Materials button on each tile. These buttons have a relatively fancy styling,
+The biggest culprit turned out to be the use of an Angular Material button on each tile. These buttons have a relatively fancy styling,
 which includes a ripple effect. When replacing these buttons with similar but less complex custom buttons, the rendering process because significantly faster.
 
 The following commit contains the changes: [95ab009](https://github.com/sytzez/deeplomacy/commit/95ab009ac9fce7bf50adf52b7a4a419ff33948e8)
 
 ## Code quality
 
+Various tools are used to verify the quality of the code in terms of code style and functionality.
+Each tool has a Github workflow dedicated to running the tool when necessary.
+
 ### PSR-12
+
+![PSR-12](https://github.com/sytzez/deeplomacy/actions/workflows/phpcs.yml/badge.svg)
+[Workflow](https://github.com/sytzez/deeplomacy/actions/workflows/phpcs.yml)
 
 This project adheres to the [PSR-12](https://www.php-fig.org/psr/psr-12/) standard. Phpcs is used to verify the code quality.
 
-### Larastan
+### Static Analysis
 
-The project has 0 errors at level 8 (maximum) of Larastan static analysis
+![Larastan](https://github.com/sytzez/deeplomacy/actions/workflows/larastan.yml/badge.svg)
+[Workflow](https://github.com/sytzez/deeplomacy/actions/workflows/larastan.yml)
+
+The project has 0 errors at level 8 (maximum) of Larastan static analysis.
 
 ### ESLint
 
-The typescript part of the project has 0 errors when analysed by ESLint, using a configuration based on `@pxlwidgets/eslint-config`
+![ESlint](https://github.com/sytzez/deeplomacy/actions/workflows/eslint.yml/badge.svg)
+[Workflow](https://github.com/sytzez/deeplomacy/actions/workflows/eslint.yml)
+
+The typescript part of the project has 0 errors when analysed by ESLint, using a configuration based on `@pxlwidgets/eslint-config`.
 
 ### Tests
+
+![PHPUnit](https://github.com/sytzez/deeplomacy/actions/workflows/phpunit.yml/badge.svg)
+[Workflow](https://github.com/sytzez/deeplomacy/actions/workflows/phpunit.yml)
 
 The Game namespace has some [unit tests](tests) using PHPUnit. More tests will be written to increase test coverage.
 
