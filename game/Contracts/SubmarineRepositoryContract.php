@@ -3,6 +3,7 @@
 namespace Game\Contracts;
 
 use Game\Data\Position;
+use Traversable;
 
 interface SubmarineRepositoryContract
 {
@@ -12,9 +13,9 @@ interface SubmarineRepositoryContract
 
     /**
      * @param GameContract $game
-     * @return iterable<SubmarineContract>
+     * @return Traversable<SubmarineContract>
      */
-    public function getAll(GameContract $game): iterable;
+    public function getAll(GameContract $game): Traversable;
 
     public function getAtPosition(GameContract $game, Position $position): ?SubmarineContract;
 }

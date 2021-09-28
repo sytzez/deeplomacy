@@ -10,6 +10,7 @@ use Game\Contracts\SubmarineRepositoryContract;
 use Game\Data\Position;
 use App\Models\Submarine;
 use DomainException;
+use Traversable;
 
 class SubmarineRepository implements SubmarineRepositoryContract
 {
@@ -44,9 +45,9 @@ class SubmarineRepository implements SubmarineRepositoryContract
 
     /**
      * @param GameContract $game
-     * @return iterable<SubmarineContract>
+     * @return Traversable<SubmarineContract>
      */
-    public function getAll(GameContract $game): iterable
+    public function getAll(GameContract $game): Traversable
     {
         if (! $game instanceof GameAdapter) {
             throw new DomainException();

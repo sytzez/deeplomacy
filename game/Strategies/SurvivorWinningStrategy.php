@@ -31,7 +31,7 @@ class SurvivorWinningStrategy implements WinningStrategyContract
     {
         $submarines = $this->submarineRepository->getAll($game);
 
-        if (count($submarines) > $this->survivorCount) {
+        if (iterator_count($submarines) > $this->survivorCount) {
             return new VictoryData(false);
         }
 
