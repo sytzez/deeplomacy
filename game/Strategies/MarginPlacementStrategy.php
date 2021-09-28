@@ -12,7 +12,9 @@ use Game\Data\Position;
 
 class MarginPlacementStrategy implements PlacementStrategyContract
 {
-    protected int $margin = 4;
+    public const DEFAULT_MARGIN = 4;
+
+    protected int $margin = self::DEFAULT_MARGIN;
 
     public function __construct(
         protected RngServiceContract $rngService,
