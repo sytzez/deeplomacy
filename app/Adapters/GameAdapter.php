@@ -6,6 +6,7 @@ use App\Enums\GameStateEnum;
 use Game\Contracts\ConfigurationContract;
 use Game\Contracts\GameContract;
 use App\Models\Game;
+use Game\Contracts\SubmarineContract;
 use Game\Contracts\SubmarineRepositoryContract;
 use Game\Contracts\WinningStrategyContract;
 use Game\Strategies\SurvivorWinningStrategy;
@@ -40,10 +41,26 @@ class GameAdapter implements GameContract
         );
     }
 
+    /**
+     * @param iterable<SubmarineContract> $submarines
+     * @return static
+     */
     public function grantVictory(iterable $submarines): static
     {
         $game = $this->getModel();
         $game->state = GameStateEnum::FINISHED;
         $game->save();
+
+        foreach ($submarines as $submarine) {
+
+            if (! $submarine instanceof SubmarineAdapter) {
+                throw new \DomainException();
+            }
+
+            $submarineModel = $submarine->getModel();
+
+            $submarineModel->has_won = true;
+            $submarineModel->save();
+        }
     }
 }

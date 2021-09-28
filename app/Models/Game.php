@@ -48,6 +48,12 @@ class Game extends Model
         return $this->hasMany(Submarine::class);
     }
 
+    public function winners(): HasMany
+    {
+        return $this->submarines()
+            ->where('has_won', true);
+    }
+
     public function aliveSubmarines(): HasMany
     {
         return $this->hasMany(Submarine::class)

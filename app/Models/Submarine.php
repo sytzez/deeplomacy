@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
  * @property int $y
  * @property int $action_points
  * @property bool $is_alive
+ * @property bool $has_won
  * @property ?DateTime $map_last_received_at
  * @property User $user
  * @property Game $game
@@ -31,6 +32,7 @@ class Submarine extends Model
         'y',
         'action_points',
         'is_alive',
+        'has_won',
         'map_last_received_at',
     ];
 
@@ -39,6 +41,7 @@ class Submarine extends Model
      */
     protected $casts = [
         'is_alive' => 'bool',
+        'has_won' => 'bool',
         'map_last_received_at' => 'datetime',
     ];
 
