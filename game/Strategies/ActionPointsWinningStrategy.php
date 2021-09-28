@@ -46,9 +46,9 @@ class ActionPointsWinningStrategy implements WinningStrategyContract
 
     /**
      * @param iterable<SubmarineContract> $submarines
-     * @return iterable<SubmarineContract>
+     * @return array<SubmarineContract>
      */
-    function getSubmarinesWithHighestActionPoints(iterable $submarines): iterable
+    function getSubmarinesWithHighestActionPoints(iterable $submarines): array
     {
         $highestActionPoints = new ActionPoints(0);
         $highestSubmarines = [];
