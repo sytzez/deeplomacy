@@ -72,7 +72,7 @@ Some noteworthy  directories.
     - [/Data](game/Data) — Immutable data objects representing things inside the game.
     - [/Services](game/Services) — These services perform the hard business logic of the game.
     - [/Validators](game/Validators) — The validators check whether certain actions are valid in the game.
-    - [/Strategies](game/Strategies) — Currently only used for placing new submarines in the game. Various placement strategies could be chosen.
+    - [/Strategies](game/Strategies) — Contains placement strategies and winning strategies.
 - [/app](app) — The backend Laravel project.
     - [/Adapters](app/Adapters) — These classes represent the layer adapting our Laravel models to their Game contracts.
     - [/Factories](app/Factories) — They turn HTTP requests into objects we need for the game.
@@ -111,6 +111,8 @@ The rest of the game code couldn't care less *how* this is done, it just needs t
 To facilitate this separation, a [PlacementStrategyContract](game/Contracts/PlacementStrategyContract.php) interface is used by the rest of the game logic to do this placement.
 A specific placement strategy class instance implementing this contract, such as [RandomPlacementStrategy](game/Strategies/RandomPlacementStrategy.php) is passed to the [JoinGameAction->do()](game/Actions/JoinGameAction.php) method,
 leaving the caller of the method to decide what strategy will be used. At any point new strategies can be created, without having to change the code dependent on submarine placement.
+
+Another case of this is the [WinningStrategyContract](game/Contracts/WinningStrategyContract.php), which determines the rules according to which a game is won.
 
 ### Action pattern
 
