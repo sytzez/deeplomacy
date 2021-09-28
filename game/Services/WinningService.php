@@ -13,7 +13,7 @@ class WinningService
         $result = $winningStrategy->check($game);
 
         if ($result->hasBeenWon()) {
-            $game->grantVictory($result->getWinners());
+            $game->grantVictory($result->getWinners() ?? []);
         }
     }
 }
