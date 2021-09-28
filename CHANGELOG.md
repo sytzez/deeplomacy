@@ -1,4 +1,7 @@
 # Changelog
+## Unreleased
+- Added win conditions
+- New placement strategies
 ## [v0.1] - 28-09-2021
 ### Added
 - Creating games with preset configurations
