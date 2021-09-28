@@ -2,9 +2,13 @@
 
 namespace App\Adapters;
 
+use App\Enums\GameStateEnum;
 use Game\Contracts\ConfigurationContract;
 use Game\Contracts\GameContract;
 use App\Models\Game;
+use Game\Contracts\SubmarineRepositoryContract;
+use Game\Contracts\WinningStrategyContract;
+use Game\Strategies\SurvivorWinningStrategy;
 
 class GameAdapter implements GameContract
 {
@@ -27,5 +31,19 @@ class GameAdapter implements GameContract
     {
         return $game instanceof self
             && $game->getModel()->is($this->getModel());
+    }
+
+    public function getWinningStrategy(): WinningStrategyContract
+    {
+        return new SurvivorWinningStrategy(
+            app()->make(SubmarineRepositoryContract::class),
+        );
+    }
+
+    public function grantVictory(iterable $submarines): static
+    {
+        $game = $this->getModel();
+        $game->state = GameStateEnum::FINISHED;
+        $game->save();
     }
 }
