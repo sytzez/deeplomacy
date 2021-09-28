@@ -8,7 +8,7 @@ use Game\Data\VictoryData;
 
 class NoWinningStrategy implements WinningStrategyContract
 {
-    function check(GameContract $game): VictoryData
+    public function check(GameContract $game): VictoryData
     {
         return new VictoryData(false);
     }

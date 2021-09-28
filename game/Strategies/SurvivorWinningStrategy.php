@@ -27,7 +27,7 @@ class SurvivorWinningStrategy implements WinningStrategyContract
         return $this;
     }
 
-    function check(GameContract $game): VictoryData
+    public function check(GameContract $game): VictoryData
     {
         $submarines = $this->submarineRepository->getAll($game);
 

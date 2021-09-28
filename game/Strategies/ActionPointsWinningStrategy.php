@@ -28,7 +28,7 @@ class ActionPointsWinningStrategy implements WinningStrategyContract
         return $this;
     }
 
-    function check(GameContract $game): VictoryData
+    public function check(GameContract $game): VictoryData
     {
         $submarines = $this->submarineRepository->getAll($game);
 
@@ -48,13 +48,12 @@ class ActionPointsWinningStrategy implements WinningStrategyContract
      * @param iterable<SubmarineContract> $submarines
      * @return array<SubmarineContract>
      */
-    function getSubmarinesWithHighestActionPoints(iterable $submarines): array
+    protected function getSubmarinesWithHighestActionPoints(iterable $submarines): array
     {
         $highestActionPoints = new ActionPoints(0);
         $highestSubmarines = [];
 
         foreach ($submarines as $submarine) {
-
             if ($submarine->getActionPoints()->getAmount() > $highestActionPoints->getAmount()) {
                 $highestSubmarines = [$submarine];
                 $highestActionPoints = $submarine->getActionPoints();

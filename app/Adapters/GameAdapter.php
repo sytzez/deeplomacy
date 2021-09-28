@@ -52,7 +52,6 @@ class GameAdapter implements GameContract
         $game->save();
 
         foreach ($submarines as $submarine) {
-
             if (! $submarine instanceof SubmarineAdapter) {
                 throw new \DomainException();
             }
