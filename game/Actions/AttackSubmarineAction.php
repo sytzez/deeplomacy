@@ -6,6 +6,7 @@ use Game\Data\AttackSubmarineData;
 use Game\Data\GameActionException;
 use Game\Enums\Messages;
 use Game\Services\AttackSubmarineService;
+use Game\Services\WinningService;
 use Game\Validators\AttackSubmarineValidator;
 
 class AttackSubmarineAction
@@ -13,6 +14,7 @@ class AttackSubmarineAction
     public function __construct(
         protected AttackSubmarineValidator $validator,
         protected AttackSubmarineService $attackSubmarineService,
+        protected WinningService $winningService,
     ) {
     }
 
@@ -25,7 +27,11 @@ class AttackSubmarineAction
     {
         $this->validator->validate($data);
 
-        return $this->attackSubmarineService->attackSubmarine($data)
+        $attackResult = $this->attackSubmarineService->attackSubmarine($data);
+
+        $this->winningService->checkVictory($data->getAttacker()->getGame());
+
+        return $attackResult
             ? Messages::HIT
             : Messages::MISS;
     }

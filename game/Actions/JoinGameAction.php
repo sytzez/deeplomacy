@@ -4,11 +4,13 @@ namespace Game\Actions;
 
 use Game\Contracts\SubmarineRepositoryContract;
 use Game\Data\JoinGameData;
+use Game\Services\WinningService;
 
 class JoinGameAction
 {
     public function __construct(
         protected SubmarineRepositoryContract $submarineRepository,
+        protected WinningService $winningService,
     ) {
     }
 
@@ -21,6 +23,8 @@ class JoinGameAction
         $this->grantActionPoints($data);
 
         $this->submarineRepository->update($submarine);
+
+        $this->winningService->checkVictory($submarine->getGame());
     }
 
     protected function placeSubmarine(JoinGameData $data): void
