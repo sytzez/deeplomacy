@@ -6,5 +6,5 @@ use Game\Data\VictoryData;
 
 interface WinningStrategyContract
 {
-    function check(GameContract $game): VictoryData
+    function check(GameContract $game): VictoryData;
 }
