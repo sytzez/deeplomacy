@@ -62,5 +62,7 @@ class GameAdapter implements GameContract
             $submarineModel->has_won = true;
             $submarineModel->save();
         }
+
+        return $this;
     }
 }
