@@ -36,7 +36,7 @@ class SubmarineFactory
         $submarine->user()->associate($user);
         $submarine->game()->associate($game);
 
-        $this->marginPlacementStrategy->setMargin($game->configuration->width * 0.2);
+        $this->marginPlacementStrategy->setMargin((int) floor($game->configuration->width * 0.2));
 
         $this->placeSubmarineAction->do(
             new JoinGameData(
