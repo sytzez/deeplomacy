@@ -11,11 +11,12 @@ use Game\Data\VictoryData;
 
 class ActionPointsWinningStrategy implements WinningStrategyContract
 {
-    protected ActionPoints $goal = 100;
+    protected ActionPoints $goal;
 
     public function __construct(
         protected SubmarineRepositoryContract $submarineRepository,
     ) {
+        $this->goal = new ActionPoints(100);
     }
 
     public function setGoal(ActionPoints $goal): static
