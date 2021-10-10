@@ -2,6 +2,7 @@
 
 namespace Tests\Game\Data;
 
+use DomainException;
 use Game\Data\Bounds;
 use Game\Data\Position;
 use PHPUnit\Framework\TestCase;
@@ -29,6 +30,16 @@ class BoundsTest extends TestCase
     public function it_can_be_created(): void
     {
         static::assertInstanceOf(Bounds::class, $this->bounds);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_if_the_directions_are_flipped(): void
+    {
+        static::expectException(DomainException::class);
+
+        new Bounds($this->bottomRight, $this->topLeft);
     }
 
     /**
