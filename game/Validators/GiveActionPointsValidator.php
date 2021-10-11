@@ -43,11 +43,11 @@ class GiveActionPointsValidator
         $donor = $this->data->getDonor();
         $recipient = $this->data->getRecipient();
 
-        if ($donor->is($recipient)) {
+        if ($recipient->is($donor)) {
             throw new GameActionException(Errors::CANNOT_TARGET_SELF);
         }
 
-        if (! $donor->getGame()->is($recipient->getGame())) {
+        if (! $recipient->getGame()->is($donor->getGame())) {
             throw new GameActionException(Errors::TARGET_NOT_IN_GAME);
         }
     }
@@ -57,7 +57,7 @@ class GiveActionPointsValidator
      */
     protected function checkRecipientVisibleByDonor(): void
     {
-        if (! $this->visibilityService->canSeeSubmarine($this->data->getRecipient(), $this->data->getDonor())) {
+        if (! $this->visibilityService->canSeeSubmarine($this->data->getDonor(), $this->data->getRecipient())) {
             throw new GameActionException(Errors::TARGET_NOT_VISIBLE);
         }
     }
