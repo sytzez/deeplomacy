@@ -229,6 +229,9 @@ The typescript part of the project has 0 errors when analysed by ESLint, using a
 
 The Game namespace has some [unit tests](tests) using PHPUnit. More tests will be written to increase test coverage.
 
+*Note: when using pcov to run tests, adds the following flags to the php command: `-dpcov.directory=. -dpcov.exclude="~vendor~"`.
+This is necessary to get coverage in the [/game](game) directory*.
+
 ## Algorithms
 
 *TODO*
